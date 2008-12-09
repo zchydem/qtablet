@@ -1,4 +1,4 @@
-#include "pannablewidget.hh"
+#include "pannableview.hh"
 #include <QGraphicsScene>
 #include <QGraphicsWidget>
 #include <QTime>
@@ -7,11 +7,12 @@
 #include <QtDebug>
 #include <math.h>
 
-class PannableWidgetPrivate{
+class PannableViewPrivate{
 public:
-  PannableWidgetPrivate():
+  PannableViewPrivate():
     m_acceleration( 0 ),
     m_deltaX( 0 ),
+    m_deltaY( 0 ),
     m_time(),
     m_scrollingTimeLine( 0 ),
     m_mousePressPos(),
@@ -22,22 +23,24 @@ public:
    {}
 
   // Members
-  qreal       m_acceleration;
-  qreal       m_deltaX;
-  QTime       m_time;
-  QTimeLine * m_scrollingTimeLine;
-  QPoint      m_mousePressPos;
-  QPoint      m_mouseReleasePos;
-  QPoint      m_lastMovePos;
-  bool        m_isScrollingEnabled;
-  bool        m_isPressed;
+  qreal           m_acceleration;
+  qreal           m_deltaX;
+  qreal           m_deltaY;
+  QTime           m_time;
+  QTimeLine     * m_scrollingTimeLine;
+  QPoint          m_mousePressPos;
+  QPoint          m_mouseReleasePos;
+  QPoint          m_lastMovePos;
+  bool            m_isScrollingEnabled;
+  bool            m_isPressed;
+  Qt::Orientation m_orientation;
 };
 
 namespace qtablet{
 
-  PannableWidget::PannableWidget( QWidget * parent ):
+  PannableView::PannableView( Qt::Orientation orientation, QWidget * parent ):
     QGraphicsView( parent ),
-    d_ptr( new PannableWidgetPrivate )
+    d_ptr( new PannableViewPrivate )
   {
     setFrameStyle( QFrame::NoFrame );
     setOptimizationFlag( QGraphicsView::DontAdjustForAntialiasing, false );
@@ -53,7 +56,7 @@ namespace qtablet{
     setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
     setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
     
-
+    d_ptr->m_orientation = orientation;
     d_ptr->m_scrollingTimeLine = new QTimeLine( 1000, this );
     d_ptr->m_scrollingTimeLine->setCurveShape( QTimeLine::EaseInCurve );
     d_ptr->m_scrollingTimeLine->setDirection( QTimeLine::Backward );
@@ -64,11 +67,11 @@ namespace qtablet{
 
   }
   
-  PannableWidget::~PannableWidget(){
+  PannableView::~PannableView(){
 
   }
 
-  void PannableWidget::setPannableWidget( QGraphicsWidget * widget ){
+  void PannableView::setPannableWidget( QGraphicsWidget * widget ){
     
     if ( 0 == widget ){
       return;
@@ -81,15 +84,10 @@ namespace qtablet{
     scene->addItem( widget );
   }
 
-  void PannableWidget::mousePressEvent( QMouseEvent * event ){
-    //qDebug() << "Pressed";
-    /*
-    if ( !d_ptr->m_isScrollingEnabled ){
-      QGraphicsView::mousePressEvent( event );
-      return;
-    }
-    */      
-        
+  void PannableView::mousePressEvent( QMouseEvent * event ){
+
+    QGraphicsView::mousePressEvent( event );
+
     d_ptr->m_isPressed   = true;
     d_ptr->m_lastMovePos = event->pos();
     d_ptr->m_scrollingTimeLine->stop();
@@ -97,25 +95,28 @@ namespace qtablet{
     d_ptr->m_time.start();        
   }
 
-  void PannableWidget::mouseReleaseEvent( QMouseEvent * event ){
-    /*
-    if ( !d_ptr->m_isScrollingEnabled ){
-      QGraphicsView::mouseReleaseEvent( event );
-      return;
-    }
-    */  
+  void PannableView::mouseReleaseEvent( QMouseEvent * event ){
+
     d_ptr->m_isPressed = false;
 
-    qreal  dD       = (event->pos() - d_ptr->m_mousePressPos).x(); // Delta X distance
-    qint32 tD       =  d_ptr->m_time.elapsed() ;                // Delta Time
-    d_ptr->m_acceleration  = fabs(dD/tD);                       // Acceleration
+    qreal  dxD             = (event->pos() - d_ptr->m_mousePressPos).x(); // Delta X distance
+    qreal  dyD             = (event->pos() - d_ptr->m_mousePressPos).y(); // Delta Y distance
+    qint32 tD              =  d_ptr->m_time.elapsed() ;                   // Delta Time
+
+    // Calculate teh acceleration
+    if ( d_ptr->m_orientation == Qt::Horizontal ){
+      d_ptr->m_acceleration = fabs( dxD / tD ); 
+    }else{
+      d_ptr->m_acceleration = fabs( dyD / tD );
+    }
         
 
     qint32 multiplier = 1000;
         
-    if ( fabs(dD) > 20 ){
+    if ( fabs(dxD) > 20 || fabs(dyD) > 20 ){
       //qDebug() << "dD: " << dD << "tD: " << tD << "a:" << d_ptr->m_acceleration ;
-      d_ptr->m_deltaX = dD;
+      d_ptr->m_deltaX = dxD;
+      d_ptr->m_deltaY = dyD;
 
       //if ( d_ptr->m_acceleration <= 0.2 ) multiplier = 100;
       if ( d_ptr->m_acceleration <= 0.4 ) multiplier = 0;
@@ -133,7 +134,6 @@ namespace qtablet{
       // start a new animation for scrolling.
       //d_ptr->m_scrollingTimeLine->blockSignals( false );
       if ( multiplier != 0 ){
-	qDebug() << "Starting  to scroll...";
 	d_ptr->m_scrollingTimeLine->setDuration(  static_cast<qint32>( d_ptr->m_acceleration * multiplier ) );
 	d_ptr->m_scrollingTimeLine->start();
       }
@@ -141,41 +141,38 @@ namespace qtablet{
     }
     
     // If endup here user has only clicked the the display
-    // Get item from the clicked position
-    
-    //QGraphicsItem * item = d_ptr->m_scene->itemAt( mapToScene( event->pos() ) );
+    // Get item from the clicked position    
+    QGraphicsView::mouseReleaseEvent( event );
 
   }
 
-  void PannableWidget::mouseMoveEvent(  QMouseEvent * event ){
-    /*
-    if ( !d_ptr->m_isScrollingEnabled ){
-      QGraphicsView::mouseMoveEvent( event );
-      return;
-    }
-    */
+  void PannableView::mouseMoveEvent(  QMouseEvent * event ){
+
     if ( d_ptr->m_isPressed ){
 	
-	qreal delta = ( event->pos()  - d_ptr->m_lastMovePos ).x();
-	
-	// Store this position for the next event            
-	d_ptr->m_lastMovePos = event->pos();
-	
-	// Filter out too smale movements
-        
-	if ( fabs( delta ) == 0 ){
-	  return;
-	}
-        
-	// translate the view by delta
-	//if ( d_ptr->m_isScrollingEnabled ){
-	  translate( delta, 0 );
-	  //}
-	
+      qreal deltaX = 0;
+      qreal deltaY = 0;
+      
+      if ( d_ptr->m_orientation == Qt::Horizontal ){
+	deltaX = ( event->pos()  - d_ptr->m_lastMovePos ).x();
+      }else{
+	deltaY = ( event->pos()  - d_ptr->m_lastMovePos ).y();
       }
+      // Store this position for the next event            
+      d_ptr->m_lastMovePos = event->pos();
+	
+      // Filter out too smal movements        
+      if ( ( d_ptr->m_orientation == Qt::Horizontal && fabs( deltaX ) == 0 ) ||
+	   ( d_ptr->m_orientation == Qt::Vertical   && fabs( deltaY ) == 0 ) ){
+	return;
+      }
+        
+      // translate the view by delta
+      translate( deltaX, deltaY );	
+    }
   }
 
-  void PannableWidget::scroll( qreal value ){
+  void PannableView::scroll( qreal value ){
     // Calculate the start and end positions
     // based on the current transformation matrix
     // and the width of the scene
@@ -188,6 +185,8 @@ namespace qtablet{
     }
     
     //qDebug() << xform;
+    // TODO: FIX THIS LOOK NICER. REMOVE HARDCODING
+    if ( d_ptr->m_orientation == Qt::Horizontal ){
     if ( fabs(xform.m31()) < 2 ){    
       d_ptr->m_scrollingTimeLine->stop();
       return;
@@ -196,15 +195,29 @@ namespace qtablet{
       d_ptr->m_scrollingTimeLine->stop();
       return;
     }
-   
-    
+    }
+
+    // TODO: HANDLE VERTICAL SCROLLING ENDING HERE:
+
+    // TODO: FIX THIS TO LOOK NICER
     // Scroll to the left or right
-    if ( d_ptr->m_deltaX > 0 ){
-      translate( value*100, 0 );
-    }else
+    if ( d_ptr->m_orientation == Qt::Horizontal ){
+      if ( d_ptr->m_deltaX > 0 ){
+	translate( value*100, 0 );
+      }else
       if ( d_ptr->m_deltaX < 0 ){
 	translate( value*-100, 0 );
       }
+    }else{
+      if ( d_ptr->m_deltaY > 0 ){
+	translate( 0, value*100 );
+      }else
+      if ( d_ptr->m_deltaY < 0 ){
+	translate( 0, value*-100 );
+      }
+    }
+
+    
   }
 
 }
