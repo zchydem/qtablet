@@ -3,22 +3,62 @@
 #ifndef PANNABLEVIEW_HH
 #define PANNABLEVIEW_HH
 
-#include <QGraphicsView>
+#include <QGraphicsWidget>
+#include <QPainterPath>
 
-class QGraphicsWidget;
+
 class QWidget;
 class PannableViewPrivate;
-
+class PannableWidgetPrivate;
 
 namespace qtablet{
-  //! PannableView is a simple view for the pannable content.
+
+    //! PannableView is a view for the pannable content.
+    //
+    // PannableView provides convenient interface for using PannableWidget.
+    // It is recommended to use this class instead of using PannableWidget,
+    // because this class provides a view to the specified area in PannableWidget.
+    //
+    //
+    //
+    // Example:
+    //
+    // \code
+    // QGraphicsScene scene;
+    // qtablet::PannableView * viewport = new qtablet::PannableView( Qt::Horizontal, 600, 400 );
+    // viewport->setLayout( createSomeQGraphicsLayout() );
+    // scene.addItem( viewport );
+    // viewport->setPos( 100, 40 )
+    // \endcode
+    //
+    class PannableView: public QGraphicsWidget{
+        Q_OBJECT
+    public:
+        //! Constructor. Create PannableView object, with specified properties.
+        // \param orientation Qt::Horizontal or Qt::Vertical
+        // \param width The width of the view
+        // \param height The height of the view
+        // \param parent optional parent
+        PannableView( Qt::Orientation orientation, qreal width, qreal height, QGraphicsItem * parent = 0 );
+
+        //! Destructor
+        virtual ~PannableView();
+
+        //! Set the layout which is pannable to this view.
+        void setLayout( QGraphicsLayout * layout );
+
+    private:
+        PannableViewPrivate * d_ptr;
+    };
+
+  //! PannableWidget is a simple widget for the pannable content.
   //
-  // PannableView provides quite simple event handling to enable
+  // PannableWidget provides quite simple event handling to enable
   // kinetic scrolling using touchscreen. It is only required to
   // create QGraphicsWidget with some content that is wanted to 
   // be panned.
   //
-  // Example: Create layout with QPushButtons and set it to PannableView
+  // Example: Create layout with QPushButtons and set it to PannableWidget
   //
   // \code
   //
@@ -40,26 +80,25 @@ namespace qtablet{
   // QGraphicsWidget form = new QGraphicsWidget;
   // form->setLayout( layout );
   // 
-  // PannableView * pannableView = new PannableView;
+  // PannableWidget * pannableView = new PannableWidget;
   // pannableView->setPannableWidget( form );
   // \endcode
   //
-  class PannableView: public QGraphicsView{
+  class PannableWidget: public QGraphicsWidget{
   Q_OBJECT
   public:
-    //! PannableView constructor
+    //! PannableWidget constructor
     //
     //! \param orientation panning orientation i.e. vertical or horizontal
     //! \param parent optional parent    
-    PannableView( Qt::Orientation orientation=Qt::Horizontal, QWidget * parent = 0 );
+    PannableWidget( Qt::Orientation orientation=Qt::Horizontal, QGraphicsItem * parent = 0 );
 
     //! Destructor
-    virtual ~PannableView();
+    virtual ~PannableWidget();
 
-    //! Set pannable \p widget to this view.
-    //
-    //! \param widget widget to be panned.
-    void setPannableWidget( QGraphicsWidget * widget );
+
+    virtual QPainterPath shape () const;
+
 
   protected:        
     //! Event handler for mouse press event.
@@ -69,20 +108,21 @@ namespace qtablet{
     //! in this method.
     //!
     //! \param event mouse event
-    virtual void mousePressEvent( QMouseEvent * event );
+    virtual void mousePressEvent( QGraphicsSceneMouseEvent * event );
 
     //! Event handler for mouse release event.
     //
     //! This method calculates the acceleration and starts the scrolling animation.
     //! \param event mouse release event
-    virtual void mouseReleaseEvent( QMouseEvent * event );
+    virtual void mouseReleaseEvent( QGraphicsSceneMouseEvent * event );
 
     //! Event handler for mouse move event.
     //
     //! This method does the view translation if finger is moved slow enough i.e.
     //! the view follows the finger.
     //! \param event mouse move event
-    virtual void mouseMoveEvent(  QMouseEvent * event );
+    virtual void mouseMoveEvent(  QGraphicsSceneMouseEvent * event );
+
 
   protected slots:
     //! Slot for animating the scrolling after fast finger swipe. 
@@ -92,7 +132,7 @@ namespace qtablet{
     void scroll( qreal value );
 
   private:
-    PannableViewPrivate * d_ptr;
+    PannableWidgetPrivate * d_ptr;
   };
 }
 #endif
