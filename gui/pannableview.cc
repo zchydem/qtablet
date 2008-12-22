@@ -1,4 +1,4 @@
-#include "pannableview2.hh"
+#include "pannableview.hh"
 #include <QGraphicsScene>
 #include <QGraphicsWidget>
 #include <QTime>
