@@ -131,6 +131,11 @@ namespace qtablet{
     //! is reached and the scrolling must be stopped.
     void scroll( qreal value );
 
+    void animateEnd();
+
+  private:
+    bool endReached();
+
   private:
     PannableWidgetPrivate * d_ptr;
   };
