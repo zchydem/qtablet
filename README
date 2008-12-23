@@ -1,14 +1,29 @@
 README FOR QTABLET
 
-Directory structure:
-gui  - Directory for graphical classes
-core - Directory for non-graphical classes for supporting gui and other 
-       classes.
-wall - Directory for "Wall" which is the executable application 
-       framework for QTable. The Wall provides home screen and menu 
-       etc.
+STATUS:
+- Really, really immature and only few classes implemented. Doing PoC before anything real.
+- Don't try this at home:)
 
+BUILDING:
+cd qtablet
+qmake
+make
+
+RUNNING:
+export LD_LIBRARY_PATH=path_to_gui_dir
+cd wall
+./qtabletwall [-fullscreen]
+
+
+Directory structure:
+gui    - Directory for graphical classes
+core   - Directory for non-graphical classes for supporting gui and other 
+         classes.
+wall   - Directory for "Wall" which is the executable application 
+         framework for QTable. The Wall provides home screen and menu 
+         etc.
+images - Images for the framework
 
 Dependencies:
-- Qt Animation Framework
+- Qt Animation Framework (sources in git)
 - Qt Extension Library
