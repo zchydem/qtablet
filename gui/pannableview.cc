@@ -31,24 +31,25 @@
         m_scrollingTimeLine( 0 ),
         m_mousePressPos(),
         m_isScrollingEnabled( false ),
-        m_isPressed( false )
+        m_isPressed( false ),
+        m_orientation(0)
        {}
 
       // Members
-      qreal           m_acceleration;
-      qreal           m_deltaX;
-      qreal           m_deltaY;
-      QTime           m_time;
-      QTimeLine     * m_scrollingTimeLine;
-      QPointF         m_mousePressPos;
-      bool            m_isScrollingEnabled;
-      bool            m_isPressed;
-      Qt::Orientation m_orientation;
+      qreal            m_acceleration;
+      qreal            m_deltaX;
+      qreal            m_deltaY;
+      QTime            m_time;
+      QTimeLine      * m_scrollingTimeLine;
+      QPointF          m_mousePressPos;
+      bool             m_isScrollingEnabled;
+      bool             m_isPressed;
+      Qt::Orientations m_orientation;
     };
 
     namespace qtablet{
 
-        PannableView::PannableView( Qt::Orientation orientation, qreal width, qreal height, QGraphicsItem * parent ):
+        PannableView::PannableView( Qt::Orientations orientation, qreal width, qreal height, QGraphicsItem * parent ):
         QGraphicsWidget( parent ),
         d_ptr( new PannableViewPrivate )
         {
@@ -56,8 +57,7 @@
             setMaximumSize( width, height );
             setFlags( QGraphicsItem::ItemClipsChildrenToShape );
 
-            d_ptr->m_pannableWidget = new PannableWidget( orientation, this );
-            //d_ptr->m_pannableWidget->setPos(0,0);
+            d_ptr->m_pannableWidget = new PannableWidget( orientation, this );           
         }
 
         PannableView::~PannableView(){
@@ -71,7 +71,7 @@
 
 
 
-      PannableWidget::PannableWidget( Qt::Orientation orientation, QGraphicsItem * parent ):
+      PannableWidget::PannableWidget( Qt::Orientations orientation, QGraphicsItem * parent ):
         QGraphicsWidget( parent ),
         d_ptr( new PannableWidgetPrivate )
       {
@@ -120,7 +120,7 @@
         //qDebug() << event->scenePos() << event->buttonDownScenePos(Qt::LeftButton) << d_ptr->m_mousePressPos;
 
         // Calculate acceleration
-        if ( d_ptr->m_orientation == Qt::Horizontal ){
+        if ( d_ptr->m_orientation & Qt::Horizontal ){
           d_ptr->m_acceleration = fabs( dxD / tD );
         }else{
           d_ptr->m_acceleration = fabs( dyD / tD );
@@ -133,7 +133,7 @@
           d_ptr->m_deltaX = dxD;
           d_ptr->m_deltaY = dyD;
 
-          //if ( d_ptr->m_acceleration <= 0.2 ) multiplier = 100;
+
           if ( d_ptr->m_acceleration <= 0.4 ) multiplier = 0;
           else if ( d_ptr->m_acceleration <= 0.6 ) multiplier = 200;
           else if ( d_ptr->m_acceleration <= 0.8 ) multiplier = 300;
@@ -168,22 +168,26 @@
             return;
           }
 
-          if ( d_ptr->m_orientation == Qt::Horizontal ){
-              deltaX = ( event->scenePos()  - event->lastScenePos() ).x();
-          }else{
-              deltaY = ( event->scenePos()  - event->lastScenePos()).y();
+          QPointF delta = event->scenePos()  - event->lastScenePos();
+
+          if ( d_ptr->m_orientation & Qt::Horizontal ){
+              deltaX = delta.x();
+          }
+
+          if ( d_ptr->m_orientation & Qt::Vertical ){
+              deltaY = delta.y();
           }
 
           // Filter out too small movements
-          if ( ( d_ptr->m_orientation == Qt::Horizontal && fabs( deltaX ) == 0 ) ||
-               ( d_ptr->m_orientation == Qt::Vertical   && fabs( deltaY ) == 0 ) ){
+          if ( ( d_ptr->m_orientation & Qt::Horizontal && fabs( deltaX ) == 0 ) ||
+               ( d_ptr->m_orientation & Qt::Vertical   && fabs( deltaY ) == 0 ) ){
             return;
           }
-
+          /*
           if ( endReached() ){
             return;
           }
-
+          */
           // translate the view by delta
           QRectF geom = geometry();
           geom.translate( deltaX, deltaY );
@@ -204,27 +208,27 @@
         if ( layout() == 0 ){
           return;
         }
-
+        /*
         if ( endReached() ){
             d_ptr->m_scrollingTimeLine->stop();
             animateEnd();
             return;
         }
-
+        */
 
         QRectF geom = geometry();
 
-        // TODO: FIX THIS TO LOOK NICER
         // Scroll to the left or right
-        if ( d_ptr->m_orientation == Qt::Horizontal ){
+        if ( d_ptr->m_orientation & Qt::Horizontal ){
           if ( d_ptr->m_deltaX > 0 ){
             geom.translate( value*100, 0 );
           }else
           if ( d_ptr->m_deltaX < 0 ){
             geom.translate( value*-100, 0 );
           }
-        }else
-        if ( d_ptr->m_orientation == Qt::Vertical ){
+        }
+
+        if ( d_ptr->m_orientation & Qt::Vertical ){
           if ( d_ptr->m_deltaY > 0 ){
             geom.translate( 0, value*100 );
 
@@ -232,6 +236,44 @@
           if ( d_ptr->m_deltaY < 0 ){
             geom.translate( 0, value*-100 );
           }
+        }
+
+        qreal viewWidth    = parentItem()->boundingRect().width();
+        qreal viewHeight   = parentItem()->boundingRect().height();
+        qreal layoutWidth  = layout()->geometry().width();
+        qreal layoutHeight = layout()->geometry().height();
+
+        qDebug() << viewWidth << viewHeight << layoutWidth << layoutHeight << geom << d_ptr->m_deltaX;
+
+        if ( d_ptr->m_orientation & Qt::Horizontal ){
+
+            if ( d_ptr->m_deltaX < 0 && ( ( fabs( geom.x() ) + viewWidth ) > layoutWidth )){
+                // Moving right
+                geom.setX( viewWidth - layoutWidth );
+                d_ptr->m_scrollingTimeLine->stop();
+            }
+
+            if ( d_ptr->m_deltaX > 0 && geom.x() > 0 ){
+                // Moving left
+                geom.setX( 0 );
+                d_ptr->m_scrollingTimeLine->stop();
+            }
+        }
+
+        if ( d_ptr->m_orientation & Qt::Vertical ){
+
+            if ( d_ptr->m_deltaY < 0 && ( ( fabs(geom.y()) + viewHeight ) > layoutHeight )){
+                // Moving down
+                geom.setY( viewHeight - layoutHeight );            
+                d_ptr->m_scrollingTimeLine->stop();
+            }
+
+            if (  d_ptr->m_deltaY > 0 && geom.y() > 0 ){
+                // Moving up
+                geom.setY( 0 );
+                d_ptr->m_scrollingTimeLine->stop();
+            }
+
         }
 
         setGeometry( geom );
@@ -244,7 +286,7 @@
 
       bool PannableWidget::endReached(){
 
-        if ( d_ptr->m_orientation == Qt::Horizontal ){
+        if ( d_ptr->m_orientation & Qt::Horizontal ){
             qreal widgetX     = geometry().x();
             qreal layoutWidth = layout()->geometry().width();
             qreal viewWidth   = parentItem()->boundingRect().width();
@@ -253,25 +295,31 @@
                 // Stop scrolling to right
                 return true;
             }else
-            if ( d_ptr->m_deltaX < 0 && ( fabs( widgetX ) + viewWidth ) >= layoutWidth ){
+            if ( d_ptr->m_deltaX < 0 && ( ( fabs( widgetX ) + viewWidth ) >= layoutWidth ) ){
                 // Stop scrolling to left
                 return true;
             }
         }else
-        if ( d_ptr->m_orientation == Qt::Vertical ){
+        if ( d_ptr->m_orientation & Qt::Vertical ){
 
             qreal widgetY      = geometry().y();
             qreal layoutHeight = layout()->geometry().height();
             qreal viewHeight   = parentItem()->boundingRect().height();
-            qDebug() << widgetY << layoutHeight << viewHeight << d_ptr->m_deltaY;
-
+            /*
+            qDebug() << "Widget Y: " << widgetY << "\n"
+                     << "Layout H: " << layoutHeight << "\n"
+                     << "WY + WH:  " << fabs(widgetY) + viewHeight << "\n"
+                     << "View H:   " << viewHeight;
+            */
             if ( d_ptr->m_deltaY > 0 && widgetY <= 0){
                 // Stop scrolling to up
+                qDebug() << "Stop scrolling to up";
                 return true;
             }
 
-            if ( d_ptr->m_deltaY < 0 && ( fabs( widgetY ) + viewHeight ) > layoutHeight ){
+            if ( d_ptr->m_deltaY < 0 && ( ( fabs( widgetY ) + viewHeight ) >= layoutHeight ) ){
                 // Stop scrolling to down
+                qDebug() << "Stop scrolling to down";
                 return true;
             }
 

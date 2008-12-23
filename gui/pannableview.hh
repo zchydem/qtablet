@@ -39,7 +39,7 @@ namespace qtablet{
         // \param width The width of the view
         // \param height The height of the view
         // \param parent optional parent
-        PannableView( Qt::Orientation orientation, qreal width, qreal height, QGraphicsItem * parent = 0 );
+        PannableView( Qt::Orientations orientation, qreal width, qreal height, QGraphicsItem * parent = 0 );
 
         //! Destructor
         virtual ~PannableView();
@@ -91,7 +91,7 @@ namespace qtablet{
     //
     //! \param orientation panning orientation i.e. vertical or horizontal
     //! \param parent optional parent    
-    PannableWidget( Qt::Orientation orientation=Qt::Horizontal, QGraphicsItem * parent = 0 );
+    PannableWidget( Qt::Orientations orientation=Qt::Horizontal, QGraphicsItem * parent = 0 );
 
     //! Destructor
     virtual ~PannableWidget();
