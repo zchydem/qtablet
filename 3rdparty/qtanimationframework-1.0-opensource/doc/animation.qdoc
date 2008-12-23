@@ -1,0 +1,97 @@
+
+/*!
+    \page animation.html
+    \title The Animation Framework
+    \ingroup architecture
+    \ingroup animation
+    \brief An overview of the Animation Framework
+
+    \keyword Animation
+    \since 4.5
+
+    The Animation Framework lets you define, run and control animations,
+    states and transitions. The foundation classes QtAnimation and
+    QtAnimationGroup are used to scoreboard both simple and complex
+    animations. A simple animation might change a widget's geometry from one
+    rectangle to another, over the course of 2 seconds, using a linear easing
+    curve. You can daisy-chain animations by adding them to a sequential
+    QtAnimationGroup, a class that also gives you fine grained control over
+    pauses and combinations of parallel and sequential subanimations.
+
+    You can also define properties for your objects in states using QtState,
+    add states to a QtStateGroup to manage exclusivity for your states, and
+    define animated transitions between the states using QtTransition. The
+    Animation Framework classes help maintain the necessary bookkeeping in
+    order to provide animated forms and scenes.
+
+    \tableofcontents
+
+    \section1 The Animation Architecture
+
+      The Animation Framework foundation consists of the base class
+      QtAbstractAnimation, and its two subclasses QtAnimation and
+      QtAnimationGroup. In addition QtState lets you group special properties
+      and values for QObjects, QWidgets and QGraphicsItems in a defined state
+      which can be activated and deactivated. QtStateGroup manages exclusivity
+      for states. QtTransition animates property changes as you activate and
+      deactivate, or switch between states.
+
+      \section2 The Animation and Animation Group
+            
+        The abstract class QtAbstractAnimation provides an interface for
+        getting notifications of time changes, so that it can perform the
+        necessary updates it needs in order keep something animated. A subclass
+        of QtAbstractAnimation will get those notifications by reimplementing
+        the pure virtual function QtAbstractAnimation::updateCurrentTime().
+        This usually means that the animation should update some property 
+        of the item it is set to animate.
+        The subclass QtAnimation is an example of this. A QtAnimation is an
+        animation class that can animate properties. This means it can animate
+        any QObject-based properties, but it is also capable of animating 
+        a QGraphicsItem (even though it does not derive from QObject). For
+        instance, animating the "pos" property will instruct QtAnimation
+        to call QGraphicsItem::setPos(point) if it's animating a QGraphicsItem, 
+        or call QWidget::setProperty("pos", point) if it's animating a QWidget.
+        Thus, in order to set up a QtAnimation the minimum you need to specify is
+        the object of the property you want to animate, the property itself, and 
+        the value the animation should end up at. In addition to that you can
+        specify the startValue, duration and easing curve.
+        
+        The QtEasingCurve is useful if you want to control the speed of an
+        animation without changing the path of the interpolation. They allow
+        transitions from one value to another to appear more natural than a
+        simple constant speed would allow.
+        For instance, using an easing curve of EaseInOut will make the
+        movement accelerate from from halt at the start, then decelarate 
+        towards the end until it halts. The speed can also be negative. You
+        can for instance have a bounce effect by using an easing curve of 
+        BounceOut. This will let the movement slowly accelerate until it hits
+        its target value, then it will bounce several times.
+        When the bounce is lost it will be at the target value.
+
+        
+        The subclass QtAnimationGroup is a container for other
+        animations so they can be animated either in sequence or parallel.
+        The QtAnimationGroup is an example of an animation that does not animate
+        properties, but it gets notified of time changes periodically. This 
+        enables it to forward those time changes to its contained animations, 
+        making sure they are either animated in sequence or parallel.
+        
+        Parts of the easing code is from \l{Easing Equations by Robert Penner}.
+
+      \section2 The State, State Group and Transition
+
+        QtState is a convenient way of setting up a UI form that has several
+        logical states. A list of objects, properties and connections is
+        associated with each state, and when a state is activated it will
+        apply those properties and connections. If you want to use exclusive 
+        states you can add the states to a QtStateGroup. QtStateGroup will 
+        ensure that the active state within the group will be deactivated 
+        when you activate another state.
+
+        On top of that, you can use QtTransition to set up animation behaviour
+        between the different states of your form. 
+        You can specify the default animation between any states, and you can 
+        also specify special type of animations between specific states.
+
+*/

@@ -1,0 +1,180 @@
+INSTALLATION INSTRUCTIONS
+
+These instructions refer to the package you are installing as
+some-package.tar.gz or some-package.zip. The .zip file is intended for use
+on Windows.
+
+The directory you choose for the installation will be referred to as
+your-install-dir.
+
+Note to Qt Visual Studio Integration users: In the instructions below,
+instead of building from command line with nmake, you can use the menu
+command 'Qt->Open Solution from .pro file' on the .pro files in the
+example and plugin directories, and then build from within Visual
+Studio.
+
+Unpacking and installation
+--------------------------
+
+1.  Unpack the archive if you have not done so already.
+
+    On Unix and Mac OS X (in a terminal window):
+
+	cd your-install-dir
+	gunzip some-package.tar.gz
+	tar xvf some-package.tar
+
+    This creates the subdirectory some-package containing the files.
+
+    On Windows:
+
+    Unpack the .zip archive by right-clicking it in explorer and
+    choosing "Extract All...". If your version of Windows does not
+    have zip support, you can use the infozip tools available
+    from www.info-zip.org.
+
+    If you are using the infozip tools (in a command prompt window):
+
+	cd your-install-dir
+	unzip some-package.zip
+
+2.  Enter the package directory and configure the package:
+
+	cd some-package
+	qmake
+
+    The qmake command will prompt you in some cases for further
+    information. Answer these questions and carefully read the license text
+    before accepting the license conditions. The package can't be used if
+    you don't accept the license conditions.
+
+3.  To build the examples (for Qt Solutions components) or the application
+    (for Qt Solutions tools):
+
+	make
+
+    Or if you are using Microsoft Visual C++:
+
+	nmake
+
+    The example programs are located in the example or examples
+    subdirectory.
+
+    For Qt Solutions plugins (e.g. image formats), both debug and
+    release versions of the plugin are built by default when
+    appropriate, since in some cases the release Qt library will not
+    load a debug plugin, and vice versa. The plugins are automatically
+    installed into the plugins directory of your Qt installation.
+
+    Plugins may be built statically, i.e. as a library that will be
+    linked into your application executable, and so will not need to
+    be redistributed as a separate plugin DLL to end users. Static
+    building is required if Qt itself is built statically. To do it,
+    just add "static" to the CONFIG variable in the plugin/plugin.pro
+    file before building. Refer to the "Static Plugins" section in the
+    chapter "How to Create Qt Plugins" for explanation of how to use a
+    static plugin in your application. The source code of the example
+    program(s) will also typically contain the relevant instructions
+    as comments.
+
+4.  Some of the widget components are provided with plugins for Qt
+    Designer. To build and install the plugin, cd into the
+    some-package/plugin directory and give the commands
+
+	qmake
+	make       [or nmake if your are using Microsoft Visual Studio]
+
+    Restart Qt Designer to make it load the new widget plugin.
+
+    Note: If you are using the built-in Qt Designer from the Qt Visual
+    Studio Integration, you will need to manually copy the plugin DLL
+    file, i.e. copy
+	%QTDIR%\plugins\designer\some-component.dll 
+    to the Qt Visual Studio Integration plugin path, typically:
+	C:\Program Files\Trolltech\Qt VS Integration\plugins
+
+    Note: If you for some reason are using a Qt Designer that is built
+    in debug mode, you will need to build the plugin in debug mode
+    also. Edit the file plugin.pro in the plugin directory, changing
+    'release' to 'debug' in the CONFIG line, before running qmake.
+
+
+Using a component in your project
+---------------------------------
+
+The directory your-install-dir/some-package/src includes all the
+source code for the component. To use this component in your project:
+
+1.  Add the following line
+
+	include(your-install-dir/some-package/src/some-package.pri)
+
+    to the project's .pro file.
+
+2.  Run qmake on the project's .pro file.
+
+This adds the package's sources and headers to the SOURCES and HEADERS
+qmake variables respectively, and update INCLUDEPATH to contain the
+package's src directory. Additionally, the .pri file may include some
+dependencies needed by the package.
+
+To include a header file from the package in your sources, you can now
+simply use:
+
+    #include <some-package.h>
+
+or alternatively, in Qt 4 style:
+
+    #include <Some-Package>
+
+
+Install documentation
+---------------------
+
+The HTML documentation for the package's classes is located in the
+your-install-dir/some-package/doc/html/index.html. You can open this
+file with any web browser.
+
+To install the documentation into Qt Assistant (for Qt version 4.4 and
+later):
+
+1.  In Assistant, open the Edit->Preferences dialog and choose the
+    Documentation tab. Click the Add... button and select the file
+       your-install-dir/some-package/doc/html/some-package.qch
+    
+For Qt versions prior to 4.4, do instead the following:
+
+1.  The directory your-install-dir/some-package/doc/html contains a
+    file called some-package.dcf. Execute the following commands in a
+    shell, command prompt or terminal window:
+
+	cd your-install-dir/some-package/doc/html/
+	assistant -addContentFile some-package.dcf
+
+The next time you start Qt Assistant, you can access the package's
+documentation.
+
+
+Removing the documentation from assistant
+-----------------------------------------
+
+If you want to remove the documentation from Qt Assistant, do as
+follows, for Qt version 4.4 and later:
+
+1.  In Assistant, open the Edit->Preferences dialog and choose the
+    Documentation tab. In the list of Registered Documentation, select
+    the item com.trolltech.qtsolutions.some-package_version, and click
+    the Remove button.
+
+For Qt versions prior to 4.4, do instead the following:
+
+1.  The directory your-install-dir/some-package/doc/html contains a
+    file called some-package.dcf. Execute the following commands in a
+    shell, command prompt or terminal window:
+
+	cd your-install-dir/some-package/doc/html/
+	assistant -removeContentFile some-package.dcf
+
+
+Enjoy! :)
+- The Qt Solutions Team.

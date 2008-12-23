@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- qtanimationframework-1.0-opensource/src/qabstractanimation.cpp -->
+<head>
+  <title>QtAbstractAnimation Class Reference</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td align="left" valign="top" width="32"><img src="images/qt-logo.png" align="left" width="57" height="67" border="0" /></td>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a></td>
+</tr></table><h1 class="title">QtAbstractAnimation Class Reference<br /><span class="small-subtitle">[<a href="http://doc.trolltech.com/4.4/qtgui.html">QtGui</a> module]</span>
+</h1>
+<p>The QtAbstractAnimation class provides an abstract base class for animations. <a href="#details">More...</a></p>
+<pre> #include &lt;QtAbstractAnimation&gt;</pre><p><b>This class is under development and is subject to change.</b></p>
+<p>Inherits <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>.</p>
+<p>Inherited by <a href="qtanimation.html">QtAnimation</a> and <a href="qtanimationgroup.html">QtAnimationGroup</a>.</p>
+<p>This class was introduced in qtanimationframework 4.5.</p>
+<ul>
+<li><a href="qtabstractanimation-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-types"></a>
+<h3>Public Types</h3>
+<ul>
+<li><div class="fn"/>enum <b><a href="qtabstractanimation.html#DeletionPolicy-enum">DeletionPolicy</a></b> { KeepWhenFinished, DeleteWhenFinished }</li>
+</ul>
+<a name="properties"></a>
+<h3>Properties</h3>
+<ul>
+<li><div class="fn"/><b><a href="qtabstractanimation.html#currentLoop-prop">currentLoop</a></b> : const int</li>
+<li><div class="fn"/><b><a href="qtabstractanimation.html#currentTime-prop">currentTime</a></b> : int</li>
+<li><div class="fn"/><b><a href="qtabstractanimation.html#loopCount-prop">loopCount</a></b> : qreal</li>
+<li><div class="fn"/><b><a href="qtabstractanimation.html#running-prop">running</a></b> : const bool</li>
+</ul>
+<ul>
+<li><div class="fn"/>1 property inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#properties">QObject</a></li>
+</ul>
+<a name="public-functions"></a>
+<h3>Public Functions</h3>
+<ul>
+<li><div class="fn"/><b><a href="qtabstractanimation.html#QtAbstractAnimation">QtAbstractAnimation</a></b> ( QObject * <i>parent</i> = 0 )</li>
+<li><div class="fn"/>virtual <b><a href="qtabstractanimation.html#dtor.QtAbstractAnimation">~QtAbstractAnimation</a></b> ()</li>
+<li><div class="fn"/>int <b><a href="qtabstractanimation.html#currentLoop-prop">currentLoop</a></b> () const</li>
+<li><div class="fn"/>int <b><a href="qtabstractanimation.html#currentTime-prop">currentTime</a></b> () const</li>
+<li><div class="fn"/>virtual int <b><a href="qtabstractanimation.html#duration">duration</a></b> () const = 0</li>
+<li><div class="fn"/>QtAnimationGroup * <b><a href="qtabstractanimation.html#group">group</a></b> () const</li>
+<li><div class="fn"/>bool <b><a href="qtabstractanimation.html#running-prop">isRunning</a></b> () const</li>
+<li><div class="fn"/>qreal <b><a href="qtabstractanimation.html#loopCount-prop">loopCount</a></b> () const</li>
+<li><div class="fn"/>void <b><a href="qtabstractanimation.html#loopCount-prop">setLoopCount</a></b> ( qreal <i>loopCount</i> )</li>
+<li><div class="fn"/>int <b><a href="qtabstractanimation.html#totalDuration">totalDuration</a></b> () const</li>
+</ul>
+<ul>
+<li><div class="fn"/>29 public functions inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-functions">QObject</a></li>
+</ul>
+<a name="public-slots"></a>
+<h3>Public Slots</h3>
+<ul>
+<li><div class="fn"/>void <b><a href="qtabstractanimation.html#currentTime-prop">setCurrentTime</a></b> ( int <i>msecs</i> )</li>
+<li><div class="fn"/>void <b><a href="qtabstractanimation.html#start">start</a></b> ( DeletionPolicy <i>policy</i> = KeepWhenFinished )</li>
+<li><div class="fn"/>void <b><a href="qtabstractanimation.html#stop">stop</a></b> ()</li>
+</ul>
+<ul>
+<li><div class="fn"/>1 public slot inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-slots">QObject</a></li>
+</ul>
+<a name="signals"></a>
+<h3>Signals</h3>
+<ul>
+<li><div class="fn"/>void <b><a href="qtabstractanimation.html#currentLoopChanged">currentLoopChanged</a></b> ( int <i>currentLoop</i> )</li>
+<li><div class="fn"/>void <b><a href="qtabstractanimation.html#finished">finished</a></b> ()</li>
+<li><div class="fn"/>void <b><a href="qtabstractanimation.html#running">running</a></b> ( bool <i>isRunning</i> )</li>
+<li><div class="fn"/>void <b><a href="qtabstractanimation.html#started">started</a></b> ()</li>
+<li><div class="fn"/>void <b><a href="qtabstractanimation.html#stopped">stopped</a></b> ()</li>
+</ul>
+<ul>
+<li><div class="fn"/>1 signal inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#signals">QObject</a></li>
+</ul>
+<a name="protected-functions"></a>
+<h3>Protected Functions</h3>
+<ul>
+<li><div class="fn"/>virtual void <b><a href="qtabstractanimation.html#updateCurrentTime">updateCurrentTime</a></b> ( int <i>msecs</i> ) = 0</li>
+<li><div class="fn"/>virtual void <b><a href="qtabstractanimation.html#updateRunning">updateRunning</a></b> ( bool <i>running</i> )</li>
+</ul>
+<ul>
+<li><div class="fn"/>7 protected functions inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#protected-functions">QObject</a></li>
+</ul>
+<h3>Additional Inherited Members</h3>
+<ul>
+<li><div class="fn"/>1 public type inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-variables">QObject</a></li>
+<li><div class="fn"/>4 static public members inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#static-public-members">QObject</a></li>
+<li><div class="fn"/>2 protected variables inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#protected-variables">QObject</a></li>
+</ul>
+<a name="details"></a>
+<hr />
+<h2>Detailed Description</h2>
+<p>The QtAbstractAnimation class provides an abstract base class for animations.</p>
+<p>This class is part of {The Animation Framework}. It serves as a base class for standard animations and groups, with functions for shared functionality, and it also makes it easy for you to define custom animations that plug into the rest of the animation framework.</p>
+<p>If you want to create an animation, you should look at the two subclasses, <a href="qtanimation.html">QtAnimation</a> and <a href="qtanimationgroup.html">QtAnimationGroup</a>, instead.</p>
+<p>QtAbstractAnimation provides an interface for the current time and duration, the loop count, and state of an animation. These properties define the base functionality common to all animations in Qt. The virtual <a href="qtabstractanimation.html#duration">duration</a>() function returns the local duration of the animation; i.e&#x2e;, for how long the animation should update the current time before looping. Subclasses can implement this function differently; for example, <a href="qtanimation.html">QtAnimation</a> returns the duration of a simple animated property, whereas <a href="qtanimationgroup.html">QtAnimationGroup</a> returns the duration of a set or sequence of animations. You can also set a loop count by calling <a href="qtabstractanimation.html#loopCount-prop">setLoopCount</a>(); a loop count of 2 will let the animation run twice (the default value is 1). Since the loop count is a qreal, you can define a loop count of 0.5, in which cause the animation will stop when it has reached 50% of its duration.</p>
+<p>Like <a href="http://doc.trolltech.com/4.4/qtimeline.html">QTimeLine</a>, QtAbstractAnimation also provides an interface for starting and stopping an animation, and for tracking its progress. You can call the <a href="qtabstractanimation.html#start">start</a>() slot to start the animation. When the animation starts, the <a href="qtabstractanimation.html#started">started</a>() signal is emitted, and <a href="qtabstractanimation.html#running-prop">isRunning</a>() returns true. If you call the <a href="qtabstractanimation.html#stop">stop</a>() slot, the <a href="qtabstractanimation.html#stopped">stopped</a>() signal is emitted, and <a href="qtabstractanimation.html#running-prop">isRunning</a>() returns false. If the animation reaches the end, the <a href="qtabstractanimation.html#finished">finished</a>() signal is emitted. You can check the current state by calling <a href="qtabstractanimation.html#running-prop">isRunning</a>().</p>
+<p>QtAbstractAnimation provides two functions that are pure virtual, and must be reimplemented in a subclass: <a href="qtabstractanimation.html#duration">duration</a>(), and <a href="qtabstractanimation.html#updateCurrentTime">updateCurrentTime</a>(). The <a href="qtabstractanimation.html#duration">duration</a>() function lets you report a duration for the animation (a return value of -1 signals that the animation runs forever until explicitly stopped). The current time is delivered by the framework through calls to <a href="qtabstractanimation.html#updateCurrentTime">updateCurrentTime</a>(). By reimplementing this function, you can track the animation progress and update your target objects accordingly. By reimplementing <a href="qtabstractanimation.html#updateRunning">updateRunning</a>(), you can track the animation's state changes, which is particularily useful for animations that are not driven by time.</p>
+<p>See also <a href="qtanimation.html">QtAnimation</a>, <a href="qtanimationgroup.html">QtAnimationGroup</a>, and <a href="animation.html">The Animation Framework</a>.</p>
+<hr />
+<h2>Member Type Documentation</h2>
+<h3 class="fn"><a name="DeletionPolicy-enum"></a>enum QtAbstractAnimation::DeletionPolicy</h3>
+<p><table border="1" cellpadding="2" cellspacing="1" width="100%">
+<tr><th width="25%">Constant</th><th width="15%">Value</th><th width="60%">Description</th></tr>
+<tr><td valign="top"><tt>QtAbstractAnimation::KeepWhenFinished</tt></td><td align="center" valign="top"><tt>0</tt></td><td valign="top">The animation will not be deleted when finished.</td></tr>
+<tr><td valign="top"><tt>QtAbstractAnimation::DeleteWhenFinished</tt></td><td align="center" valign="top"><tt>1</tt></td><td valign="top">The animation will be automatically deleted when finished.</td></tr>
+</table></p>
+<hr />
+<h2>Property Documentation</h2>
+<h3 class="fn"><a name="currentLoop-prop"></a>currentLoop : const int</h3>
+<p>This property holds the current loop of the animation.</p>
+<p>This property describes the current loop of the animation. By default, the animation's loop count is 1, and so the current loop will always be 0. If the loop count is 2 and the animation runs past its duration, it will automatically rewind and restart at current time 0, and current loop 1, and so on.</p>
+<p>When the current loop changes, <a href="qtabstractanimation.html">QtAbstractAnimation</a> emits the <a href="qtabstractanimation.html#currentLoopChanged">currentLoopChanged</a>() signal.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>int currentLoop () const</b></li>
+</ul>
+<h3 class="fn"><a name="currentTime-prop"></a>currentTime : int</h3>
+<p>This property holds the current time and progress of the animation.</p>
+<p>This property describes the animation's current time. You can change the current time by calling setCurrentTime, or you can call <a href="qtabstractanimation.html#start">start</a>() and let the animation run, setting the current time automatically as the animation progresses.</p>
+<p>The animation's current time starts at 0, and ends at <a href="qtabstractanimation.html#duration">duration</a>(). If the animation's <a href="qtabstractanimation.html#loopCount-prop">loopCount</a> is larger than 1, the current time will rewind and start at 0 again for the consecutive loops. If the animation has a pause. currentTime will also include the duration of the pause.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>int currentTime () const</b></li>
+<li><div class="fn"/><b>void setCurrentTime ( int <i>msecs</i> )</b></li>
+</ul>
+<p>See also <a href="qtabstractanimation.html#loopCount-prop">loopCount</a>.</p>
+<h3 class="fn"><a name="loopCount-prop"></a>loopCount : <a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a></h3>
+<p>This property holds the loop count of the animation.</p>
+<p>This property describes the loop count of the animation as a qreal (float or double). By default this value is 1, indicating that the animation should run once only, and then stop. By changing it you can let the animation loop several times. With a value of 0, the animation will not run at all, and with a negative value, the animation will loop forever until stopped.</p>
+<p>Since the value is a qreal, you are free to set loop counts of 1.5 or 2.5&#x2e;</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>qreal loopCount () const</b></li>
+<li><div class="fn"/><b>void setLoopCount ( qreal <i>loopCount</i> )</b></li>
+</ul>
+<h3 class="fn"><a name="running-prop"></a>running : const bool</h3>
+<p>This property holds whether the animation is running or not.</p>
+<p>This property describes the current state of the animation. When the animation state changes, <a href="qtabstractanimation.html">QtAbstractAnimation</a> emits the <a href="qtabstractanimation.html#running">running</a>() signal.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>bool isRunning () const</b></li>
+</ul>
+<p>See also <a href="http://doc.trolltech.com/4.4/qtimeline.html#state">QTimeLine::state</a>().</p>
+<hr />
+<h2>Member Function Documentation</h2>
+<h3 class="fn"><a name="QtAbstractAnimation"></a>QtAbstractAnimation::QtAbstractAnimation ( <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>parent</i> = 0 )</h3>
+<p>Constructs the <a href="qtabstractanimation.html">QtAbstractAnimation</a> base class, and passes <i>parent</i> to <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>'s constructor.</p>
+<p>See also <a href="qtanimation.html">QtAnimation</a> and <a href="qtanimationgroup.html">QtAnimationGroup</a>.</p>
+<h3 class="fn"><a name="dtor.QtAbstractAnimation"></a>QtAbstractAnimation::~QtAbstractAnimation ()&nbsp;&nbsp;<tt> [virtual]</tt></h3>
+<p>Stops the animation if it's running, then destroys the <a href="qtabstractanimation.html">QtAbstractAnimation</a>. If the animation is part of a <a href="qtanimationgroup.html">QtAnimationGroup</a>, it is automatically removed before it's destroyed.</p>
+<h3 class="fn"><a name="currentLoopChanged"></a>void QtAbstractAnimation::currentLoopChanged ( int <i>currentLoop</i> )&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p><a href="qtabstractanimation.html">QtAbstractAnimation</a> emits this signal whenever the current loop changes. <i>currentLoop</i> is the current loop.</p>
+<p>See also <a href="qtabstractanimation.html#currentLoop-prop">currentLoop</a>() and <a href="qtabstractanimation.html#loopCount-prop">loopCount</a>().</p>
+<h3 class="fn"><a name="duration"></a>int QtAbstractAnimation::duration () const&nbsp;&nbsp;<tt> [pure virtual]</tt></h3>
+<p>This pure virtual function returns the duration of the animation, and defines for how long <a href="qtabstractanimation.html">QtAbstractAnimation</a> should update the current time. This duration is local, and does not include the start delay or loop counts.</p>
+<p>A return value of -1 indicates that the animation has no defined duration; the animation should run forever until stopped. This is useful for animations that are not time driven, or where you cannot easily predict its duration (e.g&#x2e;, event driven audio playback in a game).</p>
+<p>If the animation is a parallel <a href="qtanimationgroup.html">QtAnimationGroup</a>, the duration will be the longest duration of all its animations. If the animation is a sequential <a href="qtanimationgroup.html">QtAnimationGroup</a>, the duration will be the sum of the duration of all its animations.</p>
+<p>See also <a href="qtabstractanimation.html#loopCount-prop">loopCount</a>.</p>
+<h3 class="fn"><a name="finished"></a>void QtAbstractAnimation::finished ()&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p><a href="qtabstractanimation.html">QtAbstractAnimation</a> emits this signal after the animation has stopped and has reached the end.</p>
+<p>This signal is emitted after <a href="qtabstractanimation.html#stopped">stopped</a>().</p>
+<p>See also <a href="qtabstractanimation.html#started">started</a>(), <a href="qtabstractanimation.html#running">running</a>(), and <a href="qtabstractanimation.html#stopped">stopped</a>().</p>
+<h3 class="fn"><a name="group"></a><a href="qtanimationgroup.html">QtAnimationGroup</a> * QtAbstractAnimation::group () const</h3>
+<p>If this animation is part of a <a href="qtanimationgroup.html">QtAnimationGroup</a>, this function returns a pointer to the group; otherwise, it returns 0.</p>
+<p>See also <a href="qtanimationgroup.html#add">QtAnimationGroup::add</a>().</p>
+<h3 class="fn"><a name="running"></a>void QtAbstractAnimation::running ( bool <i>isRunning</i> )&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p><a href="qtabstractanimation.html">QtAbstractAnimation</a> emits this signal whenever the animation has started or stopped. If <i>isRunning</i> is true, the animation has started; otherwise it has stopped.</p>
+<p>See also <a href="qtabstractanimation.html#started">started</a>(), <a href="qtabstractanimation.html#stopped">stopped</a>(), and <a href="qtabstractanimation.html#updateRunning">updateRunning</a>().</p>
+<h3 class="fn"><a name="start"></a>void QtAbstractAnimation::start ( <a href="qtabstractanimation.html#DeletionPolicy-enum">DeletionPolicy</a> <i>policy</i> = KeepWhenFinished )&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Starts the animation. The <i>policy</i> argument says whether or not the animation should be deleted when it's done. When the animation starts, the <a href="qtabstractanimation.html#started">started</a>() signal is emitted, and <a href="qtabstractanimation.html#running-prop">isRunning</a>() returns true. When control reaches the event loop, the animation will run by itself, periodically calling <a href="qtabstractanimation.html#updateCurrentTime">updateCurrentTime</a>() as the animation progresses.</p>
+<p>If the animation is currently stopped when you call start(), it is resumed and continues from where it left off. When the animation reaches the end, the animation will either stop, or if the loop level is more than 1, it will rewind and continue from the beginning. If you start the animation after it has reached the end, the animation will rewind before starting again.</p>
+<p>If the animation is already running, this function does nothing.</p>
+<p>See also <a href="qtabstractanimation.html#stop">stop</a>() and <a href="qtabstractanimation.html#running-prop">isRunning</a>().</p>
+<h3 class="fn"><a name="started"></a>void QtAbstractAnimation::started ()&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p><a href="qtabstractanimation.html">QtAbstractAnimation</a> emits this signal when the animation is started. Once control reaches the event loop, the animation will run by itself and periodically call the currentTimeChanged() slot.</p>
+<p>This signal is emitted after running(bool), but before the virtual <a href="qtabstractanimation.html#updateRunning">updateRunning</a>() function is called.</p>
+<p>See also <a href="qtabstractanimation.html#stopped">stopped</a>().</p>
+<h3 class="fn"><a name="stop"></a>void QtAbstractAnimation::stop ()&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>Stops the animation. When the animation is stopped, it emits the <a href="qtabstractanimation.html#stopped">stopped</a>() signal, and <a href="qtabstractanimation.html#running-prop">isRunning</a>() returns false. The current time is not changed.</p>
+<p>If the animation stops by itself after reaching the end (i.e&#x2e;, <a href="qtabstractanimation.html#currentTime-prop">currentTime</a>() == <a href="qtabstractanimation.html#duration">duration</a>() and <a href="qtabstractanimation.html#currentLoop-prop">currentLoop</a>() &gt; <a href="qtabstractanimation.html#loopCount-prop">loopCount</a>() - 1), the <a href="qtabstractanimation.html#finished">finished</a>() signal is emitted.</p>
+<p>See also <a href="qtabstractanimation.html#start">start</a>() and <a href="qtabstractanimation.html#running-prop">isRunning</a>().</p>
+<h3 class="fn"><a name="stopped"></a>void QtAbstractAnimation::stopped ()&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p><a href="qtabstractanimation.html">QtAbstractAnimation</a> emits this signal when the animation has stopped.</p>
+<p>This signal is emitted after running(bool).</p>
+<p>See also <a href="qtabstractanimation.html#started">started</a>() and <a href="qtabstractanimation.html#running">running</a>().</p>
+<h3 class="fn"><a name="totalDuration"></a>int QtAbstractAnimation::totalDuration () const</h3>
+<p>Returns the total and effective duration of the animation, including the loop count.</p>
+<p>See also <a href="qtabstractanimation.html#duration">duration</a>() and <a href="qtabstractanimation.html#currentTime-prop">currentTime</a>.</p>
+<h3 class="fn"><a name="updateCurrentTime"></a>void QtAbstractAnimation::updateCurrentTime ( int <i>msecs</i> )&nbsp;&nbsp;<tt> [pure virtual protected]</tt></h3>
+<p>This pure virtual function is called every time the animation's current time changes. The <i>msecs</i> argument is the current time.</p>
+<p>See also <a href="qtabstractanimation.html#updateRunning">updateRunning</a>().</p>
+<h3 class="fn"><a name="updateRunning"></a>void QtAbstractAnimation::updateRunning ( bool <i>running</i> )&nbsp;&nbsp;<tt> [virtual protected]</tt></h3>
+<p>This virtual function is called by <a href="qtabstractanimation.html">QtAbstractAnimation</a> when the animation starts and stops. If <i>running</i> is true, the animation has started; otherwise it has stopped.</p>
+<p>See also <a href="qtabstractanimation.html#start">start</a>(), <a href="qtabstractanimation.html#stop">stop</a>(), and <a href="qtabstractanimation.html#updateCurrentTime">updateCurrentTime</a>().</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left">Copyright &copy; 2008 Nokia</td>
+<td width="40%" align="center"><a href="http://doc.trolltech.com/trademarks.html">Trademarks</a></td>
+<td width="30%" align="right"><div align="right">Qt Solutions</div></td>
+</tr></table></div></address></body>
+</html>

@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QDOCINDEX>
+<INDEX url="" title="Qt Solutions: Qt Animation Framework Documentation" version="">
+    <namespace access="public" threadsafety="unspecified" status="commendable" name="" href="" location="" module="">
+        <class access="public" threadsafety="unspecified" status="preliminary" name="QtState" href="qtstate.html" location="qstate.h" bases="QObject" module="QtGui">
+            <property access="public" threadsafety="unspecified" status="commendable" name="active" fullname="QtState::active" href="qtstate.html#active-prop" location="qstate.h" type="bool">
+                <getter name="isActive"></getter>
+                <setter name="setActive"></setter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="restoreProperties" fullname="QtState::restoreProperties" href="qtstate.html#restoreProperties-prop" location="qstate.h" type="bool">
+                <getter name="restoreProperties"></getter>
+                <setter name="setRestoreProperties"></setter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="group" fullname="QtState::group" href="qtstate.html#group-prop" location="qstate.h" type="QtStateGroup *">
+                <getter name="group"></getter>
+                <setter name="setGroup"></setter>
+            </property>
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtState" fullname="QtState::QtState" href="qtstate.html#QtState" location="qstate.h" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="QtState(QObject * parent)">
+                <parameter left="QObject *" right="" name="parent" default="0"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~QtState" fullname="QtState::~QtState" href="qtstate.html#dtor.QtState" location="qstate.h" virtual="impure" meta="destructor" const="false" static="false" overload="false" type="" signature="~QtState()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="clear" fullname="QtState::clear" href="qtstate.html#clear" location="qstate.h" virtual="impure" meta="plain" const="false" static="false" overload="false" type="void" signature="clear()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="group" fullname="QtState::group" href="qtstate.html#group-prop" location="qstate.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="group" type="QtStateGroup *" signature="group() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setGroup" fullname="QtState::setGroup" href="qtstate.html#group-prop" location="qstate.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="group" type="void" signature="setGroup(QtStateGroup * group)">
+                <parameter left="QtStateGroup *" right="" name="group" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="isActive" fullname="QtState::isActive" href="qtstate.html#active-prop" location="qstate.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="active" type="bool" signature="isActive() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="restoreProperties" fullname="QtState::restoreProperties" href="qtstate.html#restoreProperties-prop" location="qstate.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="restoreProperties" type="bool" signature="restoreProperties() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setRestoreProperties" fullname="QtState::setRestoreProperties" href="qtstate.html#restoreProperties-prop" location="qstate.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="restoreProperties" type="void" signature="setRestoreProperties(bool enabled)">
+                <parameter left="bool" right="" name="enabled" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setProperty" fullname="QtState::setProperty" href="qtstate.html#setProperty" location="qstate.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setProperty(QObject * object, const char * propertyName, const QVariant &amp; value)">
+                <parameter left="QObject *" right="" name="object" default=""></parameter>
+                <parameter left="const char *" right="" name="propertyName" default=""></parameter>
+                <parameter left="const QVariant &amp;" right="" name="value" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="property" fullname="QtState::property" href="qtstate.html#property" location="qstate.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="QVariant" signature="property(QObject * object, const char * propertyName) const">
+                <parameter left="QObject *" right="" name="object" default=""></parameter>
+                <parameter left="const char *" right="" name="propertyName" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="unsetProperty" fullname="QtState::unsetProperty" href="qtstate.html#unsetProperty" location="qstate.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="unsetProperty(QObject * object, const char * propertyName)">
+                <parameter left="QObject *" right="" name="object" default=""></parameter>
+                <parameter left="const char *" right="" name="propertyName" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setProperty" fullname="QtState::setProperty" href="qtstate.html#setProperty-3" location="qstate.h" virtual="non" meta="plain" const="false" static="false" overload="true" overload-number="3" type="void" signature="setProperty(QGraphicsItem * item, const char * propertyName, const QVariant &amp; value)">
+                <parameter left="QGraphicsItem *" right="" name="item" default=""></parameter>
+                <parameter left="const char *" right="" name="propertyName" default=""></parameter>
+                <parameter left="const QVariant &amp;" right="" name="value" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="property" fullname="QtState::property" href="qtstate.html#property-3" location="qstate.h" virtual="non" meta="plain" const="true" static="false" overload="true" overload-number="3" type="QVariant" signature="property(QGraphicsItem * item, const char * propertyName) const">
+                <parameter left="QGraphicsItem *" right="" name="item" default=""></parameter>
+                <parameter left="const char *" right="" name="propertyName" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="unsetProperty" fullname="QtState::unsetProperty" href="qtstate.html#unsetProperty-3" location="qstate.h" virtual="non" meta="plain" const="false" static="false" overload="true" overload-number="3" type="void" signature="unsetProperty(QGraphicsItem * item, const char * propertyName)">
+                <parameter left="QGraphicsItem *" right="" name="item" default=""></parameter>
+                <parameter left="const char *" right="" name="propertyName" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="pos" fullname="QtState::pos" href="qtstate.html#pos" location="qstate.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="QPointF" signature="pos(QGraphicsItem * item) const">
+                <parameter left="QGraphicsItem *" right="" name="item" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setPos" fullname="QtState::setPos" href="qtstate.html#setPos" location="qstate.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setPos(QGraphicsItem * item, const QPointF &amp; pos)">
+                <parameter left="QGraphicsItem *" right="" name="item" default=""></parameter>
+                <parameter left="const QPointF &amp;" right="" name="pos" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="pos" fullname="QtState::pos" href="qtstate.html#pos-2" location="qstate.h" virtual="non" meta="plain" const="true" static="false" overload="true" overload-number="2" type="QPoint" signature="pos(QWidget * widget) const">
+                <parameter left="QWidget *" right="" name="widget" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setPos" fullname="QtState::setPos" href="qtstate.html#setPos-2" location="qstate.h" virtual="non" meta="plain" const="false" static="false" overload="true" overload-number="2" type="void" signature="setPos(QWidget * widget, const QPoint &amp; pos)">
+                <parameter left="QWidget *" right="" name="widget" default=""></parameter>
+                <parameter left="const QPoint &amp;" right="" name="pos" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="geometry" fullname="QtState::geometry" href="qtstate.html#geometry" location="qstate.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="QRectF" signature="geometry(QGraphicsWidget * widget) const">
+                <parameter left="QGraphicsWidget *" right="" name="widget" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setGeometry" fullname="QtState::setGeometry" href="qtstate.html#setGeometry" location="qstate.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setGeometry(QGraphicsWidget * widget, const QRectF &amp; geom)">
+                <parameter left="QGraphicsWidget *" right="" name="widget" default=""></parameter>
+                <parameter left="const QRectF &amp;" right="" name="geom" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="geometry" fullname="QtState::geometry" href="qtstate.html#geometry-2" location="qstate.h" virtual="non" meta="plain" const="true" static="false" overload="true" overload-number="2" type="QRect" signature="geometry(QWidget * widget) const">
+                <parameter left="QWidget *" right="" name="widget" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setGeometry" fullname="QtState::setGeometry" href="qtstate.html#setGeometry-2" location="qstate.h" virtual="non" meta="plain" const="false" static="false" overload="true" overload-number="2" type="void" signature="setGeometry(QWidget * widget, const QRect &amp; geom)">
+                <parameter left="QWidget *" right="" name="widget" default=""></parameter>
+                <parameter left="const QRect &amp;" right="" name="geom" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="opacity" fullname="QtState::opacity" href="qtstate.html#opacity" location="qstate.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="qreal" signature="opacity(QGraphicsItem * item) const">
+                <parameter left="QGraphicsItem *" right="" name="item" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setOpacity" fullname="QtState::setOpacity" href="qtstate.html#setOpacity" location="qstate.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setOpacity(QGraphicsItem * item, qreal opacity)">
+                <parameter left="QGraphicsItem *" right="" name="item" default=""></parameter>
+                <parameter left="qreal" right="" name="opacity" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setConnectionState" fullname="QtState::setConnectionState" href="qtstate.html#setConnectionState" location="qstate.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setConnectionState(QObject * sender, const char * signal, QObject * receiver, const char * member, Qt::ConnectionType connectionType)">
+                <parameter left="QObject *" right="" name="sender" default=""></parameter>
+                <parameter left="const char *" right="" name="signal" default=""></parameter>
+                <parameter left="QObject *" right="" name="receiver" default=""></parameter>
+                <parameter left="const char *" right="" name="member" default=""></parameter>
+                <parameter left="Qt::ConnectionType" right="" name="connectionType" default="Qt::AutoConnection"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="unsetConnectionState" fullname="QtState::unsetConnectionState" href="qtstate.html#unsetConnectionState" location="qstate.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="unsetConnectionState(QObject * sender, const char * signal, QObject * receiver, const char * member)">
+                <parameter left="QObject *" right="" name="sender" default=""></parameter>
+                <parameter left="const char *" right="" name="signal" default=""></parameter>
+                <parameter left="QObject *" right="" name="receiver" default=""></parameter>
+                <parameter left="const char *" right="" name="member" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setActive" fullname="QtState::setActive" href="qtstate.html#active-prop" location="qstate.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" associated-property="active" type="void" signature="setActive(bool active)">
+                <parameter left="bool" right="" name="active" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="activate" fullname="QtState::activate" href="qtstate.html#activate" location="qstate.h" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="activate()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="deactivate" fullname="QtState::deactivate" href="qtstate.html#deactivate" location="qstate.h" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="deactivate()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="activated" fullname="QtState::activated" href="qtstate.html#activated" location="qstate.h" virtual="non" meta="signal" const="false" static="false" overload="false" type="void" signature="activated(bool active)">
+                <parameter left="bool" right="" name="active" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="activated" fullname="QtState::activated" href="qtstate.html#activated-2" location="qstate.h" virtual="non" meta="signal" const="false" static="false" overload="true" overload-number="2" type="void" signature="activated()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="deactivated" fullname="QtState::deactivated" href="qtstate.html#deactivated" location="qstate.h" virtual="non" meta="signal" const="false" static="false" overload="false" type="void" signature="deactivated()"></function>
+            <function access="protected" threadsafety="unspecified" status="commendable" name="enterState" fullname="QtState::enterState" href="qtstate.html#enterState" location="qstate.h" virtual="impure" meta="plain" const="false" static="false" overload="false" type="void" signature="enterState(QtState * fromState)">
+                <parameter left="QtState *" right="" name="fromState" default=""></parameter>
+            </function>
+            <function access="protected" threadsafety="unspecified" status="commendable" name="leaveState" fullname="QtState::leaveState" href="qtstate.html#leaveState" location="qstate.h" virtual="impure" meta="plain" const="false" static="false" overload="false" type="void" signature="leaveState(QtState * toState)">
+                <parameter left="QtState *" right="" name="toState" default=""></parameter>
+            </function>
+        </class>
+        <class access="public" threadsafety="unspecified" status="preliminary" name="QtAbstractAnimation" href="qtabstractanimation.html" location="qabstractanimation.h" bases="QObject" module="QtGui">
+            <property access="public" threadsafety="unspecified" status="commendable" name="running" fullname="QtAbstractAnimation::running" href="qtabstractanimation.html#running-prop" location="qabstractanimation.h" type="bool">
+                <getter name="isRunning"></getter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="loopCount" fullname="QtAbstractAnimation::loopCount" href="qtabstractanimation.html#loopCount-prop" location="qabstractanimation.h" type="qreal">
+                <getter name="loopCount"></getter>
+                <setter name="setLoopCount"></setter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="currentTime" fullname="QtAbstractAnimation::currentTime" href="qtabstractanimation.html#currentTime-prop" location="qabstractanimation.h" type="int">
+                <getter name="currentTime"></getter>
+                <setter name="setCurrentTime"></setter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="currentLoop" fullname="QtAbstractAnimation::currentLoop" href="qtabstractanimation.html#currentLoop-prop" location="qabstractanimation.h" type="int">
+                <getter name="currentLoop"></getter>
+            </property>
+            <enum access="public" threadsafety="unspecified" status="commendable" name="DeletionPolicy" fullname="QtAbstractAnimation::DeletionPolicy" href="qtabstractanimation.html#DeletionPolicy-enum" location="qabstractanimation.h">
+                <value name="KeepWhenFinished" value="0"></value>
+                <value name="DeleteWhenFinished" value="1"></value>
+            </enum>
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtAbstractAnimation" fullname="QtAbstractAnimation::QtAbstractAnimation" href="qtabstractanimation.html#QtAbstractAnimation" location="qabstractanimation.h" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="QtAbstractAnimation(QObject * parent)">
+                <parameter left="QObject *" right="" name="parent" default="0"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~QtAbstractAnimation" fullname="QtAbstractAnimation::~QtAbstractAnimation" href="qtabstractanimation.html#dtor.QtAbstractAnimation" location="qabstractanimation.h" virtual="impure" meta="destructor" const="false" static="false" overload="false" type="" signature="~QtAbstractAnimation()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="isRunning" fullname="QtAbstractAnimation::isRunning" href="qtabstractanimation.html#running-prop" location="qabstractanimation.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="running" type="bool" signature="isRunning() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="group" fullname="QtAbstractAnimation::group" href="qtabstractanimation.html#group" location="qabstractanimation.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="QtAnimationGroup *" signature="group() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="loopCount" fullname="QtAbstractAnimation::loopCount" href="qtabstractanimation.html#loopCount-prop" location="qabstractanimation.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="loopCount" type="qreal" signature="loopCount() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setLoopCount" fullname="QtAbstractAnimation::setLoopCount" href="qtabstractanimation.html#loopCount-prop" location="qabstractanimation.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="loopCount" type="void" signature="setLoopCount(qreal loopCount)">
+                <parameter left="qreal" right="" name="loopCount" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="currentLoop" fullname="QtAbstractAnimation::currentLoop" href="qtabstractanimation.html#currentLoop-prop" location="qabstractanimation.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="currentLoop" type="int" signature="currentLoop() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="duration" fullname="QtAbstractAnimation::duration" href="qtabstractanimation.html#duration" location="qabstractanimation.h" virtual="pure" meta="plain" const="true" static="false" overload="false" type="int" signature="duration() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="totalDuration" fullname="QtAbstractAnimation::totalDuration" href="qtabstractanimation.html#totalDuration" location="qabstractanimation.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="int" signature="totalDuration() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="currentTime" fullname="QtAbstractAnimation::currentTime" href="qtabstractanimation.html#currentTime-prop" location="qabstractanimation.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="currentTime" type="int" signature="currentTime() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="started" fullname="QtAbstractAnimation::started" href="qtabstractanimation.html#started" location="qabstractanimation.h" virtual="non" meta="signal" const="false" static="false" overload="false" type="void" signature="started()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="stopped" fullname="QtAbstractAnimation::stopped" href="qtabstractanimation.html#stopped" location="qabstractanimation.h" virtual="non" meta="signal" const="false" static="false" overload="false" type="void" signature="stopped()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="finished" fullname="QtAbstractAnimation::finished" href="qtabstractanimation.html#finished" location="qabstractanimation.h" virtual="non" meta="signal" const="false" static="false" overload="false" type="void" signature="finished()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="running" fullname="QtAbstractAnimation::running" href="qtabstractanimation.html#running" location="qabstractanimation.h" virtual="non" meta="signal" const="false" static="false" overload="false" type="void" signature="running(bool isRunning)">
+                <parameter left="bool" right="" name="isRunning" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="currentLoopChanged" fullname="QtAbstractAnimation::currentLoopChanged" href="qtabstractanimation.html#currentLoopChanged" location="qabstractanimation.h" virtual="non" meta="signal" const="false" static="false" overload="false" type="void" signature="currentLoopChanged(int currentLoop)">
+                <parameter left="int" right="" name="currentLoop" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="start" fullname="QtAbstractAnimation::start" href="qtabstractanimation.html#start" location="qabstractanimation.h" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="start(DeletionPolicy policy)">
+                <parameter left="DeletionPolicy" right="" name="policy" default="KeepWhenFinished"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="stop" fullname="QtAbstractAnimation::stop" href="qtabstractanimation.html#stop" location="qabstractanimation.h" virtual="non" meta="slot" const="false" static="false" overload="false" type="void" signature="stop()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setCurrentTime" fullname="QtAbstractAnimation::setCurrentTime" href="qtabstractanimation.html#currentTime-prop" location="qabstractanimation.cpp" virtual="non" meta="slot" const="false" static="false" overload="false" associated-property="currentTime" type="void" signature="setCurrentTime(int msecs)">
+                <parameter left="int" right="" name="msecs" default=""></parameter>
+            </function>
+            <function access="protected" threadsafety="unspecified" status="commendable" name="updateCurrentTime" fullname="QtAbstractAnimation::updateCurrentTime" href="qtabstractanimation.html#updateCurrentTime" location="qabstractanimation.h" virtual="pure" meta="plain" const="false" static="false" overload="false" type="void" signature="updateCurrentTime(int msecs)">
+                <parameter left="int" right="" name="msecs" default=""></parameter>
+            </function>
+            <function access="protected" threadsafety="unspecified" status="commendable" name="updateRunning" fullname="QtAbstractAnimation::updateRunning" href="qtabstractanimation.html#updateRunning" location="qabstractanimation.h" virtual="impure" meta="plain" const="false" static="false" overload="false" type="void" signature="updateRunning(bool running)">
+                <parameter left="bool" right="" name="running" default=""></parameter>
+            </function>
+        </class>
+        <class access="public" threadsafety="unspecified" status="preliminary" name="QtAnimation" href="qtanimation.html" location="qanimation.h" bases="QtAbstractAnimation" module="QtGui">
+            <property access="public" threadsafety="unspecified" status="commendable" name="propertyName" fullname="QtAnimation::propertyName" href="qtanimation.html#propertyName-prop" location="qanimation.h" type="QString">
+                <getter name="propertyName"></getter>
+                <setter name="setPropertyName"></setter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="startValue" fullname="QtAnimation::startValue" href="qtanimation.html#startValue-prop" location="qanimation.h" type="QVariant">
+                <getter name="startValue"></getter>
+                <setter name="setStartValue"></setter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="targetValue" fullname="QtAnimation::targetValue" href="qtanimation.html#targetValue-prop" location="qanimation.h" type="QVariant">
+                <getter name="targetValue"></getter>
+                <setter name="setTargetValue"></setter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="currentValue" fullname="QtAnimation::currentValue" href="qtanimation.html#currentValue-prop" location="qanimation.h" type="QVariant">
+                <getter name="currentValue"></getter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="duration" fullname="QtAnimation::duration" href="qtanimation.html#duration-prop" location="qanimation.h" type="int">
+                <getter name="duration"></getter>
+                <setter name="setDuration"></setter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="targetObject" fullname="QtAnimation::targetObject" href="qtanimation.html#targetObject-prop" location="qanimation.h" type="QObject *">
+                <getter name="targetObject"></getter>
+                <setter name="setTargetObject"></setter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="targetItem" fullname="QtAnimation::targetItem" href="qtanimation.html#targetItem-prop" location="qanimation.h" type="QGraphicsItem *">
+                <getter name="targetItem"></getter>
+                <setter name="setTargetItem"></setter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="easingCurve" fullname="QtAnimation::easingCurve" href="qtanimation.html#easingCurve-prop" location="qanimation.h" type="QtEasingCurve">
+                <getter name="easingCurve"></getter>
+                <setter name="setEasingCurve"></setter>
+            </property>
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtAnimation" fullname="QtAnimation::QtAnimation" href="qtanimation.html#QtAnimation" location="qanimation.h" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="QtAnimation(QObject * parent)">
+                <parameter left="QObject *" right="" name="parent" default="0"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtAnimation" fullname="QtAnimation::QtAnimation" href="qtanimation.html#QtAnimation-2" location="qanimation.h" virtual="non" meta="constructor" const="false" static="false" overload="true" overload-number="2" type="" signature="QtAnimation(QObject * target, const QByteArray &amp; propertyName, QObject * parent)">
+                <parameter left="QObject *" right="" name="target" default=""></parameter>
+                <parameter left="const QByteArray &amp;" right="" name="propertyName" default=""></parameter>
+                <parameter left="QObject *" right="" name="parent" default="0"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtAnimation" fullname="QtAnimation::QtAnimation" href="qtanimation.html#QtAnimation-3" location="qanimation.h" virtual="non" meta="constructor" const="false" static="false" overload="true" overload-number="3" type="" signature="QtAnimation(QGraphicsItem * target, const QByteArray &amp; propertyName, QObject * parent)">
+                <parameter left="QGraphicsItem *" right="" name="target" default=""></parameter>
+                <parameter left="const QByteArray &amp;" right="" name="propertyName" default=""></parameter>
+                <parameter left="QObject *" right="" name="parent" default="0"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~QtAnimation" fullname="QtAnimation::~QtAnimation" href="qtanimation.html#dtor.QtAnimation" location="qanimation.h" virtual="non" meta="destructor" const="false" static="false" overload="false" type="" signature="~QtAnimation()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="easingCurve" fullname="QtAnimation::easingCurve" href="qtanimation.html#easingCurve-prop" location="qanimation.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="easingCurve" type="QtEasingCurve" signature="easingCurve() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setEasingCurve" fullname="QtAnimation::setEasingCurve" href="qtanimation.html#easingCurve-prop" location="qanimation.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="easingCurve" type="void" signature="setEasingCurve(const QtEasingCurve &amp; easing)">
+                <parameter left="const QtEasingCurve &amp;" right="" name="easing" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="duration" fullname="QtAnimation::duration" href="qtanimation.html#duration-prop" location="qanimation.cpp" virtual="impure" meta="plain" const="true" static="false" overload="false" associated-property="duration" type="int" signature="duration() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setDuration" fullname="QtAnimation::setDuration" href="qtanimation.html#duration-prop" location="qanimation.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="duration" type="void" signature="setDuration(int msecs)">
+                <parameter left="int" right="" name="msecs" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="startValue" fullname="QtAnimation::startValue" href="qtanimation.html#startValue-prop" location="qanimation.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="startValue" type="QVariant" signature="startValue() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setStartValue" fullname="QtAnimation::setStartValue" href="qtanimation.html#startValue-prop" location="qanimation.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="startValue" type="void" signature="setStartValue(const QVariant &amp; value)">
+                <parameter left="const QVariant &amp;" right="" name="value" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="targetValue" fullname="QtAnimation::targetValue" href="qtanimation.html#targetValue-prop" location="qanimation.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="targetValue" type="QVariant" signature="targetValue() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setTargetValue" fullname="QtAnimation::setTargetValue" href="qtanimation.html#targetValue-prop" location="qanimation.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="targetValue" type="void" signature="setTargetValue(const QVariant &amp; value)">
+                <parameter left="const QVariant &amp;" right="" name="value" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="currentValue" fullname="QtAnimation::currentValue" href="qtanimation.html#currentValue-prop" location="qanimation.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="currentValue" type="QVariant" signature="currentValue() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="targetObject" fullname="QtAnimation::targetObject" href="qtanimation.html#targetObject-prop" location="qanimation.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="targetObject" type="QObject *" signature="targetObject() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setTargetObject" fullname="QtAnimation::setTargetObject" href="qtanimation.html#targetObject-prop" location="qanimation.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="targetObject" type="void" signature="setTargetObject(QObject * target)">
+                <parameter left="QObject *" right="" name="target" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="targetItem" fullname="QtAnimation::targetItem" href="qtanimation.html#targetItem-prop" location="qanimation.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="targetItem" type="QGraphicsItem *" signature="targetItem() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setTargetItem" fullname="QtAnimation::setTargetItem" href="qtanimation.html#targetItem-prop" location="qanimation.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="targetItem" type="void" signature="setTargetItem(QGraphicsItem * target)">
+                <parameter left="QGraphicsItem *" right="" name="target" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="propertyName" fullname="QtAnimation::propertyName" href="qtanimation.html#propertyName-prop" location="qanimation.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="propertyName" type="QByteArray" signature="propertyName() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setPropertyName" fullname="QtAnimation::setPropertyName" href="qtanimation.html#propertyName-prop" location="qanimation.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="propertyName" type="void" signature="setPropertyName(const QByteArray &amp; propertyName)">
+                <parameter left="const QByteArray &amp;" right="" name="propertyName" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="posAnimation" fullname="QtAnimation::posAnimation" href="qtanimation.html#posAnimation" location="qanimation.h" virtual="non" meta="plain" const="false" static="true" overload="false" type="QtAnimation *" signature="posAnimation(QGraphicsItem * item, const QPointF &amp; pos, int duration, const QtEasingCurve &amp; easing)">
+                <parameter left="QGraphicsItem *" right="" name="item" default=""></parameter>
+                <parameter left="const QPointF &amp;" right="" name="pos" default=""></parameter>
+                <parameter left="int" right="" name="duration" default="250"></parameter>
+                <parameter left="const QtEasingCurve &amp;" right="" name="easing" default="QtEasingCurve()"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="posAnimation" fullname="QtAnimation::posAnimation" href="qtanimation.html#posAnimation-2" location="qanimation.h" virtual="non" meta="plain" const="false" static="true" overload="true" overload-number="2" type="QtAnimation *" signature="posAnimation(QWidget * widget, const QPoint &amp; pos, int duration, const QtEasingCurve &amp; easing)">
+                <parameter left="QWidget *" right="" name="widget" default=""></parameter>
+                <parameter left="const QPoint &amp;" right="" name="pos" default=""></parameter>
+                <parameter left="int" right="" name="duration" default="250"></parameter>
+                <parameter left="const QtEasingCurve &amp;" right="" name="easing" default="QtEasingCurve()"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="geometryAnimation" fullname="QtAnimation::geometryAnimation" href="qtanimation.html#geometryAnimation" location="qanimation.h" virtual="non" meta="plain" const="false" static="true" overload="false" type="QtAnimation *" signature="geometryAnimation(QGraphicsWidget * widget, const QRectF &amp; rect, int duration, const QtEasingCurve &amp; easing)">
+                <parameter left="QGraphicsWidget *" right="" name="widget" default=""></parameter>
+                <parameter left="const QRectF &amp;" right="" name="rect" default=""></parameter>
+                <parameter left="int" right="" name="duration" default="250"></parameter>
+                <parameter left="const QtEasingCurve &amp;" right="" name="easing" default="QtEasingCurve()"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="geometryAnimation" fullname="QtAnimation::geometryAnimation" href="qtanimation.html#geometryAnimation-2" location="qanimation.h" virtual="non" meta="plain" const="false" static="true" overload="true" overload-number="2" type="QtAnimation *" signature="geometryAnimation(QWidget * widget, const QRect &amp; rect, int duration, const QtEasingCurve &amp; easing)">
+                <parameter left="QWidget *" right="" name="widget" default=""></parameter>
+                <parameter left="const QRect &amp;" right="" name="rect" default=""></parameter>
+                <parameter left="int" right="" name="duration" default="250"></parameter>
+                <parameter left="const QtEasingCurve &amp;" right="" name="easing" default="QtEasingCurve()"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="opacityAnimation" fullname="QtAnimation::opacityAnimation" href="qtanimation.html#opacityAnimation" location="qanimation.h" virtual="non" meta="plain" const="false" static="true" overload="false" type="QtAnimation *" signature="opacityAnimation(QGraphicsItem * item, qreal opacity, int duration, const QtEasingCurve &amp; easing)">
+                <parameter left="QGraphicsItem *" right="" name="item" default=""></parameter>
+                <parameter left="qreal" right="" name="opacity" default=""></parameter>
+                <parameter left="int" right="" name="duration" default="250"></parameter>
+                <parameter left="const QtEasingCurve &amp;" right="" name="easing" default="QtEasingCurve()"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="propertyAnimation" fullname="QtAnimation::propertyAnimation" href="qtanimation.html#propertyAnimation" location="qanimation.h" virtual="non" meta="plain" const="false" static="true" overload="false" type="QtAnimation *" signature="propertyAnimation(QGraphicsItem * item, const char * propertyName, const QVariant &amp; value, int duration, const QtEasingCurve &amp; easing)">
+                <parameter left="QGraphicsItem *" right="" name="item" default=""></parameter>
+                <parameter left="const char *" right="" name="propertyName" default=""></parameter>
+                <parameter left="const QVariant &amp;" right="" name="value" default=""></parameter>
+                <parameter left="int" right="" name="duration" default="250"></parameter>
+                <parameter left="const QtEasingCurve &amp;" right="" name="easing" default="QtEasingCurve()"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="propertyAnimation" fullname="QtAnimation::propertyAnimation" href="qtanimation.html#propertyAnimation-2" location="qanimation.h" virtual="non" meta="plain" const="false" static="true" overload="true" overload-number="2" type="QtAnimation *" signature="propertyAnimation(QGraphicsWidget * widget, const char * propertyName, const QVariant &amp; value, int duration, const QtEasingCurve &amp; easing)">
+                <parameter left="QGraphicsWidget *" right="" name="widget" default=""></parameter>
+                <parameter left="const char *" right="" name="propertyName" default=""></parameter>
+                <parameter left="const QVariant &amp;" right="" name="value" default=""></parameter>
+                <parameter left="int" right="" name="duration" default="250"></parameter>
+                <parameter left="const QtEasingCurve &amp;" right="" name="easing" default="QtEasingCurve()"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="propertyAnimation" fullname="QtAnimation::propertyAnimation" href="qtanimation.html#propertyAnimation-3" location="qanimation.h" virtual="non" meta="plain" const="false" static="true" overload="true" overload-number="3" type="QtAnimation *" signature="propertyAnimation(QObject * object, const char * propertyName, const QVariant &amp; value, int duration, const QtEasingCurve &amp; easing)">
+                <parameter left="QObject *" right="" name="object" default=""></parameter>
+                <parameter left="const char *" right="" name="propertyName" default=""></parameter>
+                <parameter left="const QVariant &amp;" right="" name="value" default=""></parameter>
+                <parameter left="int" right="" name="duration" default="250"></parameter>
+                <parameter left="const QtEasingCurve &amp;" right="" name="easing" default="QtEasingCurve()"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="visibleAnimation" fullname="QtAnimation::visibleAnimation" href="qtanimation.html#visibleAnimation" location="qanimation.h" virtual="non" meta="plain" const="false" static="true" overload="false" type="QtAnimation *" signature="visibleAnimation(QGraphicsItem * item, bool visible)">
+                <parameter left="QGraphicsItem *" right="" name="item" default=""></parameter>
+                <parameter left="bool" right="" name="visible" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="visibleAnimation" fullname="QtAnimation::visibleAnimation" href="qtanimation.html#visibleAnimation-2" location="qanimation.h" virtual="non" meta="plain" const="false" static="true" overload="true" overload-number="2" type="QtAnimation *" signature="visibleAnimation(QWidget * widget, bool visible)">
+                <parameter left="QWidget *" right="" name="widget" default=""></parameter>
+                <parameter left="bool" right="" name="visible" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="valueChanged" fullname="QtAnimation::valueChanged" href="qtanimation.html#valueChanged" location="qanimation.h" virtual="non" meta="signal" const="false" static="false" overload="false" type="void" signature="valueChanged(const QVariant &amp; value)">
+                <parameter left="const QVariant &amp;" right="" name="value" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="durationChanged" fullname="QtAnimation::durationChanged" href="qtanimation.html#durationChanged" location="qanimation.h" virtual="non" meta="signal" const="false" static="false" overload="false" type="void" signature="durationChanged(int duration)">
+                <parameter left="int" right="" name="duration" default=""></parameter>
+            </function>
+            <function access="protected" threadsafety="unspecified" status="commendable" name="interpolated" fullname="QtAnimation::interpolated" href="qtanimation.html#interpolated" location="qanimation.h" virtual="impure" meta="plain" const="true" static="false" overload="false" type="QVariant" signature="interpolated(const QVariant &amp; from, const QVariant &amp; to, qreal progress) const">
+                <parameter left="const QVariant &amp;" right="" name="from" default=""></parameter>
+                <parameter left="const QVariant &amp;" right="" name="to" default=""></parameter>
+                <parameter left="qreal" right="" name="progress" default=""></parameter>
+            </function>
+            <function access="protected" threadsafety="unspecified" status="commendable" name="updateCurrentValue" fullname="QtAnimation::updateCurrentValue" href="qtanimation.html#updateCurrentValue" location="qanimation.h" virtual="impure" meta="plain" const="false" static="false" overload="false" type="void" signature="updateCurrentValue(const QVariant &amp; value)">
+                <parameter left="const QVariant &amp;" right="" name="value" default=""></parameter>
+            </function>
+        </class>
+        <class access="public" threadsafety="unspecified" status="preliminary" name="QtAnimationGroup" href="qtanimationgroup.html" location="qanimationgroup.h" bases="QtAbstractAnimation" module="QtGui">
+            <property access="public" threadsafety="unspecified" status="commendable" name="order" fullname="QtAnimationGroup::order" href="qtanimationgroup.html#order-prop" location="qanimationgroup.h" type="Order">
+                <getter name="order"></getter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="duration" fullname="QtAnimationGroup::duration" href="qtanimationgroup.html#duration-prop" location="qanimationgroup.h" type="int"></property>
+            <enum access="public" threadsafety="unspecified" status="commendable" name="Order" fullname="QtAnimationGroup::Order" href="qtanimationgroup.html#Order-enum" location="qanimationgroup.h">
+                <value name="Parallel" value="0"></value>
+                <value name="Sequential" value="1"></value>
+            </enum>
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtAnimationGroup" fullname="QtAnimationGroup::QtAnimationGroup" href="qtanimationgroup.html#QtAnimationGroup" location="qanimationgroup.h" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="QtAnimationGroup(Order order, QObject * parent)">
+                <parameter left="Order" right="" name="order" default="Parallel"></parameter>
+                <parameter left="QObject *" right="" name="parent" default="0"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~QtAnimationGroup" fullname="QtAnimationGroup::~QtAnimationGroup" href="qtanimationgroup.html#dtor.QtAnimationGroup" location="qanimationgroup.h" virtual="non" meta="destructor" const="false" static="false" overload="false" type="" signature="~QtAnimationGroup()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="order" fullname="QtAnimationGroup::order" href="qtanimationgroup.html#order-prop" location="qanimationgroup.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="order" type="Order" signature="order() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="animations" fullname="QtAnimationGroup::animations" href="qtanimationgroup.html#animations" location="qanimationgroup.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="QList&lt;QtAbstractAnimation *&gt;" signature="animations() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="at" fullname="QtAnimationGroup::at" href="qtanimationgroup.html#at" location="qanimationgroup.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="QtAbstractAnimation *" signature="at(int index) const">
+                <parameter left="int" right="" name="index" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="count" fullname="QtAnimationGroup::count" href="qtanimationgroup.html#count" location="qanimationgroup.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="int" signature="count() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="add" fullname="QtAnimationGroup::add" href="qtanimationgroup.html#add" location="qanimationgroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="add(QtAbstractAnimation * animation)">
+                <parameter left="QtAbstractAnimation *" right="" name="animation" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="addPause" fullname="QtAnimationGroup::addPause" href="qtanimationgroup.html#addPause" location="qanimationgroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="addPause(int msecs)">
+                <parameter left="int" right="" name="msecs" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="insertAt" fullname="QtAnimationGroup::insertAt" href="qtanimationgroup.html#insertAt" location="qanimationgroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="insertAt(int index, QtAbstractAnimation * animation)">
+                <parameter left="int" right="" name="index" default=""></parameter>
+                <parameter left="QtAbstractAnimation *" right="" name="animation" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="insertPauseAt" fullname="QtAnimationGroup::insertPauseAt" href="qtanimationgroup.html#insertPauseAt" location="qanimationgroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="insertPauseAt(int index, int msecs)">
+                <parameter left="int" right="" name="index" default=""></parameter>
+                <parameter left="int" right="" name="msecs" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="remove" fullname="QtAnimationGroup::remove" href="qtanimationgroup.html#remove" location="qanimationgroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="remove(QtAbstractAnimation * animation)">
+                <parameter left="QtAbstractAnimation *" right="" name="animation" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="removeAt" fullname="QtAnimationGroup::removeAt" href="qtanimationgroup.html#removeAt" location="qanimationgroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="removeAt(int index)">
+                <parameter left="int" right="" name="index" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="clear" fullname="QtAnimationGroup::clear" href="qtanimationgroup.html#clear" location="qanimationgroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="clear()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="beginSequentialGroup" fullname="QtAnimationGroup::beginSequentialGroup" href="qtanimationgroup.html#beginSequentialGroup" location="qanimationgroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="beginSequentialGroup()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="beginParallelGroup" fullname="QtAnimationGroup::beginParallelGroup" href="qtanimationgroup.html#beginParallelGroup" location="qanimationgroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="beginParallelGroup()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="endGroup" fullname="QtAnimationGroup::endGroup" href="qtanimationgroup.html#endGroup" location="qanimationgroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="endGroup()"></function>
+        </class>
+        <class access="public" threadsafety="unspecified" status="commendable" name="QtEasingCurve" href="qteasingcurve.html" location="qeasingcurve.h" bases="" module="QtCore">
+            <enum access="public" threadsafety="unspecified" status="commendable" name="Type" fullname="QtEasingCurve::Type" href="qteasingcurve.html#Type-enum" location="qeasingcurve.h">
+                <value name="Linear" value="0"></value>
+                <value name="InQuad" value="1"></value>
+                <value name="OutQuad" value="2"></value>
+                <value name="InOutQuad" value="3"></value>
+                <value name="OutInQuad" value="4"></value>
+                <value name="InCubic" value="5"></value>
+                <value name="OutCubic" value="6"></value>
+                <value name="InOutCubic" value="7"></value>
+                <value name="OutInCubic" value="8"></value>
+                <value name="InQuart" value="9"></value>
+                <value name="OutQuart" value="10"></value>
+                <value name="InOutQuart" value="11"></value>
+                <value name="OutInQuart" value="12"></value>
+                <value name="InQuint" value="13"></value>
+                <value name="OutQuint" value="14"></value>
+                <value name="InOutQuint" value="15"></value>
+                <value name="OutInQuint" value="16"></value>
+                <value name="InSine" value="17"></value>
+                <value name="OutSine" value="18"></value>
+                <value name="InOutSine" value="19"></value>
+                <value name="OutInSine" value="20"></value>
+                <value name="InExpo" value="21"></value>
+                <value name="OutExpo" value="22"></value>
+                <value name="InOutExpo" value="23"></value>
+                <value name="OutInExpo" value="24"></value>
+                <value name="InCirc" value="25"></value>
+                <value name="OutCirc" value="26"></value>
+                <value name="InOutCirc" value="27"></value>
+                <value name="OutInCirc" value="28"></value>
+                <value name="InElastic" value="29"></value>
+                <value name="OutElastic" value="30"></value>
+                <value name="InOutElastic" value="31"></value>
+                <value name="OutInElastic" value="32"></value>
+                <value name="InBack" value="33"></value>
+                <value name="OutBack" value="34"></value>
+                <value name="InOutBack" value="35"></value>
+                <value name="OutInBack" value="36"></value>
+                <value name="InBounce" value="37"></value>
+                <value name="OutBounce" value="38"></value>
+                <value name="InOutBounce" value="39"></value>
+                <value name="OutInBounce" value="40"></value>
+                <value name="InCurve" value="41"></value>
+                <value name="OutCurve" value="42"></value>
+                <value name="SineCurve" value="43"></value>
+                <value name="CosineCurve" value="44"></value>
+            </enum>
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtEasingCurve" fullname="QtEasingCurve::QtEasingCurve" href="qteasingcurve.html#QtEasingCurve" location="qeasingcurve.h" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="QtEasingCurve(Type type)">
+                <parameter left="Type" right="" name="type" default="Linear"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtEasingCurve" fullname="QtEasingCurve::QtEasingCurve" href="qteasingcurve.html#QtEasingCurve-2" location="qeasingcurve.h" virtual="non" meta="constructor" const="false" static="false" overload="true" overload-number="2" type="" signature="QtEasingCurve(Type type, qreal amplitude, qreal period)">
+                <parameter left="Type" right="" name="type" default=""></parameter>
+                <parameter left="qreal" right="" name="amplitude" default=""></parameter>
+                <parameter left="qreal" right="" name="period" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtEasingCurve" fullname="QtEasingCurve::QtEasingCurve" href="qteasingcurve.html#QtEasingCurve-3" location="qeasingcurve.h" virtual="non" meta="constructor" const="false" static="false" overload="true" overload-number="3" type="" signature="QtEasingCurve(const QtEasingCurve &amp; other)">
+                <parameter left="const QtEasingCurve &amp;" right="" name="other" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~QtEasingCurve" fullname="QtEasingCurve::~QtEasingCurve" href="qteasingcurve.html#dtor.QtEasingCurve" location="qeasingcurve.h" virtual="non" meta="destructor" const="false" static="false" overload="false" type="" signature="~QtEasingCurve()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="operator=" fullname="QtEasingCurve::operator=" href="qteasingcurve.html#operator=" location="qeasingcurve.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="QtEasingCurve &amp;" signature="operator=(const QtEasingCurve &amp; other)">
+                <parameter left="const QtEasingCurve &amp;" right="" name="other" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="operator==" fullname="QtEasingCurve::operator==" href="qteasingcurve.html#operator==" location="qeasingcurve.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="bool" signature="operator==(const QtEasingCurve &amp; other) const">
+                <parameter left="const QtEasingCurve &amp;" right="" name="other" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="operator!=" fullname="QtEasingCurve::operator!=" href="qteasingcurve.html#operator!=" location="qeasingcurve.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="bool" signature="operator!=(const QtEasingCurve &amp; other) const">
+                <parameter left="const QtEasingCurve &amp;" right="" name="other" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="amplitude" fullname="QtEasingCurve::amplitude" href="qteasingcurve.html#amplitude" location="qeasingcurve.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="qreal" signature="amplitude() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setAmplitude" fullname="QtEasingCurve::setAmplitude" href="qteasingcurve.html#setAmplitude" location="qeasingcurve.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setAmplitude(qreal amplitude)">
+                <parameter left="qreal" right="" name="amplitude" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="period" fullname="QtEasingCurve::period" href="qteasingcurve.html#period" location="qeasingcurve.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="qreal" signature="period() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setPeriod" fullname="QtEasingCurve::setPeriod" href="qteasingcurve.html#setPeriod" location="qeasingcurve.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setPeriod(qreal period)">
+                <parameter left="qreal" right="" name="period" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="type" fullname="QtEasingCurve::type" href="qteasingcurve.html#type" location="qeasingcurve.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="Type" signature="type() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setType" fullname="QtEasingCurve::setType" href="qteasingcurve.html#setType" location="qeasingcurve.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setType(Type type)">
+                <parameter left="Type" right="" name="type" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="valueForStep" fullname="QtEasingCurve::valueForStep" href="qteasingcurve.html#valueForStep" location="qeasingcurve.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="qreal" signature="valueForStep(qreal step) const">
+                <parameter left="qreal" right="" name="step" default=""></parameter>
+            </function>
+        </class>
+        <class access="public" threadsafety="unspecified" status="preliminary" name="QtStateGroup" href="qtstategroup.html" location="qstategroup.h" bases="QObject" module="QtGui">
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtStateGroup" fullname="QtStateGroup::QtStateGroup" href="qtstategroup.html#QtStateGroup" location="qstategroup.h" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="QtStateGroup(QObject * parent)">
+                <parameter left="QObject *" right="" name="parent" default="0"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~QtStateGroup" fullname="QtStateGroup::~QtStateGroup" href="qtstategroup.html#dtor.QtStateGroup" location="qstategroup.h" virtual="non" meta="destructor" const="false" static="false" overload="false" type="" signature="~QtStateGroup()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="addState" fullname="QtStateGroup::addState" href="qtstategroup.html#addState" location="qstategroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="addState(QtState * state)">
+                <parameter left="QtState *" right="" name="state" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="removeState" fullname="QtStateGroup::removeState" href="qtstategroup.html#removeState" location="qstategroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="removeState(QtState * state)">
+                <parameter left="QtState *" right="" name="state" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="states" fullname="QtStateGroup::states" href="qtstategroup.html#states" location="qstategroup.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="QList&lt;QtState *&gt;" signature="states() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="defaultState" fullname="QtStateGroup::defaultState" href="qtstategroup.html#defaultState" location="qstategroup.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="QtState *" signature="defaultState() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setDefaultState" fullname="QtStateGroup::setDefaultState" href="qtstategroup.html#setDefaultState" location="qstategroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setDefaultState(QtState * state)">
+                <parameter left="QtState *" right="" name="state" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="activeState" fullname="QtStateGroup::activeState" href="qtstategroup.html#activeState" location="qstategroup.h" virtual="non" meta="plain" const="true" static="false" overload="false" type="QtState *" signature="activeState() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setActiveState" fullname="QtStateGroup::setActiveState" href="qtstategroup.html#setActiveState" location="qstategroup.h" virtual="non" meta="plain" const="false" static="false" overload="false" type="void" signature="setActiveState(QtState * state)">
+                <parameter left="QtState *" right="" name="state" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="activeStateChanged" fullname="QtStateGroup::activeStateChanged" href="qtstategroup.html#activeStateChanged" location="qstategroup.h" virtual="non" meta="signal" const="false" static="false" overload="false" type="void" signature="activeStateChanged(QtState * state)">
+                <parameter left="QtState *" right="" name="state" default=""></parameter>
+            </function>
+        </class>
+        <class access="public" threadsafety="unspecified" status="preliminary" name="QtTransition" href="qttransition.html" location="qtransition.h" bases="QtAnimationGroup" module="QtGui">
+            <property access="public" threadsafety="unspecified" status="commendable" name="fromState" fullname="QtTransition::fromState" href="qttransition.html#fromState-prop" location="qtransition.h" type="QtState *">
+                <getter name="fromState"></getter>
+                <setter name="setFromState"></setter>
+            </property>
+            <property access="public" threadsafety="unspecified" status="commendable" name="toState" fullname="QtTransition::toState" href="qttransition.html#toState-prop" location="qtransition.h" type="QtState *">
+                <getter name="toState"></getter>
+                <setter name="setToState"></setter>
+            </property>
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtTransition" fullname="QtTransition::QtTransition" href="qttransition.html#QtTransition" location="qtransition.h" virtual="non" meta="constructor" const="false" static="false" overload="false" type="" signature="QtTransition(QObject * parent)">
+                <parameter left="QObject *" right="" name="parent" default="0"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="QtTransition" fullname="QtTransition::QtTransition" href="qttransition.html#QtTransition-2" location="qtransition.h" virtual="non" meta="constructor" const="false" static="false" overload="true" overload-number="2" type="" signature="QtTransition(QtState * fromState, QtState * toState, QObject * parent)">
+                <parameter left="QtState *" right="" name="fromState" default=""></parameter>
+                <parameter left="QtState *" right="" name="toState" default="0"></parameter>
+                <parameter left="QObject *" right="" name="parent" default="0"></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="~QtTransition" fullname="QtTransition::~QtTransition" href="qttransition.html#dtor.QtTransition" location="qtransition.h" virtual="non" meta="destructor" const="false" static="false" overload="false" type="" signature="~QtTransition()"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="fromState" fullname="QtTransition::fromState" href="qttransition.html#fromState-prop" location="qtransition.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="fromState" type="QtState *" signature="fromState() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setFromState" fullname="QtTransition::setFromState" href="qttransition.html#fromState-prop" location="qtransition.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="fromState" type="void" signature="setFromState(QtState * state)">
+                <parameter left="QtState *" right="" name="state" default=""></parameter>
+            </function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="toState" fullname="QtTransition::toState" href="qttransition.html#toState-prop" location="qtransition.cpp" virtual="non" meta="plain" const="true" static="false" overload="false" associated-property="toState" type="QtState *" signature="toState() const"></function>
+            <function access="public" threadsafety="unspecified" status="commendable" name="setToState" fullname="QtTransition::setToState" href="qttransition.html#toState-prop" location="qtransition.cpp" virtual="non" meta="plain" const="false" static="false" overload="false" associated-property="toState" type="void" signature="setToState(QtState * state)">
+                <parameter left="QtState *" right="" name="state" default=""></parameter>
+            </function>
+        </class>
+        <page access="public" status="commendable" name="index.html" href="index.html" subtype="page" title="Qt Animation Framework" fulltitle="Qt Animation Framework" subtitle="" location="index.qdoc">
+            <contents name="description" title="Description" level="1"></contents>
+            <contents name="overview" title="Overview" level="1"></contents>
+            <contents name="classes" title="Classes" level="1"></contents>
+            <contents name="tested-platforms" title="Tested platforms" level="1"></contents>
+            <contents name="screenshots" title="Screenshots" level="1"></contents>
+        </page>
+        <page access="public" status="commendable" name="animation.html" href="animation.html" subtype="page" title="The Animation Framework" fulltitle="The Animation Framework" subtitle="" location="animation.qdoc">
+            <keyword name="animation"></keyword>
+            <contents name="the-animation-architecture" title="The Animation Architecture" level="1"></contents>
+            <contents name="the-animation-and-animation-group" title="The Animation and Animation Group" level="2"></contents>
+            <contents name="the-state-state-group-and-transition" title="The State, State Group and Transition" level="2"></contents>
+        </page>
+        <page access="public" status="commendable" name="legal-easing.html" href="legal-easing.html" subtype="page" title="Easing Equations by Robert Penner" fulltitle="Easing Equations by Robert Penner" subtitle="" location="legal.qdoc"></page>
+    </namespace>
+</INDEX>

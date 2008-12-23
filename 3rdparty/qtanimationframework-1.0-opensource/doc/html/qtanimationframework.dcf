@@ -1,0 +1,198 @@
+<!DOCTYPE DCF>
+<DCF ref="index.html" icon="qtanimationframework.png" imagedir="../../gif" title="Qt Solutions: Qt Animation Framework Documentation">
+<section ref="classes.html" title="Classes">
+    <section ref="qtabstractanimation.html" title="QtAbstractAnimation Class Reference">
+        <keyword ref="qtabstractanimation.html">QtAbstractAnimation</keyword>
+        <keyword ref="qtabstractanimation.html#DeletionPolicy-enum">DeletionPolicy</keyword>
+        <keyword ref="qtabstractanimation.html#DeletionPolicy-enum">QtAbstractAnimation::KeepWhenFinished</keyword>
+        <keyword ref="qtabstractanimation.html#DeletionPolicy-enum">QtAbstractAnimation::DeleteWhenFinished</keyword>
+        <keyword ref="qtabstractanimation.html#currentLoop-prop">currentLoop</keyword>
+        <keyword ref="qtabstractanimation.html#currentTime-prop">currentTime</keyword>
+        <keyword ref="qtabstractanimation.html#currentTime-prop">setCurrentTime</keyword>
+        <keyword ref="qtabstractanimation.html#loopCount-prop">loopCount</keyword>
+        <keyword ref="qtabstractanimation.html#loopCount-prop">setLoopCount</keyword>
+        <keyword ref="qtabstractanimation.html#running-prop">running</keyword>
+        <keyword ref="qtabstractanimation.html#running-prop">isRunning</keyword>
+        <keyword ref="qtabstractanimation.html#currentLoopChanged">currentLoopChanged</keyword>
+        <keyword ref="qtabstractanimation.html#duration">duration</keyword>
+        <keyword ref="qtabstractanimation.html#finished">finished</keyword>
+        <keyword ref="qtabstractanimation.html#group">group</keyword>
+        <keyword ref="qtabstractanimation.html#running">running</keyword>
+        <keyword ref="qtabstractanimation.html#start">start</keyword>
+        <keyword ref="qtabstractanimation.html#started">started</keyword>
+        <keyword ref="qtabstractanimation.html#stop">stop</keyword>
+        <keyword ref="qtabstractanimation.html#stopped">stopped</keyword>
+        <keyword ref="qtabstractanimation.html#totalDuration">totalDuration</keyword>
+        <keyword ref="qtabstractanimation.html#updateCurrentTime">updateCurrentTime</keyword>
+        <keyword ref="qtabstractanimation.html#updateRunning">updateRunning</keyword>
+        <section ref="qtabstractanimation-members.html" title="List of all members"/>
+    </section>
+    <section ref="qtanimation.html" title="QtAnimation Class Reference">
+        <keyword ref="qtanimation.html">QtAnimation</keyword>
+        <keyword ref="qtanimation.html#currentValue-prop">currentValue</keyword>
+        <keyword ref="qtanimation.html#duration-prop">duration</keyword>
+        <keyword ref="qtanimation.html#duration-prop">setDuration</keyword>
+        <keyword ref="qtanimation.html#easingCurve-prop">easingCurve</keyword>
+        <keyword ref="qtanimation.html#easingCurve-prop">setEasingCurve</keyword>
+        <keyword ref="qtanimation.html#propertyName-prop">propertyName</keyword>
+        <keyword ref="qtanimation.html#propertyName-prop">setPropertyName</keyword>
+        <keyword ref="qtanimation.html#startValue-prop">startValue</keyword>
+        <keyword ref="qtanimation.html#startValue-prop">setStartValue</keyword>
+        <keyword ref="qtanimation.html#targetItem-prop">targetItem</keyword>
+        <keyword ref="qtanimation.html#targetItem-prop">setTargetItem</keyword>
+        <keyword ref="qtanimation.html#targetObject-prop">targetObject</keyword>
+        <keyword ref="qtanimation.html#targetObject-prop">setTargetObject</keyword>
+        <keyword ref="qtanimation.html#targetValue-prop">targetValue</keyword>
+        <keyword ref="qtanimation.html#targetValue-prop">setTargetValue</keyword>
+        <keyword ref="qtanimation.html#durationChanged">durationChanged</keyword>
+        <keyword ref="qtanimation.html#geometryAnimation">geometryAnimation</keyword>
+        <keyword ref="qtanimation.html#interpolated">interpolated</keyword>
+        <keyword ref="qtanimation.html#opacityAnimation">opacityAnimation</keyword>
+        <keyword ref="qtanimation.html#posAnimation">posAnimation</keyword>
+        <keyword ref="qtanimation.html#propertyAnimation">propertyAnimation</keyword>
+        <keyword ref="qtanimation.html#updateCurrentValue">updateCurrentValue</keyword>
+        <keyword ref="qtanimation.html#valueChanged">valueChanged</keyword>
+        <keyword ref="qtanimation.html#visibleAnimation">visibleAnimation</keyword>
+        <section ref="qtanimation-members.html" title="List of all members"/>
+    </section>
+    <section ref="qtanimationgroup.html" title="QtAnimationGroup Class Reference">
+        <keyword ref="qtanimationgroup.html">QtAnimationGroup</keyword>
+        <keyword ref="qtanimationgroup.html#Order-enum">Order</keyword>
+        <keyword ref="qtanimationgroup.html#Order-enum">QtAnimationGroup::Parallel</keyword>
+        <keyword ref="qtanimationgroup.html#Order-enum">QtAnimationGroup::Sequential</keyword>
+        <keyword ref="qtanimationgroup.html#duration-prop">duration</keyword>
+        <keyword ref="qtanimationgroup.html#order-prop">order</keyword>
+        <keyword ref="qtanimationgroup.html#add">add</keyword>
+        <keyword ref="qtanimationgroup.html#addPause">addPause</keyword>
+        <keyword ref="qtanimationgroup.html#animations">animations</keyword>
+        <keyword ref="qtanimationgroup.html#at">at</keyword>
+        <keyword ref="qtanimationgroup.html#beginParallelGroup">beginParallelGroup</keyword>
+        <keyword ref="qtanimationgroup.html#beginSequentialGroup">beginSequentialGroup</keyword>
+        <keyword ref="qtanimationgroup.html#clear">clear</keyword>
+        <keyword ref="qtanimationgroup.html#count">count</keyword>
+        <keyword ref="qtanimationgroup.html#endGroup">endGroup</keyword>
+        <keyword ref="qtanimationgroup.html#insertAt">insertAt</keyword>
+        <keyword ref="qtanimationgroup.html#insertPauseAt">insertPauseAt</keyword>
+        <keyword ref="qtanimationgroup.html#remove">remove</keyword>
+        <keyword ref="qtanimationgroup.html#removeAt">removeAt</keyword>
+        <section ref="qtanimationgroup-members.html" title="List of all members"/>
+    </section>
+    <section ref="qteasingcurve.html" title="QtEasingCurve Class Reference">
+        <keyword ref="qteasingcurve.html">QtEasingCurve</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">Type</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutSine</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InOutCirc</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutBounce</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutInBounce</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutInBack</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutExpo</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InBounce</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutInQuad</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InQuart</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InOutQuint</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutInExpo</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InOutElastic</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InOutBounce</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InQuad</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InOutCubic</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InOutSine</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutInElastic</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InElastic</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutInQuint</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutInCirc</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InOutExpo</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InBack</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutQuad</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InOutQuart</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InCubic</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutInCubic</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutQuart</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InQuint</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutElastic</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InCirc</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::Linear</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutInQuart</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutInSine</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutQuint</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutBack</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InOutQuad</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InSine</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InOutBack</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::InExpo</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutCirc</keyword>
+        <keyword ref="qteasingcurve.html#Type-enum">QtEasingCurve::OutCubic</keyword>
+        <keyword ref="qteasingcurve.html#amplitude">amplitude</keyword>
+        <keyword ref="qteasingcurve.html#period">period</keyword>
+        <keyword ref="qteasingcurve.html#setAmplitude">setAmplitude</keyword>
+        <keyword ref="qteasingcurve.html#setPeriod">setPeriod</keyword>
+        <keyword ref="qteasingcurve.html#setType">setType</keyword>
+        <keyword ref="qteasingcurve.html#type">type</keyword>
+        <keyword ref="qteasingcurve.html#valueForStep">valueForStep</keyword>
+        <keyword ref="qteasingcurve.html#operator-not-eq">operator!=</keyword>
+        <keyword ref="qteasingcurve.html#operator-eq">operator=</keyword>
+        <keyword ref="qteasingcurve.html#operator-eq-eq">operator==</keyword>
+        <section ref="qteasingcurve-members.html" title="List of all members"/>
+    </section>
+    <section ref="qtstate.html" title="QtState Class Reference">
+        <keyword ref="qtstate.html">QtState</keyword>
+        <keyword ref="qtstate.html#active-prop">active</keyword>
+        <keyword ref="qtstate.html#active-prop">isActive</keyword>
+        <keyword ref="qtstate.html#active-prop">setActive</keyword>
+        <keyword ref="qtstate.html#group-prop">group</keyword>
+        <keyword ref="qtstate.html#group-prop">setGroup</keyword>
+        <keyword ref="qtstate.html#restoreProperties-prop">restoreProperties</keyword>
+        <keyword ref="qtstate.html#restoreProperties-prop">setRestoreProperties</keyword>
+        <keyword ref="qtstate.html#activate">activate</keyword>
+        <keyword ref="qtstate.html#activated">activated</keyword>
+        <keyword ref="qtstate.html#clear">clear</keyword>
+        <keyword ref="qtstate.html#deactivate">deactivate</keyword>
+        <keyword ref="qtstate.html#deactivated">deactivated</keyword>
+        <keyword ref="qtstate.html#enterState">enterState</keyword>
+        <keyword ref="qtstate.html#geometry">geometry</keyword>
+        <keyword ref="qtstate.html#leaveState">leaveState</keyword>
+        <keyword ref="qtstate.html#opacity">opacity</keyword>
+        <keyword ref="qtstate.html#pos">pos</keyword>
+        <keyword ref="qtstate.html#property">property</keyword>
+        <keyword ref="qtstate.html#setConnectionState">setConnectionState</keyword>
+        <keyword ref="qtstate.html#setGeometry">setGeometry</keyword>
+        <keyword ref="qtstate.html#setOpacity">setOpacity</keyword>
+        <keyword ref="qtstate.html#setPos">setPos</keyword>
+        <keyword ref="qtstate.html#setProperty">setProperty</keyword>
+        <keyword ref="qtstate.html#unsetConnectionState">unsetConnectionState</keyword>
+        <keyword ref="qtstate.html#unsetProperty">unsetProperty</keyword>
+        <section ref="qtstate-members.html" title="List of all members"/>
+    </section>
+    <section ref="qtstategroup.html" title="QtStateGroup Class Reference">
+        <keyword ref="qtstategroup.html">QtStateGroup</keyword>
+        <keyword ref="qtstategroup.html#activeState">activeState</keyword>
+        <keyword ref="qtstategroup.html#activeStateChanged">activeStateChanged</keyword>
+        <keyword ref="qtstategroup.html#addState">addState</keyword>
+        <keyword ref="qtstategroup.html#defaultState">defaultState</keyword>
+        <keyword ref="qtstategroup.html#removeState">removeState</keyword>
+        <keyword ref="qtstategroup.html#setActiveState">setActiveState</keyword>
+        <keyword ref="qtstategroup.html#setDefaultState">setDefaultState</keyword>
+        <keyword ref="qtstategroup.html#states">states</keyword>
+        <section ref="qtstategroup-members.html" title="List of all members"/>
+    </section>
+    <section ref="qttransition.html" title="QtTransition Class Reference">
+        <keyword ref="qttransition.html">QtTransition</keyword>
+        <keyword ref="qttransition.html#fromState-prop">fromState</keyword>
+        <keyword ref="qttransition.html#fromState-prop">setFromState</keyword>
+        <keyword ref="qttransition.html#toState-prop">toState</keyword>
+        <keyword ref="qttransition.html#toState-prop">setToState</keyword>
+        <section ref="qttransition-members.html" title="List of all members"/>
+    </section>
+</section>
+<section ref="overviews.html" title="Overviews">
+    <section ref="legal-easing.html" title="Easing Equations by Robert Penner">
+        <keyword ref="legal-easing.html">Easing Equations by Robert Penner</keyword>
+    </section>
+    <section ref="index.html" title="Qt Animation Framework">
+        <keyword ref="index.html">Qt Animation Framework</keyword>
+    </section>
+    <section ref="animation.html" title="The Animation Framework">
+        <keyword ref="animation.html">The Animation Framework</keyword>
+    </section>
+</section>
+<section ref="examples.html" title="Tutorial &amp; Examples"/>
+</DCF>

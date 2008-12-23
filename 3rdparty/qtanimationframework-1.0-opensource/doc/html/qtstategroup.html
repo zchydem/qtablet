@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- qtanimationframework-1.0-opensource/src/qstategroup.cpp -->
+<head>
+  <title>QtStateGroup Class Reference</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td align="left" valign="top" width="32"><img src="images/qt-logo.png" align="left" width="57" height="67" border="0" /></td>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a></td>
+</tr></table><h1 class="title">QtStateGroup Class Reference<br /><span class="small-subtitle">[<a href="http://doc.trolltech.com/4.4/qtgui.html">QtGui</a> module]</span>
+</h1>
+<p>The QtStateGroup class manages a mutually exclusive group of states. <a href="#details">More...</a></p>
+<pre> #include &lt;QtStateGroup&gt;</pre><p><b>This class is under development and is subject to change.</b></p>
+<p>Inherits <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>.</p>
+<p>This class was introduced in qtanimationframework 4.5.</p>
+<ul>
+<li><a href="qtstategroup-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h3>Public Functions</h3>
+<ul>
+<li><div class="fn"/><b><a href="qtstategroup.html#QtStateGroup">QtStateGroup</a></b> ( QObject * <i>parent</i> = 0 )</li>
+<li><div class="fn"/><b><a href="qtstategroup.html#dtor.QtStateGroup">~QtStateGroup</a></b> ()</li>
+<li><div class="fn"/>QtState * <b><a href="qtstategroup.html#activeState">activeState</a></b> () const</li>
+<li><div class="fn"/>void <b><a href="qtstategroup.html#addState">addState</a></b> ( QtState * <i>state</i> )</li>
+<li><div class="fn"/>QtState * <b><a href="qtstategroup.html#defaultState">defaultState</a></b> () const</li>
+<li><div class="fn"/>void <b><a href="qtstategroup.html#removeState">removeState</a></b> ( QtState * <i>state</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstategroup.html#setActiveState">setActiveState</a></b> ( QtState * <i>state</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstategroup.html#setDefaultState">setDefaultState</a></b> ( QtState * <i>state</i> )</li>
+<li><div class="fn"/>QList&lt;QtState *&gt; <b><a href="qtstategroup.html#states">states</a></b> () const</li>
+</ul>
+<ul>
+<li><div class="fn"/>29 public functions inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-functions">QObject</a></li>
+</ul>
+<a name="signals"></a>
+<h3>Signals</h3>
+<ul>
+<li><div class="fn"/>void <b><a href="qtstategroup.html#activeStateChanged">activeStateChanged</a></b> ( QtState * <i>state</i> )</li>
+</ul>
+<ul>
+<li><div class="fn"/>1 signal inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#signals">QObject</a></li>
+</ul>
+<h3>Additional Inherited Members</h3>
+<ul>
+<li><div class="fn"/>1 property inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#properties">QObject</a></li>
+<li><div class="fn"/>1 public slot inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-slots">QObject</a></li>
+<li><div class="fn"/>1 public type inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-variables">QObject</a></li>
+<li><div class="fn"/>4 static public members inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#static-public-members">QObject</a></li>
+<li><div class="fn"/>7 protected functions inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#protected-functions">QObject</a></li>
+<li><div class="fn"/>2 protected variables inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#protected-variables">QObject</a></li>
+</ul>
+<a name="details"></a>
+<hr />
+<h2>Detailed Description</h2>
+<p>The QtStateGroup class manages a mutually exclusive group of states.</p>
+<p>You can make states mutually exclusive by adding them to the same QtStateGroup. The state group will ensure that only one state can be active at any time, and it also provides an optional default state as a fallback, when no other state is active.</p>
+<p>To create a group, simply construct a QtStateGroup object. It's common to pass the state owner as the parent for a QtStateGroup (i.e&#x2e;, for two <a href="qtstate.html">QtState</a> objects that share the same widget parent, the QtStateGroup can have the same widget parent). Then add states by calling <a href="qtstategroup.html#addState">addState</a>(), or remove them by calling <a href="qtstategroup.html#removeState">removeState</a>(). If you want to list all states in the group, you can call <a href="qtstategroup.html#states">states</a>(). If you add a <a href="qtstate.html">QtState</a>, or any <a href="qtstate.html">QtState</a> subclass as a child of a QtStateGroup, it will automatically become a member of that state.</p>
+<p>The group can only have one active state. You can set the active state by either calling <a href="qtstategroup.html#setActiveState">setActiveState</a>(), or you can call QtState::setActive(true) directly on the state itself. When you activate a state, QtStateGroup will take care of deactivating the last state (if any). If you want to deactivate the active state, you can either call setActiveState(0), or QtState::setActive(false). When the active state changes, QtStateGroup emits the <a href="qtstategroup.html#activeStateChanged">activeStateChanged</a>() signal.</p>
+<p>Sometimes it's useful to define a &quot;default state&quot; that the group should revert to, should any of the other states become deactivated without activating another state (e.g&#x2e;, hitting &quot;escape&quot; on a form might revert it to its default state, regardless of which state is currently active). You can do so by passing a pointer to the default state to <a href="qtstategroup.html#setDefaultState">setDefaultState</a>().</p>
+<p>See also <a href="qtstate.html">QtState</a> and <a href="animation.html">The Animation Framework</a>.</p>
+<hr />
+<h2>Member Function Documentation</h2>
+<h3 class="fn"><a name="QtStateGroup"></a>QtStateGroup::QtStateGroup ( <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>parent</i> = 0 )</h3>
+<p>Constructs a <a href="qtstategroup.html">QtStateGroup</a>, passing <i>parent</i> to <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>'s constructor.</p>
+<h3 class="fn"><a name="dtor.QtStateGroup"></a>QtStateGroup::~QtStateGroup ()</h3>
+<p>Destroys the <a href="qtstategroup.html">QtStateGroup</a>.</p>
+<h3 class="fn"><a name="activeState"></a><a href="qtstate.html">QtState</a> * QtStateGroup::activeState () const</h3>
+<p>Returns a pointer to the active state if there is an active state; otherwise, 0 is returned.</p>
+<p>See also <a href="qtstategroup.html#setActiveState">setActiveState</a>().</p>
+<h3 class="fn"><a name="activeStateChanged"></a>void QtStateGroup::activeStateChanged ( <a href="qtstate.html">QtState</a> * <i>state</i> )&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p><a href="qtstategroup.html">QtStateGroup</a> emits this signal every time the active state changes. <i>state</i> is the new state, or 0 if there is no active state.</p>
+<p>See also <a href="qtstate.html#active-prop">QtState::setActive</a>().</p>
+<h3 class="fn"><a name="addState"></a>void QtStateGroup::addState ( <a href="qtstate.html">QtState</a> * <i>state</i> )</h3>
+<p>Adds <i>state</i> to this group. If <i>state</i> is already active, it will become this group's active state.</p>
+<p>The ownership of <i>state</i> is transferred to this group.</p>
+<p>See also <a href="qtstate.html#active-prop">QtState::isActive</a>() and <a href="qtstategroup.html#activeState">activeState</a>().</p>
+<h3 class="fn"><a name="defaultState"></a><a href="qtstate.html">QtState</a> * QtStateGroup::defaultState () const</h3>
+<p>Returns the default state of the group. The default state is part of this group, and is automatically activated if the active state is deactivated. If the group does not have a default state, 0 will be returned. (e.g&#x2e;, if you call setActiveState(0), or QtState::setActive(false)).</p>
+<p>See also <a href="qtstategroup.html#setDefaultState">setDefaultState</a>().</p>
+<h3 class="fn"><a name="removeState"></a>void QtStateGroup::removeState ( <a href="qtstate.html">QtState</a> * <i>state</i> )</h3>
+<p>Removes <i>state</i> from this group. If <i>state</i> is the default state, the default state will be reset to 0. If <i>state</i> is the active state, the state will first be deactivated, and then removed from this group. The group will then revert to the default state, or 0 if there is no default state.</p>
+<p>The ownership of <i>state</i> is transferred to the caller (i.e&#x2e;, this function does not delete <i>state</i>).</p>
+<p>See also <a href="qtstategroup.html#defaultState">defaultState</a>(), <a href="qtstategroup.html#activeState">activeState</a>(), and <a href="qtstate.html#active-prop">QtState::isActive</a>().</p>
+<h3 class="fn"><a name="setActiveState"></a>void QtStateGroup::setActiveState ( <a href="qtstate.html">QtState</a> * <i>state</i> )</h3>
+<p>Sets <i>state</i>, which must either be part of this group or 0, to be the active state in this group. If <i>state</i> is 0, any active state is deactivated, and if the group has a default state, the default state is automatically activated.</p>
+<p>Calling this function is equivalent to calling <a href="qtstate.html#active-prop">QtState::setActive</a>() on one of the states in the group.</p>
+<p>See also <a href="qtstategroup.html#activeState">activeState</a>() and <a href="qtstategroup.html#defaultState">defaultState</a>().</p>
+<h3 class="fn"><a name="setDefaultState"></a>void QtStateGroup::setDefaultState ( <a href="qtstate.html">QtState</a> * <i>state</i> )</h3>
+<p>Sets <i>state</i>, which must be part of this group, to be this group's default state. The default state is automatically activated if the active state is deactivated (e.g&#x2e;, if you call setActiveState(0), or QtState::setActive(false)). If there is no default state when the active state is deactivated, then the group's active state will be 0 (i.e&#x2e;, no state is active).</p>
+<p>See also <a href="qtstategroup.html#defaultState">defaultState</a>().</p>
+<h3 class="fn"><a name="states"></a><a href="http://doc.trolltech.com/4.4/qlist.html">QList</a>&lt;<a href="qtstate.html">QtState</a> *&gt; QtStateGroup::states () const</h3>
+<p>Returns all states that are part of this group.</p>
+<p>See also <a href="qtstategroup.html#addState">addState</a>() and <a href="qtstategroup.html#removeState">removeState</a>().</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left">Copyright &copy; 2008 Nokia</td>
+<td width="40%" align="center"><a href="http://doc.trolltech.com/trademarks.html">Trademarks</a></td>
+<td width="30%" align="right"><div align="right">Qt Solutions</div></td>
+</tr></table></div></address></body>
+</html>

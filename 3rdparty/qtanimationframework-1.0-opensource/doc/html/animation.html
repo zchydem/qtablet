@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- qtanimationframework-1.0-opensource/doc/animation.qdoc -->
+<head>
+  <title>The Animation Framework</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td align="left" valign="top" width="32"><img src="images/qt-logo.png" align="left" width="57" height="67" border="0" /></td>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a></td>
+</tr></table><h1 class="title">The Animation Framework<br /><span class="subtitle"></span>
+</h1>
+<a name="animation"></a><p>The Animation Framework lets you define, run and control animations, states and transitions. The foundation classes <a href="qtanimation.html">QtAnimation</a> and <a href="qtanimationgroup.html">QtAnimationGroup</a> are used to scoreboard both simple and complex animations. A simple animation might change a widget's geometry from one rectangle to another, over the course of 2 seconds, using a linear easing curve. You can daisy-chain animations by adding them to a sequential <a href="qtanimationgroup.html">QtAnimationGroup</a>, a class that also gives you fine grained control over pauses and combinations of parallel and sequential subanimations.</p>
+<p>You can also define properties for your objects in states using <a href="qtstate.html">QtState</a>, add states to a <a href="qtstategroup.html">QtStateGroup</a> to manage exclusivity for your states, and define animated transitions between the states using <a href="qttransition.html">QtTransition</a>. The Animation Framework classes help maintain the necessary bookkeeping in order to provide animated forms and scenes.</p>
+<ul><li><a href="#the-animation-architecture">The Animation Architecture</a></li>
+<ul><li><a href="#the-animation-and-animation-group">The Animation and Animation Group</a></li>
+<li><a href="#the-state-state-group-and-transition">The State, State Group and Transition</a></li>
+</ul>
+</ul>
+<a name="the-animation-architecture"></a>
+<h3>The Animation Architecture</h3>
+<p>The Animation Framework foundation consists of the base class <a href="qtabstractanimation.html">QtAbstractAnimation</a>, and its two subclasses <a href="qtanimation.html">QtAnimation</a> and <a href="qtanimationgroup.html">QtAnimationGroup</a>. In addition <a href="qtstate.html">QtState</a> lets you group special properties and values for QObjects, QWidgets and QGraphicsItems in a defined state which can be activated and deactivated. <a href="qtstategroup.html">QtStateGroup</a> manages exclusivity for states. <a href="qttransition.html">QtTransition</a> animates property changes as you activate and deactivate, or switch between states.</p>
+<a name="the-animation-and-animation-group"></a>
+<h4>The Animation and Animation Group</h4>
+<p>The abstract class <a href="qtabstractanimation.html">QtAbstractAnimation</a> provides an interface for getting notifications of time changes, so that it can perform the necessary updates it needs in order keep something animated. A subclass of <a href="qtabstractanimation.html">QtAbstractAnimation</a> will get those notifications by reimplementing the pure virtual function <a href="qtabstractanimation.html#updateCurrentTime">QtAbstractAnimation::updateCurrentTime</a>(). This usually means that the animation should update some property of the item it is set to animate. The subclass <a href="qtanimation.html">QtAnimation</a> is an example of this. A <a href="qtanimation.html">QtAnimation</a> is an animation class that can animate properties. This means it can animate any <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>-based properties, but it is also capable of animating a <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> (even though it does not derive from <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>). For instance, animating the &quot;pos&quot; property will instruct <a href="qtanimation.html">QtAnimation</a> to call QGraphicsItem::setPos(point) if it's animating a <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a>, or call QWidget::setProperty(&quot;pos&quot;, point) if it's animating a <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a>. Thus, in order to set up a <a href="qtanimation.html">QtAnimation</a> the minimum you need to specify is the object of the property you want to animate, the property itself, and the value the animation should end up at. In addition to that you can specify the startValue, duration and easing curve.</p>
+<p>The <a href="qteasingcurve.html">QtEasingCurve</a> is useful if you want to control the speed of an animation without changing the path of the interpolation. They allow transitions from one value to another to appear more natural than a simple constant speed would allow. For instance, using an easing curve of EaseInOut will make the movement accelerate from from halt at the start, then decelarate towards the end until it halts. The speed can also be negative. You can for instance have a bounce effect by using an easing curve of BounceOut. This will let the movement slowly accelerate until it hits its target value, then it will bounce several times. When the bounce is lost it will be at the target value.</p>
+<p>The subclass <a href="qtanimationgroup.html">QtAnimationGroup</a> is a container for other animations so they can be animated either in sequence or parallel. The <a href="qtanimationgroup.html">QtAnimationGroup</a> is an example of an animation that does not animate properties, but it gets notified of time changes periodically. This enables it to forward those time changes to its contained animations, making sure they are either animated in sequence or parallel.</p>
+<p>Parts of the easing code is from <a href="legal-easing.html">Easing Equations by Robert Penner</a>.</p>
+<a name="the-state-state-group-and-transition"></a>
+<h4>The State, State Group and Transition</h4>
+<p><a href="qtstate.html">QtState</a> is a convenient way of setting up a UI form that has several logical states. A list of objects, properties and connections is associated with each state, and when a state is activated it will apply those properties and connections. If you want to use exclusive states you can add the states to a <a href="qtstategroup.html">QtStateGroup</a>. <a href="qtstategroup.html">QtStateGroup</a> will ensure that the active state within the group will be deactivated when you activate another state.</p>
+<p>On top of that, you can use <a href="qttransition.html">QtTransition</a> to set up animation behaviour between the different states of your form. You can specify the default animation between any states, and you can also specify special type of animations between specific states.</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left">Copyright &copy; 2008 Nokia</td>
+<td width="40%" align="center"><a href="http://doc.trolltech.com/trademarks.html">Trademarks</a></td>
+<td width="30%" align="right"><div align="right">Qt Solutions</div></td>
+</tr></table></div></address></body>
+</html>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- qtanimationframework-1.0-opensource/src/qanimationgroup.cpp -->
+<head>
+  <title>QtAnimationGroup Class Reference</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td align="left" valign="top" width="32"><img src="images/qt-logo.png" align="left" width="57" height="67" border="0" /></td>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a></td>
+</tr></table><h1 class="title">QtAnimationGroup Class Reference<br /><span class="small-subtitle">[<a href="http://doc.trolltech.com/4.4/qtgui.html">QtGui</a> module]</span>
+</h1>
+<p>The QtAnimationGroup class provides a sequential or parallel group of animations. <a href="#details">More...</a></p>
+<pre> #include &lt;QtAnimationGroup&gt;</pre><p><b>This class is under development and is subject to change.</b></p>
+<p>Inherits <a href="qtabstractanimation.html">QtAbstractAnimation</a>.</p>
+<p>Inherited by <a href="qttransition.html">QtTransition</a>.</p>
+<p>This class was introduced in qtanimationframework 4.5.</p>
+<ul>
+<li><a href="qtanimationgroup-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-types"></a>
+<h3>Public Types</h3>
+<ul>
+<li><div class="fn"/>enum <b><a href="qtanimationgroup.html#Order-enum">Order</a></b> { Parallel, Sequential }</li>
+</ul>
+<a name="properties"></a>
+<h3>Properties</h3>
+<ul>
+<li><div class="fn"/><b><a href="qtanimationgroup.html#duration-prop">duration</a></b> : const int</li>
+<li><div class="fn"/><b><a href="qtanimationgroup.html#order-prop">order</a></b> : const Order</li>
+</ul>
+<ul>
+<li><div class="fn"/>4 properties inherited from <a href="qtabstractanimation.html#properties">QtAbstractAnimation</a></li>
+<li><div class="fn"/>1 property inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#properties">QObject</a></li>
+</ul>
+<a name="public-functions"></a>
+<h3>Public Functions</h3>
+<ul>
+<li><div class="fn"/><b><a href="qtanimationgroup.html#QtAnimationGroup">QtAnimationGroup</a></b> ( Order <i>order</i> = Parallel, QObject * <i>parent</i> = 0 )</li>
+<li><div class="fn"/><b><a href="qtanimationgroup.html#dtor.QtAnimationGroup">~QtAnimationGroup</a></b> ()</li>
+<li><div class="fn"/>void <b><a href="qtanimationgroup.html#add">add</a></b> ( QtAbstractAnimation * <i>animation</i> )</li>
+<li><div class="fn"/>void <b><a href="qtanimationgroup.html#addPause">addPause</a></b> ( int <i>msecs</i> )</li>
+<li><div class="fn"/>QList&lt;QtAbstractAnimation *&gt; <b><a href="qtanimationgroup.html#animations">animations</a></b> () const</li>
+<li><div class="fn"/>QtAbstractAnimation * <b><a href="qtanimationgroup.html#at">at</a></b> ( int <i>index</i> ) const</li>
+<li><div class="fn"/>void <b><a href="qtanimationgroup.html#beginParallelGroup">beginParallelGroup</a></b> ()</li>
+<li><div class="fn"/>void <b><a href="qtanimationgroup.html#beginSequentialGroup">beginSequentialGroup</a></b> ()</li>
+<li><div class="fn"/>void <b><a href="qtanimationgroup.html#clear">clear</a></b> ()</li>
+<li><div class="fn"/>int <b><a href="qtanimationgroup.html#count">count</a></b> () const</li>
+<li><div class="fn"/>void <b><a href="qtanimationgroup.html#endGroup">endGroup</a></b> ()</li>
+<li><div class="fn"/>void <b><a href="qtanimationgroup.html#insertAt">insertAt</a></b> ( int <i>index</i>, QtAbstractAnimation * <i>animation</i> )</li>
+<li><div class="fn"/>void <b><a href="qtanimationgroup.html#insertPauseAt">insertPauseAt</a></b> ( int <i>index</i>, int <i>msecs</i> )</li>
+<li><div class="fn"/>Order <b><a href="qtanimationgroup.html#order-prop">order</a></b> () const</li>
+<li><div class="fn"/>void <b><a href="qtanimationgroup.html#remove">remove</a></b> ( QtAbstractAnimation * <i>animation</i> )</li>
+<li><div class="fn"/>void <b><a href="qtanimationgroup.html#removeAt">removeAt</a></b> ( int <i>index</i> )</li>
+</ul>
+<ul>
+<li><div class="fn"/>8 public functions inherited from <a href="qtabstractanimation.html#public-functions">QtAbstractAnimation</a></li>
+<li><div class="fn"/>29 public functions inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-functions">QObject</a></li>
+</ul>
+<h3>Additional Inherited Members</h3>
+<ul>
+<li><div class="fn"/>3 public slots inherited from <a href="qtabstractanimation.html#public-slots">QtAbstractAnimation</a></li>
+<li><div class="fn"/>1 public slot inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-slots">QObject</a></li>
+<li><div class="fn"/>5 signals inherited from <a href="qtabstractanimation.html#signals">QtAbstractAnimation</a></li>
+<li><div class="fn"/>1 signal inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#signals">QObject</a></li>
+<li><div class="fn"/>1 public type inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-variables">QObject</a></li>
+<li><div class="fn"/>4 static public members inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#static-public-members">QObject</a></li>
+<li><div class="fn"/>2 protected functions inherited from <a href="qtabstractanimation.html#protected-functions">QtAbstractAnimation</a></li>
+<li><div class="fn"/>7 protected functions inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#protected-functions">QObject</a></li>
+<li><div class="fn"/>2 protected variables inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#protected-variables">QObject</a></li>
+</ul>
+<a name="details"></a>
+<hr />
+<h2>Detailed Description</h2>
+<p>The QtAnimationGroup class provides a sequential or parallel group of animations.</p>
+<p>QtAnimationGroup represents a group of animations, and lets you combine sequential and parallel sets of animations into one. The group manages any animation that inherits <a href="qtabstractanimation.html">QtAbstractAnimation</a>. By combining groups, you can easily construct complex animation graphs.</p>
+<p>To create an animation group, you can start by constructing a QtAnimationGroup instance, passing the execution order (Sequential or Parallel) to the constructor. Then add animations by calling <a href="qtanimationgroup.html#insertAt">insertAt</a>() or <a href="qtanimationgroup.html#add">add</a>(). You can remove animations by calling <a href="qtanimationgroup.html#remove">remove</a>(), and clear the animation group by calling <a href="qtanimationgroup.html#clear">clear</a>(). QtAnimationGroup takes ownership of the animations it manages, and ensures that they are deleted when the animation group is deleted.</p>
+<p>For convenience when constructing complex animations, QtAnimationGroup also provides the <a href="qtanimationgroup.html#beginSequentialGroup">beginSequentialGroup</a>() and beingParallelGroup() functions, as well as an <a href="qtanimationgroup.html#endGroup">endGroup</a>() function.</p>
+<p>You can call <a href="qtanimationgroup.html#addPause">addPause</a>() or insertPause() to add a pause to an animation. Pauses are most useful for sequential animations.</p>
+<p>See also <a href="qtabstractanimation.html">QtAbstractAnimation</a>, <a href="qtanimation.html">QtAnimation</a>, <a href="qttransition.html">QtTransition</a>, and <a href="animation.html">The Animation Framework</a>.</p>
+<hr />
+<h2>Member Type Documentation</h2>
+<h3 class="fn"><a name="Order-enum"></a>enum QtAnimationGroup::Order</h3>
+<p>This enum describes the order of execution for the animations in a <a href="qtanimationgroup.html">QtAnimationGroup</a>.</p>
+<p><table border="1" cellpadding="2" cellspacing="1" width="100%">
+<tr><th width="25%">Constant</th><th width="15%">Value</th><th width="60%">Description</th></tr>
+<tr><td valign="top"><tt>QtAnimationGroup::Parallel</tt></td><td align="center" valign="top"><tt>0</tt></td><td valign="top">Parallel execution (default). The animations are all started at the same time, and run in parallel. The animation group finishes when the longest lasting animation has finished.</td></tr>
+<tr><td valign="top"><tt>QtAnimationGroup::Sequential</tt></td><td align="center" valign="top"><tt>1</tt></td><td valign="top">Sequential execution. The first animation in the group is started first, and when it stops, the next animation is started, and so on. The animation group finishes when the last animation has finished.</td></tr>
+</table></p>
+<hr />
+<h2>Property Documentation</h2>
+<h3 class="fn"><a name="duration-prop"></a>duration : const int</h3>
+<h3 class="fn"><a name="order-prop"></a>order : const <a href="qtanimationgroup.html#Order-enum">Order</a></h3>
+<p>This property holds the animation group's order of execution.</p>
+<p>This property describes the animation group's order of execution. The order applies the immediate members of the group. The order is set when the animation group is constructed, and cannot be changed.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>Order order () const</b></li>
+</ul>
+<hr />
+<h2>Member Function Documentation</h2>
+<h3 class="fn"><a name="QtAnimationGroup"></a>QtAnimationGroup::QtAnimationGroup ( <a href="qtanimationgroup.html#Order-enum">Order</a> <i>order</i> = Parallel, <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>parent</i> = 0 )</h3>
+<p>Constructs a <a href="qtanimationgroup.html">QtAnimationGroup</a>, with the given <i>order</i> of execution. <i>parent</i> is passed to <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>'s constructor.</p>
+<h3 class="fn"><a name="dtor.QtAnimationGroup"></a>QtAnimationGroup::~QtAnimationGroup ()</h3>
+<p>Destroys the animation group. It will also destroy all its animations.</p>
+<h3 class="fn"><a name="add"></a>void QtAnimationGroup::add ( <a href="qtabstractanimation.html">QtAbstractAnimation</a> * <i>animation</i> )</h3>
+<p>Adds <i>animation</i> to this group. This function is equivalent to calling insertAt(<a href="qtanimationgroup.html#count">count</a>(), <i>animation</i>).</p>
+<p>See also <a href="qtanimationgroup.html#insertAt">insertAt</a>().</p>
+<h3 class="fn"><a name="addPause"></a>void QtAnimationGroup::addPause ( int <i>msecs</i> )</h3>
+<p>Adds a pause of <i>msecs</i> to this animation group. The pause is considered as a special type of animation, thus <a href="qtanimationgroup.html#count">count</a>() will be increased by one.</p>
+<p>See also <a href="qtanimationgroup.html#insertPauseAt">insertPauseAt</a>(), <a href="qtanimationgroup.html#add">add</a>(), and <a href="qtanimationgroup.html#insertAt">insertAt</a>().</p>
+<h3 class="fn"><a name="animations"></a><a href="http://doc.trolltech.com/4.4/qlist.html">QList</a>&lt;<a href="qtabstractanimation.html">QtAbstractAnimation</a> *&gt; QtAnimationGroup::animations () const</h3>
+<p>Returns the animations that are managed by this group.</p>
+<p>See also <a href="qtanimationgroup.html#add">add</a>(), <a href="qtanimationgroup.html#insertAt">insertAt</a>(), <a href="qtanimationgroup.html#count">count</a>(), and <a href="qtanimationgroup.html#at">at</a>().</p>
+<h3 class="fn"><a name="at"></a><a href="qtabstractanimation.html">QtAbstractAnimation</a> * QtAnimationGroup::at ( int <i>index</i> ) const</h3>
+<p>Returns a pointer to the animation at <i>index</i> in this group. This function is useful when you need access to a particular animation. <i>index</i> is between 0 and <a href="qtanimationgroup.html#count">count</a>() - 1.</p>
+<p>See also <a href="qtanimationgroup.html#count">count</a>() and <a href="qtanimationgroup.html#animations">animations</a>().</p>
+<h3 class="fn"><a name="beginParallelGroup"></a>void QtAnimationGroup::beginParallelGroup ()</h3>
+<p>Begins a new nested parallel group of animations. This convenience function makes it easy to construct complex animation groups without having to explicitly create a nested animation group object.</p>
+<p>Subsequent calls to <a href="qtanimationgroup.html#add">add</a>() or insert() will insert animations into the new, nested, parallel group. To return to the original group, call <a href="qtanimationgroup.html#endGroup">endGroup</a>().</p>
+<p>See also <a href="qtanimationgroup.html#beginSequentialGroup">beginSequentialGroup</a>() and <a href="qtanimationgroup.html#endGroup">endGroup</a>().</p>
+<h3 class="fn"><a name="beginSequentialGroup"></a>void QtAnimationGroup::beginSequentialGroup ()</h3>
+<p>Begins a new nested sequential group of animations. This convenience function makes it easy to construct complex animation groups without having to explicitly create a nested animation group object.</p>
+<p>Subsequent calls to <a href="qtanimationgroup.html#add">add</a>() or insert() will insert animations into the new, nested, sequential group. To return to the original group, call <a href="qtanimationgroup.html#endGroup">endGroup</a>().</p>
+<p>See also <a href="qtanimationgroup.html#beginParallelGroup">beginParallelGroup</a>() and <a href="qtanimationgroup.html#endGroup">endGroup</a>().</p>
+<h3 class="fn"><a name="clear"></a>void QtAnimationGroup::clear ()</h3>
+<p>Removes all animations from this animation group, and resets the current time to 0. The ownership of the animations is transferred to the caller.</p>
+<p>See also <a href="qtanimationgroup.html#add">add</a>() and <a href="qtanimationgroup.html#remove">remove</a>().</p>
+<h3 class="fn"><a name="count"></a>int QtAnimationGroup::count () const</h3>
+<p>Returns the number of animations managed by this group.</p>
+<p>See also <a href="qtanimationgroup.html#animations">animations</a>(), <a href="qtanimationgroup.html#add">add</a>(), <a href="qtanimationgroup.html#insertAt">insertAt</a>(), and <a href="qtanimationgroup.html#at">at</a>().</p>
+<h3 class="fn"><a name="endGroup"></a>void QtAnimationGroup::endGroup ()</h3>
+<p>Ends the current nested animation group.</p>
+<p>See also <a href="qtanimationgroup.html#beginParallelGroup">beginParallelGroup</a>() and <a href="qtanimationgroup.html#beginSequentialGroup">beginSequentialGroup</a>().</p>
+<h3 class="fn"><a name="insertAt"></a>void QtAnimationGroup::insertAt ( int <i>index</i>, <a href="qtabstractanimation.html">QtAbstractAnimation</a> * <i>animation</i> )</h3>
+<p>Inserts <i>animation</i> into this animation group at <i>index</i>. If <i>index</i> is 0 the animation is inserted at the beginning. If <i>index</i> is <a href="qtanimationgroup.html#count">count</a>(), the animation is inserted at the end.</p>
+<p>See also <a href="qtanimationgroup.html#removeAt">removeAt</a>(), <a href="qtanimationgroup.html#add">add</a>(), and <a href="qtanimationgroup.html#animations">animations</a>().</p>
+<h3 class="fn"><a name="insertPauseAt"></a>void QtAnimationGroup::insertPauseAt ( int <i>index</i>, int <i>msecs</i> )</h3>
+<p>Inserts a pause of <i>msecs</i> milliseconds at <i>index</i> in this animation group.</p>
+<p>See also <a href="qtanimationgroup.html#addPause">addPause</a>(), <a href="qtanimationgroup.html#insertAt">insertAt</a>(), and <a href="qtanimationgroup.html#animations">animations</a>().</p>
+<h3 class="fn"><a name="remove"></a>void QtAnimationGroup::remove ( <a href="qtabstractanimation.html">QtAbstractAnimation</a> * <i>animation</i> )</h3>
+<p>Removes <i>animation</i> from this group. The ownership of <i>animation</i> is transferred to the caller.</p>
+<p>See also <a href="qtanimationgroup.html#insertAt">insertAt</a>() and <a href="qtanimationgroup.html#add">add</a>().</p>
+<h3 class="fn"><a name="removeAt"></a>void QtAnimationGroup::removeAt ( int <i>index</i> )</h3>
+<p>Removes the animation at <i>index</i> from this animation group. The ownership of the animation is transferred to the caller.</p>
+<p>See also <a href="qtanimationgroup.html#add">add</a>() and <a href="qtanimationgroup.html#insertAt">insertAt</a>().</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left">Copyright &copy; 2008 Nokia</td>
+<td width="40%" align="center"><a href="http://doc.trolltech.com/trademarks.html">Trademarks</a></td>
+<td width="30%" align="right"><div align="right">Qt Solutions</div></td>
+</tr></table></div></address></body>
+</html>

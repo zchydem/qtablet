@@ -1,0 +1,238 @@
+<!DOCTYPE QtCreatorProject>
+<qtcreator>
+ <data>
+  <variable>RunConfiguration0-CommandLineArguments</variable>
+  <valuelist type="QVariantList" />
+ </data>
+ <data>
+  <variable>RunConfiguration0-ProFile</variable>
+  <value type="QString" >/scratchbox/users/mmt/home/mmt/work/qtablet/wall/wall.pro</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-RunConfiguration.name</variable>
+  <value type="QString" >wall</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-UserSetName</variable>
+  <value type="bool" >false</value>
+ </data>
+ <data>
+  <variable>RunConfiguration0-type</variable>
+  <value type="QString" >Qt4ProjectManager.Qt4RunConfiguration</value>
+ </data>
+ <data>
+  <variable>activeRunConfiguration</variable>
+  <value type="int" >0</value>
+ </data>
+ <data>
+  <variable>activebuildconfiguration</variable>
+  <value type="QString" >Debug</value>
+ </data>
+ <data>
+  <variable>buildConfiguration-Debug</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
+   <value key="QtVersionId" type="int" >0</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildConfiguration-Release</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
+   <value key="QtVersionId" type="int" >0</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Debug-buildstep0</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Debug-buildstep1</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList" >
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-3XKYuGLPSd,guid=0415e2c1faa2d0454fcb0b8f494e083c</value>
+    <value type="QString" >DESKTOP_SESSION=gnome</value>
+    <value type="QString" >DESKTOP_STARTUP_ID=</value>
+    <value type="QString" >DISPLAY=:0.0</value>
+    <value type="QString" >DM_CONTROL=/var/run/xdmctl</value>
+    <value type="QString" >GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
+    <value type="QString" >GNOME_KEYRING_PID=5916
+</value>
+    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-URspBa/socket</value>
+    <value type="QString" >GPG_AGENT_INFO=/tmp/gpg-qS90vn/S.gpg-agent:5812:1</value>
+    <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/mmt/.gtkrc-1.2-gnome2</value>
+    <value type="QString" >HOME=/home/mmt</value>
+    <value type="QString" >LANG=en_US.UTF-8</value>
+    <value type="QString" >LIBGL_DRIVERS_PATH=/usr/lib/dri</value>
+    <value type="QString" >LOGNAME=mmt</value>
+    <value type="QString" >ORBIT_SOCKETDIR=/tmp/orbit-mmt</value>
+    <value type="QString" >PATH=/opt/qt-x11-4.5-tp1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/qt-x11-4.5-tp1/bin</value>
+    <value type="QString" >PWD=/home/mmt</value>
+    <value type="QString" >QTDIR=/opt/qt-x11-4.5-tp1</value>
+    <value type="QString" >SESSION_MANAGER=local/stonermachine:/tmp/.ICE-unix/5826</value>
+    <value type="QString" >SHELL=/bin/bash</value>
+    <value type="QString" >SHLVL=1</value>
+    <value type="QString" >SSH_AGENT_PID=5811</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-URspBa/ssh</value>
+    <value type="QString" >USER=mmt</value>
+    <value type="QString" >WINDOWPATH=7</value>
+    <value type="QString" >XDG_DATA_HOME=/home/mmt/.local/share</value>
+    <value type="QString" >XDG_SESSION_COOKIE=69110417fe0bdc1dac3d1c1c48b84f15-1229850683.926770-794554126</value>
+    <value type="QString" >XDM_MANAGED=method=classic</value>
+    <value type="QString" >_=/opt/qtcreator-0.9.1/bin/qtcreator</value>
+   </valuelist>
+   <valuelist key="abstractProcess.arguments" type="QVariantList" >
+    <value type="QString" >/scratchbox/users/mmt/home/mmt/work/qtablet/wall/wall.pro</value>
+    <value type="QString" >-spec</value>
+    <value type="QString" >linux-g++</value>
+    <value type="QString" >-r</value>
+    <value type="QString" >CONFIG+=debug_and_release</value>
+    <value type="QString" >CONFIG+=debug</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString" >/opt/qt-x11-4.5-tp1/bin/qmake</value>
+   <value key="abstractProcess.enabled" type="bool" >true</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/scratchbox/users/mmt/home/mmt/work/qtablet/wall</value>
+   <value key="buildConfiguration" type="int" >10</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Debug-buildstep2</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList" >
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-3XKYuGLPSd,guid=0415e2c1faa2d0454fcb0b8f494e083c</value>
+    <value type="QString" >DESKTOP_SESSION=gnome</value>
+    <value type="QString" >DESKTOP_STARTUP_ID=</value>
+    <value type="QString" >DISPLAY=:0.0</value>
+    <value type="QString" >DM_CONTROL=/var/run/xdmctl</value>
+    <value type="QString" >GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
+    <value type="QString" >GNOME_KEYRING_PID=5916
+</value>
+    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-URspBa/socket</value>
+    <value type="QString" >GPG_AGENT_INFO=/tmp/gpg-qS90vn/S.gpg-agent:5812:1</value>
+    <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/mmt/.gtkrc-1.2-gnome2</value>
+    <value type="QString" >HOME=/home/mmt</value>
+    <value type="QString" >LANG=en_US.UTF-8</value>
+    <value type="QString" >LIBGL_DRIVERS_PATH=/usr/lib/dri</value>
+    <value type="QString" >LOGNAME=mmt</value>
+    <value type="QString" >ORBIT_SOCKETDIR=/tmp/orbit-mmt</value>
+    <value type="QString" >PATH=/opt/qt-x11-4.5-tp1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/qt-x11-4.5-tp1/bin</value>
+    <value type="QString" >PWD=/home/mmt</value>
+    <value type="QString" >QTDIR=/opt/qt-x11-4.5-tp1</value>
+    <value type="QString" >SESSION_MANAGER=local/stonermachine:/tmp/.ICE-unix/5826</value>
+    <value type="QString" >SHELL=/bin/bash</value>
+    <value type="QString" >SHLVL=1</value>
+    <value type="QString" >SSH_AGENT_PID=5811</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-URspBa/ssh</value>
+    <value type="QString" >USER=mmt</value>
+    <value type="QString" >WINDOWPATH=7</value>
+    <value type="QString" >XDG_DATA_HOME=/home/mmt/.local/share</value>
+    <value type="QString" >XDG_SESSION_COOKIE=69110417fe0bdc1dac3d1c1c48b84f15-1229850683.926770-794554126</value>
+    <value type="QString" >XDM_MANAGED=method=classic</value>
+    <value type="QString" >_=/opt/qtcreator-0.9.1/bin/qtcreator</value>
+   </valuelist>
+   <valuelist key="abstractProcess.arguments" type="QVariantList" >
+    <value type="QString" >debug</value>
+    <value type="QString" >-w</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString" >/usr/bin/make</value>
+   <value key="abstractProcess.enabled" type="bool" >true</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/scratchbox/users/mmt/home/mmt/work/qtablet/wall</value>
+   <valuelist key="makeargs" type="QVariantList" >
+    <value type="QString" >debug</value>
+   </valuelist>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Debug-cleanstep0</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Release-buildstep0</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Release-buildstep1</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
+   <value key="buildConfiguration" type="int" >8</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Release-buildstep2</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
+   <valuelist key="makeargs" type="QVariantList" >
+    <value type="QString" >release</value>
+   </valuelist>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfiguration-Release-cleanstep0</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildconfigurations</variable>
+  <valuelist type="QVariantList" >
+   <value type="QString" >Debug</value>
+   <value type="QString" >Release</value>
+  </valuelist>
+ </data>
+ <data>
+  <variable>buildstep0</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" ></value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildstep1</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" ></value>
+   <value key="mkspec" type="QString" ></value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildstep2</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" ></value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>buildsteps</variable>
+  <valuelist type="QVariantList" >
+   <value type="QString" >trolltech.qt4projectmanager.gdbmaros</value>
+   <value type="QString" >trolltech.qt4projectmanager.qmake</value>
+   <value type="QString" >trolltech.qt4projectmanager.make</value>
+  </valuelist>
+ </data>
+ <data>
+  <variable>cleanstep0</variable>
+  <valuemap type="QVariantMap" >
+   <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" ></value>
+   <value key="clean" type="bool" >true</value>
+  </valuemap>
+ </data>
+ <data>
+  <variable>cleansteps</variable>
+  <valuelist type="QVariantList" >
+   <value type="QString" >trolltech.qt4projectmanager.make</value>
+  </valuelist>
+ </data>
+ <data>
+  <variable>defaultFileEncoding</variable>
+  <value type="QByteArray" >System</value>
+ </data>
+ <data>
+  <variable>project</variable>
+  <valuemap type="QVariantMap" />
+ </data>
+</qtcreator>

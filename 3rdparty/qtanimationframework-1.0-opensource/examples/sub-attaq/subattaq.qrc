@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+  <file alias="all">pics/scalable/sub-attaq.svg</file>
+  <file alias="submarine">pics/scalable/submarine.svg</file>
+  <file alias="boat">pics/scalable/boat.svg</file>
+  <file alias="torpedo">pics/scalable/torpedo.svg</file>
+</qresource>
+</RCC>

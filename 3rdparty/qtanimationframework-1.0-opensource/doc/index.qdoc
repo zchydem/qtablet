@@ -1,0 +1,57 @@
+/*!
+	\page index.html
+	\title Qt Animation Framework
+
+    	\section1 Description
+	
+            This component adds a convenient API to do animations in Qt. 
+            Note that this solution is experimental and work in progress:
+            No backwards compatibility (source nor binary) is provided.
+        
+
+	
+    The Animation Framework lets you define, run and control animations,
+    states and transitions. The foundation classes QtAnimation and
+    QtAnimationGroup are used to scoreboard both simple and complex
+    animations. A simple animation might change a widget's geometry from one
+    rectangle to another, over the course of 2 seconds, using a linear easing
+    curve. You can daisy-chain animations by adding them to a sequential
+    QtAnimationGroup, a class that also gives you fine grained control over
+    pauses and combinations of parallel and sequential subanimations.
+
+    You can also define properties for your objects in states using QtState,
+    add states to a QtStateGroup to manage exclusivity for your states, and
+    define animated transitions between the states using QtTransition. The
+    Animation Framework classes help maintain the necessary bookkeeping in
+    order to provide animated forms and scenes.
+	    
+
+    	
+        \section1 Overview
+	    \list
+	 \i  \link animation.html The Animation Framework \endlink \endlist
+	
+        \section1 Classes
+	    \list
+	 \i  QtAbstractAnimation \i  QtAnimation \i  QtAnimationGroup \i  QtState \i  QtStateGroup \i  QtTransition \i  QtEasingCurve\endlist
+	
+    
+
+    	
+
+    	
+    		\section1 Tested platforms
+		\list
+		\i Qt 4.4 / Windows XP / MSVC.NET 2008
+		    \i Qt 4.4 / Linux (32bit + 64bit) / gcc
+		    \i Qt 4.4 / MacOS X 10.5 / gcc
+		    \endlist
+
+    	
+
+	
+		\section1 Screenshots
+
+    		\img states.png
+		    
+	*/

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- qtanimationframework-1.0-opensource/src/qeasingcurve.cpp -->
+<head>
+  <title>QtEasingCurve Class Reference</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td align="left" valign="top" width="32"><img src="images/qt-logo.png" align="left" width="57" height="67" border="0" /></td>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a></td>
+</tr></table><h1 class="title">QtEasingCurve Class Reference<br /><span class="small-subtitle">[<a href="http://doc.trolltech.com/4.4/qtcore.html">QtCore</a> module]</span>
+</h1>
+<p>The QtEasingCurve class provides easing curves for controlling animation. <a href="#details">More...</a></p>
+<pre> #include &lt;QtEasingCurve&gt;</pre><ul>
+<li><a href="qteasingcurve-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-types"></a>
+<h3>Public Types</h3>
+<ul>
+<li><div class="fn"/>enum <b><a href="qteasingcurve.html#Type-enum">Type</a></b> { Linear, InQuad, OutQuad, InOutQuad, ..., OutInBounce }</li>
+</ul>
+<a name="public-functions"></a>
+<h3>Public Functions</h3>
+<ul>
+<li><div class="fn"/><b><a href="qteasingcurve.html#QtEasingCurve">QtEasingCurve</a></b> ( Type <i>type</i> = Linear )</li>
+<li><div class="fn"/><b><a href="qteasingcurve.html#QtEasingCurve-2">QtEasingCurve</a></b> ( Type <i>type</i>, qreal <i>amplitude</i>, qreal <i>period</i> )</li>
+<li><div class="fn"/><b><a href="qteasingcurve.html#QtEasingCurve-3">QtEasingCurve</a></b> ( const QtEasingCurve &amp; <i>other</i> )</li>
+<li><div class="fn"/><b><a href="qteasingcurve.html#dtor.QtEasingCurve">~QtEasingCurve</a></b> ()</li>
+<li><div class="fn"/>qreal <b><a href="qteasingcurve.html#amplitude">amplitude</a></b> () const</li>
+<li><div class="fn"/>qreal <b><a href="qteasingcurve.html#period">period</a></b> () const</li>
+<li><div class="fn"/>void <b><a href="qteasingcurve.html#setAmplitude">setAmplitude</a></b> ( qreal <i>amplitude</i> )</li>
+<li><div class="fn"/>void <b><a href="qteasingcurve.html#setPeriod">setPeriod</a></b> ( qreal <i>period</i> )</li>
+<li><div class="fn"/>void <b><a href="qteasingcurve.html#setType">setType</a></b> ( Type <i>type</i> )</li>
+<li><div class="fn"/>Type <b><a href="qteasingcurve.html#type">type</a></b> () const</li>
+<li><div class="fn"/>qreal <b><a href="qteasingcurve.html#valueForStep">valueForStep</a></b> ( qreal <i>step</i> ) const</li>
+<li><div class="fn"/>bool <b><a href="qteasingcurve.html#operator-not-eq">operator!=</a></b> ( const QtEasingCurve &amp; <i>other</i> ) const</li>
+<li><div class="fn"/>QtEasingCurve &amp; <b><a href="qteasingcurve.html#operator-eq">operator=</a></b> ( const QtEasingCurve &amp; <i>other</i> )</li>
+<li><div class="fn"/>bool <b><a href="qteasingcurve.html#operator-eq-eq">operator==</a></b> ( const QtEasingCurve &amp; <i>other</i> ) const</li>
+</ul>
+<a name="details"></a>
+<hr />
+<h2>Detailed Description</h2>
+<p>The QtEasingCurve class provides easing curves for controlling animation.</p>
+<p>Easing curves describe a function that controls how the speed of the interpolation between 0 and 1 should be. Easing curves allow transitions from one value to another to appear more natural than a simple constant speed would allow. The QtEasingCurve class is usually used in conjunction with the <a href="qtanimation.html">QtAnimation</a> class, but can be used on its own.</p>
+<p>To calculate the speed of the interpolation, the easing curve provides the function <a href="qteasingcurve.html#valueForStep">valueForStep</a>(), where the <i>step</i> argument specifies the progress of the interpolation: 0 is the start value of the interpolation, 1 is the end value of the interpolation. The returned value is the effective progress of the interpolation. If the returned value is the same as the input value for all input values the easing curve is a linear curve. This is the default behaviour.</p>
+<p>For example,</p>
+<pre> QtEasingCurve easing(QtEasingCurve::InOutQuad);
+
+ for(qreal step = 0.0; step &lt; 1.0; step+=0.1)
+     qWarning() &lt;&lt; &quot;Effective progress&quot; &lt;&lt; step &lt;&lt; &quot; is
+                &lt;&lt; easing.valueForStep(step);</pre>
+<p>will print the effective progress of the interpolation between 0 and 1.</p>
+<p>When using a <a href="qtanimation.html">QtAnimation</a>, the easing curve will be used to control the progress of the interpolation between startValue and endValue:</p>
+<pre> QtAnimation animation;
+ animation.setStartValue(0);
+ animation.setEndValue(1000);
+ animation.setDuration(1000);
+ animation.setEasing(QtEasingCurve(QtEasingCurve::InOutQuad));</pre>
+<hr />
+<h2>Member Type Documentation</h2>
+<h3 class="fn"><a name="Type-enum"></a>enum QtEasingCurve::Type</h3>
+<p>The type of easing curve.</p>
+<p><table border="1" cellpadding="2" cellspacing="1" width="100%">
+<tr><th width="25%">Constant</th><th width="15%">Value</th><th width="60%">Description</th></tr>
+<tr><td valign="top"><tt>QtEasingCurve::Linear</tt></td><td align="center" valign="top"><tt>0</tt></td><td valign="top">Easing equation function for a simple linear tweening, with no easing.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InQuad</tt></td><td align="center" valign="top"><tt>1</tt></td><td valign="top">Easing equation function for a quadratic (t^2) easing in: accelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutQuad</tt></td><td align="center" valign="top"><tt>2</tt></td><td valign="top">Easing equation function for a quadratic (t^2) easing out: decelerating to zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InOutQuad</tt></td><td align="center" valign="top"><tt>3</tt></td><td valign="top">Easing equation function for a quadratic (t^2) easing in/out: acceleration until halfway, then deceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutInQuad</tt></td><td align="center" valign="top"><tt>4</tt></td><td valign="top">Easing equation function for a quadratic (t^2) easing out/in: deceleration until halfway, then acceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InCubic</tt></td><td align="center" valign="top"><tt>5</tt></td><td valign="top">Easing equation function for a cubic (t^3) easing in: accelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutCubic</tt></td><td align="center" valign="top"><tt>6</tt></td><td valign="top">Easing equation function for a cubic (t^3) easing out: decelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InOutCubic</tt></td><td align="center" valign="top"><tt>7</tt></td><td valign="top">Easing equation function for a cubic (t^3) easing in/out: acceleration until halfway, then deceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutInCubic</tt></td><td align="center" valign="top"><tt>8</tt></td><td valign="top">Easing equation function for a cubic (t^3) easing out/in: deceleration until halfway, then acceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InQuart</tt></td><td align="center" valign="top"><tt>9</tt></td><td valign="top">Easing equation function for a quartic (t^4) easing in: accelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutQuart</tt></td><td align="center" valign="top"><tt>10</tt></td><td valign="top">Easing equation function for a quartic (t^4) easing out: decelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InOutQuart</tt></td><td align="center" valign="top"><tt>11</tt></td><td valign="top">Easing equation function for a quartic (t^4) easing in/out: acceleration until halfway, then deceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutInQuart</tt></td><td align="center" valign="top"><tt>12</tt></td><td valign="top">Easing equation function for a quartic (t^4) easing out/in: deceleration until halfway, then acceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InQuint</tt></td><td align="center" valign="top"><tt>13</tt></td><td valign="top">Easing equation function for a quintic (t^5) easing in: accelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutQuint</tt></td><td align="center" valign="top"><tt>14</tt></td><td valign="top">Easing equation function for a quintic (t^5) easing out: decelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InOutQuint</tt></td><td align="center" valign="top"><tt>15</tt></td><td valign="top">Easing equation function for a quintic (t^5) easing in/out: acceleration until halfway, then deceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutInQuint</tt></td><td align="center" valign="top"><tt>16</tt></td><td valign="top">Easing equation function for a quintic (t^5) easing out/in: deceleration until halfway, then acceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InSine</tt></td><td align="center" valign="top"><tt>17</tt></td><td valign="top">Easing equation function for a sinusoidal (sin(t)) easing in: accelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutSine</tt></td><td align="center" valign="top"><tt>18</tt></td><td valign="top">Easing equation function for a sinusoidal (sin(t)) easing out: decelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InOutSine</tt></td><td align="center" valign="top"><tt>19</tt></td><td valign="top">Easing equation function for a sinusoidal (sin(t)) easing in/out: acceleration until halfway, then deceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutInSine</tt></td><td align="center" valign="top"><tt>20</tt></td><td valign="top">Easing equation function for a sinusoidal (sin(t)) easing out/in: deceleration until halfway, then acceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InExpo</tt></td><td align="center" valign="top"><tt>21</tt></td><td valign="top">Easing equation function for an exponential (2^t) easing in: accelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutExpo</tt></td><td align="center" valign="top"><tt>22</tt></td><td valign="top">Easing equation function for an exponential (2^t) easing out: decelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InOutExpo</tt></td><td align="center" valign="top"><tt>23</tt></td><td valign="top">Easing equation function for an exponential (2^t) easing in/out: acceleration until halfway, then deceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutInExpo</tt></td><td align="center" valign="top"><tt>24</tt></td><td valign="top">Easing equation function for an exponential (2^t) easing out/in: deceleration until halfway, then acceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InCirc</tt></td><td align="center" valign="top"><tt>25</tt></td><td valign="top">Easing equation function for a circular (sqrt(1-t^2)) easing in: accelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutCirc</tt></td><td align="center" valign="top"><tt>26</tt></td><td valign="top">Easing equation function for a circular (sqrt(1-t^2)) easing out: decelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InOutCirc</tt></td><td align="center" valign="top"><tt>27</tt></td><td valign="top">Easing equation function for a circular (sqrt(1-t^2)) easing in/out: acceleration until halfway, then deceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutInCirc</tt></td><td align="center" valign="top"><tt>28</tt></td><td valign="top">Easing equation function for a circular (sqrt(1-t^2)) easing out/in: deceleration until halfway, then acceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InElastic</tt></td><td align="center" valign="top"><tt>29</tt></td><td valign="top">Easing equation function for an elastic (exponentially decaying sine wave) easing in: accelerating from zero velocity. The peak amplitude can be set with the</td></tr>
+</table></p>
+<p>amplitude parameter, and the period of decay by the</p>
+<p>period parameter.</p>
+<p><table border="1" cellpadding="2" cellspacing="1" width="100%">
+<tr><th width="25%">Constant</th><th width="15%">Value</th><th width="60%">Description</th></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutElastic</tt></td><td align="center" valign="top"><tt>30</tt></td><td valign="top">Easing equation function for an elastic (exponentially decaying sine wave) easing out: decelerating from zero velocity. The peak amplitude can be set with the</td></tr>
+</table></p>
+<p>amplitude parameter, and the period of decay by the</p>
+<p>period parameter.</p>
+<p><table border="1" cellpadding="2" cellspacing="1" width="100%">
+<tr><th width="25%">Constant</th><th width="15%">Value</th><th width="60%">Description</th></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InOutElastic</tt></td><td align="center" valign="top"><tt>31</tt></td><td valign="top">Easing equation function for an elastic (exponentially decaying sine wave) easing in/out: acceleration until halfway, then deceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutInElastic</tt></td><td align="center" valign="top"><tt>32</tt></td><td valign="top">Easing equation function for an elastic (exponentially decaying sine wave) easing out/in: deceleration until halfway, then acceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InBack</tt></td><td align="center" valign="top"><tt>33</tt></td><td valign="top">Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing in: accelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutBack</tt></td><td align="center" valign="top"><tt>34</tt></td><td valign="top">Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out: decelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InOutBack</tt></td><td align="center" valign="top"><tt>35</tt></td><td valign="top">Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing in/out: acceleration until halfway, then deceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutInBack</tt></td><td align="center" valign="top"><tt>36</tt></td><td valign="top">Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out/in: deceleration until halfway, then acceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutBounce</tt></td><td align="center" valign="top"><tt>38</tt></td><td valign="top">Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out: decelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InBounce</tt></td><td align="center" valign="top"><tt>37</tt></td><td valign="top">Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in: accelerating from zero velocity.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::InOutBounce</tt></td><td align="center" valign="top"><tt>39</tt></td><td valign="top">Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in/out: acceleration until halfway, then deceleration.</td></tr>
+<tr><td valign="top"><tt>QtEasingCurve::OutInBounce</tt></td><td align="center" valign="top"><tt>40</tt></td><td valign="top">Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out/in: deceleration until halfway, then acceleration.</td></tr>
+</table></p>
+<hr />
+<h2>Member Function Documentation</h2>
+<h3 class="fn"><a name="QtEasingCurve"></a>QtEasingCurve::QtEasingCurve ( <a href="qteasingcurve.html#Type-enum">Type</a> <i>type</i> = Linear )</h3>
+<p>Constructs an easing curve of the given <i>type</i>.</p>
+<h3 class="fn"><a name="QtEasingCurve-2"></a>QtEasingCurve::QtEasingCurve ( <a href="qteasingcurve.html#Type-enum">Type</a> <i>type</i>, <a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> <i>amplitude</i>, <a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> <i>period</i> )</h3>
+<p>Constructs an easing curve of the given <i>type</i>, with the given <i>amplitude</i> and <i>period</i>. You only have to use this constructor if <i>type</i> is one of <a href="qteasingcurve.html#Type-enum">QtEasingCurve::InElastic</a>, <a href="qteasingcurve.html#Type-enum">QtEasingCurve::OutElastic</a>, <a href="qteasingcurve.html#Type-enum">QtEasingCurve::InBounce</a> or <a href="qteasingcurve.html#Type-enum">QtEasingCurve::OutBounce</a>.</p>
+<h3 class="fn"><a name="QtEasingCurve-3"></a>QtEasingCurve::QtEasingCurve ( const QtEasingCurve &amp; <i>other</i> )</h3>
+<p>Construct a copy of <i>other</i>.</p>
+<h3 class="fn"><a name="dtor.QtEasingCurve"></a>QtEasingCurve::~QtEasingCurve ()</h3>
+<p>Destructor.</p>
+<h3 class="fn"><a name="amplitude"></a><a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> QtEasingCurve::amplitude () const</h3>
+<p>Returns the amplitude. This is not applicable for all curve types. It is only applicable if <a href="qteasingcurve.html#type">type</a>() is one of <a href="qteasingcurve.html#Type-enum">QtEasingCurve::InElastic</a>, <a href="qteasingcurve.html#Type-enum">QtEasingCurve::OutElastic</a>, <a href="qteasingcurve.html#Type-enum">QtEasingCurve::InBounce</a> or <a href="qteasingcurve.html#Type-enum">QtEasingCurve::OutBounce</a>.</p>
+<p>See also <a href="qteasingcurve.html#setAmplitude">setAmplitude</a>().</p>
+<h3 class="fn"><a name="period"></a><a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> QtEasingCurve::period () const</h3>
+<p>Returns the period. This is not applicable for all curve types. It is only applicable if <a href="qteasingcurve.html#type">type</a>() is one of <a href="qteasingcurve.html#Type-enum">QtEasingCurve::InElastic</a> or <a href="qteasingcurve.html#Type-enum">QtEasingCurve::OutElastic</a>.</p>
+<p>See also <a href="qteasingcurve.html#setPeriod">setPeriod</a>().</p>
+<h3 class="fn"><a name="setAmplitude"></a>void QtEasingCurve::setAmplitude ( <a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> <i>amplitude</i> )</h3>
+<p>Sets the amplitude to <i>amplitude</i>.</p>
+<p>See also <a href="qteasingcurve.html#amplitude">amplitude</a>().</p>
+<h3 class="fn"><a name="setPeriod"></a>void QtEasingCurve::setPeriod ( <a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> <i>period</i> )</h3>
+<p>Sets the period to <i>period</i>.</p>
+<p>See also <a href="qteasingcurve.html#period">period</a>().</p>
+<h3 class="fn"><a name="setType"></a>void QtEasingCurve::setType ( <a href="qteasingcurve.html#Type-enum">Type</a> <i>type</i> )</h3>
+<p>Sets the type of the easing curve to <i>type</i>.</p>
+<p>See also <a href="qteasingcurve.html#type">type</a>().</p>
+<h3 class="fn"><a name="type"></a><a href="qteasingcurve.html#Type-enum">Type</a> QtEasingCurve::type () const</h3>
+<p>Returns the type of the easing curve.</p>
+<p>See also <a href="qteasingcurve.html#setType">setType</a>().</p>
+<h3 class="fn"><a name="valueForStep"></a><a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> QtEasingCurve::valueForStep ( <a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> <i>step</i> ) const</h3>
+<p>Return the effective progress for the easing curve at <i>step</i>. While <i>step</i> must be between 0 and 1, the returned effective progress can be outside those bounds. For instance, <a href="qteasingcurve.html#Type-enum">QtEasingCurve::InBack</a> will return negative values in the beginning of the function.</p>
+<h3 class="fn"><a name="operator-not-eq"></a>bool QtEasingCurve::operator!= ( const QtEasingCurve &amp; <i>other</i> ) const</h3>
+<h3 class="fn"><a name="operator-eq"></a>QtEasingCurve &amp; QtEasingCurve::operator= ( const QtEasingCurve &amp; <i>other</i> )</h3>
+<p>Copy <i>other</i>.</p>
+<h3 class="fn"><a name="operator-eq-eq"></a>bool QtEasingCurve::operator== ( const QtEasingCurve &amp; <i>other</i> ) const</h3>
+<p>Compare this easing curve with <i>other</i>.</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left">Copyright &copy; 2008 Nokia</td>
+<td width="40%" align="center"><a href="http://doc.trolltech.com/trademarks.html">Trademarks</a></td>
+<td width="30%" align="right"><div align="right">Qt Solutions</div></td>
+</tr></table></div></address></body>
+</html>

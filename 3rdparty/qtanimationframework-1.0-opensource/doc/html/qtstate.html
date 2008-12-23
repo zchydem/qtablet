@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- qtanimationframework-1.0-opensource/src/qstate.cpp -->
+<head>
+  <title>QtState Class Reference</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td align="left" valign="top" width="32"><img src="images/qt-logo.png" align="left" width="57" height="67" border="0" /></td>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a></td>
+</tr></table><h1 class="title">QtState Class Reference<br /><span class="small-subtitle">[<a href="http://doc.trolltech.com/4.4/qtgui.html">QtGui</a> module]</span>
+</h1>
+<p>The QtState class describes a state with connections and properties for QObjects, QWidgets and QGraphicsItems. <a href="#details">More...</a></p>
+<pre> #include &lt;QtState&gt;</pre><p><b>This class is under development and is subject to change.</b></p>
+<p>Inherits <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>.</p>
+<p>This class was introduced in qtanimationframework 4.5.</p>
+<ul>
+<li><a href="qtstate-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="properties"></a>
+<h3>Properties</h3>
+<ul>
+<li><div class="fn"/><b><a href="qtstate.html#active-prop">active</a></b> : bool</li>
+<li><div class="fn"/><b><a href="qtstate.html#group-prop">group</a></b> : QtStateGroup *</li>
+<li><div class="fn"/><b><a href="qtstate.html#restoreProperties-prop">restoreProperties</a></b> : bool</li>
+</ul>
+<ul>
+<li><div class="fn"/>1 property inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#properties">QObject</a></li>
+</ul>
+<a name="public-functions"></a>
+<h3>Public Functions</h3>
+<ul>
+<li><div class="fn"/><b><a href="qtstate.html#QtState">QtState</a></b> ( QObject * <i>parent</i> = 0 )</li>
+<li><div class="fn"/>virtual <b><a href="qtstate.html#dtor.QtState">~QtState</a></b> ()</li>
+<li><div class="fn"/>virtual void <b><a href="qtstate.html#clear">clear</a></b> ()</li>
+<li><div class="fn"/>QRectF <b><a href="qtstate.html#geometry">geometry</a></b> ( QGraphicsWidget * <i>widget</i> ) const</li>
+<li><div class="fn"/>QRect <b><a href="qtstate.html#geometry-2">geometry</a></b> ( QWidget * <i>widget</i> ) const</li>
+<li><div class="fn"/>QtStateGroup * <b><a href="qtstate.html#group-prop">group</a></b> () const</li>
+<li><div class="fn"/>bool <b><a href="qtstate.html#active-prop">isActive</a></b> () const</li>
+<li><div class="fn"/>qreal <b><a href="qtstate.html#opacity">opacity</a></b> ( QGraphicsItem * <i>item</i> ) const</li>
+<li><div class="fn"/>QPointF <b><a href="qtstate.html#pos">pos</a></b> ( QGraphicsItem * <i>item</i> ) const</li>
+<li><div class="fn"/>QPoint <b><a href="qtstate.html#pos-2">pos</a></b> ( QWidget * <i>widget</i> ) const</li>
+<li><div class="fn"/>QVariant <b><a href="qtstate.html#property">property</a></b> ( QObject * <i>object</i>, const char * <i>propertyName</i> ) const</li>
+<li><div class="fn"/>QVariant <b><a href="qtstate.html#property-3">property</a></b> ( QGraphicsItem * <i>item</i>, const char * <i>propertyName</i> ) const</li>
+<li><div class="fn"/>bool <b><a href="qtstate.html#restoreProperties-prop">restoreProperties</a></b> () const</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#setConnectionState">setConnectionState</a></b> ( QObject * <i>sender</i>, const char * <i>signal</i>, QObject * <i>receiver</i>, const char * <i>member</i>, Qt::ConnectionType <i>connectionType</i> = Qt::AutoConnection )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#setGeometry">setGeometry</a></b> ( QGraphicsWidget * <i>widget</i>, const QRectF &amp; <i>geom</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#setGeometry-2">setGeometry</a></b> ( QWidget * <i>widget</i>, const QRect &amp; <i>geom</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#group-prop">setGroup</a></b> ( QtStateGroup * <i>group</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#setOpacity">setOpacity</a></b> ( QGraphicsItem * <i>item</i>, qreal <i>opacity</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#setPos">setPos</a></b> ( QGraphicsItem * <i>item</i>, const QPointF &amp; <i>pos</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#setPos-2">setPos</a></b> ( QWidget * <i>widget</i>, const QPoint &amp; <i>pos</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#setProperty">setProperty</a></b> ( QObject * <i>object</i>, const char * <i>propertyName</i>, const QVariant &amp; <i>value</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#setProperty-3">setProperty</a></b> ( QGraphicsItem * <i>item</i>, const char * <i>propertyName</i>, const QVariant &amp; <i>value</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#restoreProperties-prop">setRestoreProperties</a></b> ( bool <i>enabled</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#unsetConnectionState">unsetConnectionState</a></b> ( QObject * <i>sender</i>, const char * <i>signal</i>, QObject * <i>receiver</i>, const char * <i>member</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#unsetProperty">unsetProperty</a></b> ( QObject * <i>object</i>, const char * <i>propertyName</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#unsetProperty-3">unsetProperty</a></b> ( QGraphicsItem * <i>item</i>, const char * <i>propertyName</i> )</li>
+</ul>
+<ul>
+<li><div class="fn"/>29 public functions inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-functions">QObject</a></li>
+</ul>
+<a name="public-slots"></a>
+<h3>Public Slots</h3>
+<ul>
+<li><div class="fn"/>void <b><a href="qtstate.html#activate">activate</a></b> ()</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#deactivate">deactivate</a></b> ()</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#active-prop">setActive</a></b> ( bool <i>active</i> )</li>
+</ul>
+<ul>
+<li><div class="fn"/>1 public slot inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-slots">QObject</a></li>
+</ul>
+<a name="signals"></a>
+<h3>Signals</h3>
+<ul>
+<li><div class="fn"/>void <b><a href="qtstate.html#activated">activated</a></b> ( bool <i>active</i> )</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#activated-2">activated</a></b> ()</li>
+<li><div class="fn"/>void <b><a href="qtstate.html#deactivated">deactivated</a></b> ()</li>
+</ul>
+<ul>
+<li><div class="fn"/>1 signal inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#signals">QObject</a></li>
+</ul>
+<a name="protected-functions"></a>
+<h3>Protected Functions</h3>
+<ul>
+<li><div class="fn"/>virtual void <b><a href="qtstate.html#enterState">enterState</a></b> ( QtState * <i>fromState</i> )</li>
+<li><div class="fn"/>virtual void <b><a href="qtstate.html#leaveState">leaveState</a></b> ( QtState * <i>toState</i> )</li>
+</ul>
+<ul>
+<li><div class="fn"/>7 protected functions inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#protected-functions">QObject</a></li>
+</ul>
+<h3>Additional Inherited Members</h3>
+<ul>
+<li><div class="fn"/>1 public type inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-variables">QObject</a></li>
+<li><div class="fn"/>4 static public members inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#static-public-members">QObject</a></li>
+<li><div class="fn"/>2 protected variables inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#protected-variables">QObject</a></li>
+</ul>
+<a name="details"></a>
+<hr />
+<h2>Detailed Description</h2>
+<p>The QtState class describes a state with connections and properties for QObjects, QWidgets and QGraphicsItems.</p>
+<p>This class is part of {The Animation Framework}.</p>
+<p>QtState provides a convenient API for configuring properties, connections and other features related to state changes in your application. When used together with <a href="qttransition.html">QtTransition</a>, it also allows you to define how these values change, possibly using animations over time.</p>
+<p>States can be independent, or part of a group of mutually exclusive states (i.e&#x2e;, only one state in a group can be active at any time). You can activate or deactivate a state by calling the <a href="qtstate.html#active-prop">setActive</a>(), <a href="qtstate.html#activate">activate</a>() or <a href="qtstate.html#deactivate">deactivate</a>() slots. When the state is activated, it configures all properties and connections for that state, and it also calls the virtual <a href="qtstate.html#enterState">enterState</a>() and <a href="qtstate.html#leaveState">leaveState</a>() functions, which you can reimplement in a subclass of QtState to provide custom state change logic. QtState also emits the <a href="qtstate.html#activated">activated</a>() and <a href="qtstate.html#deactivated">deactivated</a>() signals, so that you can define custom state logic in a connected slot.</p>
+<p>See also <a href="qttransition.html">QtTransition</a>, <a href="qtanimation.html">QtAnimation</a>, and <a href="animation.html">The Animation Framework</a>.</p>
+<hr />
+<h2>Property Documentation</h2>
+<h3 class="fn"><a name="active-prop"></a>active : bool</h3>
+<p>This property holds whether or not the state is active.</p>
+<p>This property describes whether this state is active or not. You can activate a state by passing true to setActive(), or by calling <a href="qtstate.html#activate">activate</a>(). A state can also become active if it's the default state of a <a href="qtstategroup.html">QtStateGroup</a>, and another state in the group is deactivated.</p>
+<p>To deactivate a group, you can either pass false to setActive(), or call <a href="qtstate.html#deactivate">deactivate</a>().</p>
+<p>When a state is activated, it emits the <a href="qtstate.html#activated">activated</a>() signal, and calls the virtual <a href="qtstate.html#enterState">enterState</a>() function. When it loses activation, it emits the <a href="qtstate.html#deactivated">deactivated</a>() signal, and calls the virtual <a href="qtstate.html#leaveState">leaveState</a>() function. The default implementations of <a href="qtstate.html#enterState">enterState</a>() and <a href="qtstate.html#leaveState">leaveState</a>() manage the properties and connections defined for this state.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>bool isActive () const</b></li>
+<li><div class="fn"/><b>void setActive ( bool <i>active</i> )</b></li>
+</ul>
+<p>See also <a href="qtstate.html#activate">activate</a>() and <a href="qtstate.html#deactivate">deactivate</a>().</p>
+<h3 class="fn"><a name="group-prop"></a>group : <a href="qtstategroup.html">QtStateGroup</a> *</h3>
+<p>This property holds the state's group.</p>
+<p>This property describes the <a href="qtstategroup.html">QtStateGroup</a> that the state belongs to. If the state is not part of a group (i.e&#x2e;, an independent state), the group() function will return 0.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>QtStateGroup * group () const</b></li>
+<li><div class="fn"/><b>void setGroup ( QtStateGroup * <i>group</i> )</b></li>
+</ul>
+<h3 class="fn"><a name="restoreProperties-prop"></a>restoreProperties : bool</h3>
+<p>This property holds whether the state should restore previous property values when deactivated.</p>
+<p>If restoreProperties is true, the state will store the current value of all properties it changes as the state is activated, and restore these values when the state is deactivated again. By default this value is true.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>bool restoreProperties () const</b></li>
+<li><div class="fn"/><b>void setRestoreProperties ( bool <i>enabled</i> )</b></li>
+</ul>
+<hr />
+<h2>Member Function Documentation</h2>
+<h3 class="fn"><a name="QtState"></a>QtState::QtState ( <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>parent</i> = 0 )</h3>
+<p>Constructs a <a href="qtstate.html">QtState</a> object. <i>parent</i> is passed to <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>'s constructor.</p>
+<h3 class="fn"><a name="dtor.QtState"></a>QtState::~QtState ()&nbsp;&nbsp;<tt> [virtual]</tt></h3>
+<p>Destroys the <a href="qtstate.html">QtState</a> object.</p>
+<h3 class="fn"><a name="activate"></a>void QtState::activate ()&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>This function is equivalent to calling setActive(true).</p>
+<p>See also <a href="qtstate.html#deactivate">deactivate</a>() and <a href="qtstate.html#active-prop">active</a>.</p>
+<h3 class="fn"><a name="activated"></a>void QtState::activated ( bool <i>active</i> )&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p><a href="qtstate.html">QtState</a> emits this signal when the state is either activated or deactivated. If <i>active</i> is true, the state is activated; otherwise, it is deactivated.</p>
+<p>See also <a href="qtstate.html#deactivated">deactivated</a>() and <a href="qtstate.html#active-prop">setActive</a>().</p>
+<h3 class="fn"><a name="activated-2"></a>void QtState::activated ()&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p><a href="qtstate.html">QtState</a> emits this signal when the state is activated.</p>
+<p>See also <a href="qtstate.html#deactivated">deactivated</a>() and <a href="qtstate.html#active-prop">setActive</a>().</p>
+<h3 class="fn"><a name="clear"></a>void QtState::clear ()&nbsp;&nbsp;<tt> [virtual]</tt></h3>
+<p>Deactivates and clears the state, removing all connections and property values for all objects and items. This function has no effect on the state's group membership, its active state and any defined transitions.</p>
+<p>If the state is active and has defined property values, these properties will also be unset in the target objects and items.</p>
+<p>See also <a href="qtstate.html#deactivate">deactivate</a>().</p>
+<h3 class="fn"><a name="deactivate"></a>void QtState::deactivate ()&nbsp;&nbsp;<tt> [slot]</tt></h3>
+<p>This function is equivalent to calling setActive(false).</p>
+<p>See also <a href="qtstate.html#activate">activate</a>() and <a href="qtstate.html#active-prop">active</a>.</p>
+<h3 class="fn"><a name="deactivated"></a>void QtState::deactivated ()&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p><a href="qtstate.html">QtState</a> emits this signal when the state is deactivated.</p>
+<p>See also <a href="qtstate.html#activated">activated</a>() and <a href="qtstate.html#active-prop">setActive</a>().</p>
+<h3 class="fn"><a name="enterState"></a>void QtState::enterState ( QtState * <i>fromState</i> )&nbsp;&nbsp;<tt> [virtual protected]</tt></h3>
+<p>This virtual function is called when this state is activated. <i>fromState</i> is the previous state. If there was no previous state, <i>fromState</i> is 0.</p>
+<p>The default implementation manages the properties and connections for this state.</p>
+<p>See also <a href="qtstate.html#leaveState">leaveState</a>().</p>
+<h3 class="fn"><a name="geometry"></a><a href="http://doc.trolltech.com/4.4/qrectf.html">QRectF</a> QtState::geometry ( <a href="http://doc.trolltech.com/4.4/qgraphicswidget.html">QGraphicsWidget</a> * <i>widget</i> ) const</h3>
+<p>Returns the geometry for <i>widget</i> when this state is active.</p>
+<p>See also <a href="qtstate.html#setGeometry">setGeometry</a>().</p>
+<h3 class="fn"><a name="geometry-2"></a><a href="http://doc.trolltech.com/4.4/qrect.html">QRect</a> QtState::geometry ( <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a> * <i>widget</i> ) const</h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>Returns the geometry for <i>widget</i> when this state is active.</p>
+<p>See also <a href="qtstate.html#setGeometry">setGeometry</a>().</p>
+<h3 class="fn"><a name="leaveState"></a>void QtState::leaveState ( QtState * <i>toState</i> )&nbsp;&nbsp;<tt> [virtual protected]</tt></h3>
+<p>This virtual function is called by <a href="qtstate.html">QtState</a> when the state is deactivated. <i>toState</i> is a pointer to the next state. If there is no next state, <i>toState</i> is 0.</p>
+<p>The default implementation manages the properties and connections for this state.</p>
+<p>See also <a href="qtstate.html#enterState">enterState</a>().</p>
+<h3 class="fn"><a name="opacity"></a><a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> QtState::opacity ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>item</i> ) const</h3>
+<p>Returns the opacity for <i>item</i> when this state is active.</p>
+<p>See also <a href="qtstate.html#setOpacity">setOpacity</a>().</p>
+<h3 class="fn"><a name="pos"></a><a href="http://doc.trolltech.com/4.4/qpointf.html">QPointF</a> QtState::pos ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>item</i> ) const</h3>
+<p>Returns the position for <i>item</i> when this state is active.</p>
+<p>See also <a href="qtstate.html#setPos">setPos</a>().</p>
+<h3 class="fn"><a name="pos-2"></a><a href="http://doc.trolltech.com/4.4/qpoint.html">QPoint</a> QtState::pos ( <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a> * <i>widget</i> ) const</h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>Returns the position for <i>widget</i> when this state is active.</p>
+<p>See also <a href="qtstate.html#setPos">setPos</a>().</p>
+<h3 class="fn"><a name="property"></a><a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> QtState::property ( <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>object</i>, const char * <i>propertyName</i> ) const</h3>
+<p>Returns the value that the property <i>propertyName</i> should have for <i>object</i> when this state is active.</p>
+<p>See also <a href="qtstate.html#setProperty">setProperty</a>() and <a href="qtstate.html#unsetProperty">unsetProperty</a>().</p>
+<h3 class="fn"><a name="property-3"></a><a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> QtState::property ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>item</i>, const char * <i>propertyName</i> ) const</h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>Returns the value that the property <i>propertyName</i> should have for <i>item</i> when this state is active.</p>
+<p>See also <a href="qtstate.html#setProperty">setProperty</a>() and <a href="qtstate.html#unsetProperty">unsetProperty</a>().</p>
+<h3 class="fn"><a name="setConnectionState"></a>void QtState::setConnectionState ( <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>sender</i>, const char * <i>signal</i>, <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>receiver</i>, const char * <i>member</i>, <a href="http://doc.trolltech.com/4.4/qt.html#ConnectionType-enum">Qt::ConnectionType</a> <i>connectionType</i> = Qt::AutoConnection )</h3>
+<p>Instructs the state to establish a connection from <i>sender</i> and <i>signal</i> to <i>receiver</i> and <i>member</i>, using <i>connectionType</i>, when this state is activated.</p>
+<p>See also <a href="qtstate.html#unsetConnectionState">unsetConnectionState</a>().</p>
+<h3 class="fn"><a name="setGeometry"></a>void QtState::setGeometry ( <a href="http://doc.trolltech.com/4.4/qgraphicswidget.html">QGraphicsWidget</a> * <i>widget</i>, const <a href="http://doc.trolltech.com/4.4/qrectf.html">QRectF</a> &amp; <i>geom</i> )</h3>
+<p>Instructs the state to set the geometry of <i>widget</i> to <i>geom</i> when activated.</p>
+<p>See also <a href="qtstate.html#geometry">geometry</a>().</p>
+<h3 class="fn"><a name="setGeometry-2"></a>void QtState::setGeometry ( <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a> * <i>widget</i>, const <a href="http://doc.trolltech.com/4.4/qrect.html">QRect</a> &amp; <i>geom</i> )</h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>Instructs the state to set the geometry of <i>widget</i> to <i>geom</i> when activated.</p>
+<p>See also <a href="qtstate.html#geometry">geometry</a>().</p>
+<h3 class="fn"><a name="setOpacity"></a>void QtState::setOpacity ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>item</i>, <a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> <i>opacity</i> )</h3>
+<p>Instructs the state to set the opacity of <i>item</i> to <i>opacity</i> when this state is activated.</p>
+<p>See also <a href="qtstate.html#opacity">opacity</a>().</p>
+<h3 class="fn"><a name="setPos"></a>void QtState::setPos ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>item</i>, const <a href="http://doc.trolltech.com/4.4/qpointf.html">QPointF</a> &amp; <i>pos</i> )</h3>
+<p>Instructs the state to set the position of <i>item</i> to <i>pos</i> when activated.</p>
+<p>See also <a href="qtstate.html#pos">pos</a>().</p>
+<h3 class="fn"><a name="setPos-2"></a>void QtState::setPos ( <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a> * <i>widget</i>, const <a href="http://doc.trolltech.com/4.4/qpoint.html">QPoint</a> &amp; <i>pos</i> )</h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>Instructs the state to set the position of <i>widget</i> to <i>pos</i> when activated.</p>
+<p>See also <a href="qtstate.html#pos">pos</a>().</p>
+<h3 class="fn"><a name="setProperty"></a>void QtState::setProperty ( <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>object</i>, const char * <i>propertyName</i>, const <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> &amp; <i>value</i> )</h3>
+<p>Instructs the state to set the property <i>propertyName</i> to <i>value</i> on <i>object</i> when activated.</p>
+<p>See also <a href="qtstate.html#property">property</a>() and <a href="qtstate.html#unsetProperty">unsetProperty</a>().</p>
+<h3 class="fn"><a name="setProperty-3"></a>void QtState::setProperty ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>item</i>, const char * <i>propertyName</i>, const <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> &amp; <i>value</i> )</h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>Instructs the state to set the property <i>propertyName</i> to <i>value</i> on <i>item</i> when activated.</p>
+<p>Although <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> doesn't technically support properties like <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> does, this function emulates the behavior for all property-like functions in <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a>, allowing you as a user to treat the two the same way.</p>
+<p>See also <a href="qtstate.html#property">property</a>() and <a href="qtstate.html#unsetProperty">unsetProperty</a>().</p>
+<h3 class="fn"><a name="unsetConnectionState"></a>void QtState::unsetConnectionState ( <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>sender</i>, const char * <i>signal</i>, <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>receiver</i>, const char * <i>member</i> )</h3>
+<p>Removes the connection from <i>sender</i> and <i>signal</i> to <i>receiver</i> and <i>member</i> for this state.</p>
+<p>See also <a href="qtstate.html#setConnectionState">setConnectionState</a>().</p>
+<h3 class="fn"><a name="unsetProperty"></a>void QtState::unsetProperty ( <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>object</i>, const char * <i>propertyName</i> )</h3>
+<p>Removes the value of the property <i>propertyName</i> for <i>object</i> for this state. When activated, this state will no longer affect the property.</p>
+<p>See also <a href="qtstate.html#setProperty">setProperty</a>() and <a href="qtstate.html#property">property</a>().</p>
+<h3 class="fn"><a name="unsetProperty-3"></a>void QtState::unsetProperty ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>item</i>, const char * <i>propertyName</i> )</h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>Removes the value of the property <i>propertyName</i> for <i>item</i> for this state. When activated, this state will no longer affect the property.</p>
+<p>See also <a href="qtstate.html#setProperty">setProperty</a>() and <a href="qtstate.html#property">property</a>().</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left">Copyright &copy; 2008 Nokia</td>
+<td width="40%" align="center"><a href="http://doc.trolltech.com/trademarks.html">Trademarks</a></td>
+<td width="30%" align="right"><div align="right">Qt Solutions</div></td>
+</tr></table></div></address></body>
+</html>

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- qtanimationframework-1.0-opensource/src/qanimation.cpp -->
+<head>
+  <title>QtAnimation Class Reference</title>
+  <link href="classic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td align="left" valign="top" width="32"><img src="images/qt-logo.png" align="left" width="57" height="67" border="0" /></td>
+<td width="1">&nbsp;&nbsp;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a></td>
+</tr></table><h1 class="title">QtAnimation Class Reference<br /><span class="small-subtitle">[<a href="http://doc.trolltech.com/4.4/qtgui.html">QtGui</a> module]</span>
+</h1>
+<p>The QtAnimation class animates properties for <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>, <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a>, and <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> <a href="#details">More...</a></p>
+<pre> #include &lt;QtAnimation&gt;</pre><p><b>This class is under development and is subject to change.</b></p>
+<p>Inherits <a href="qtabstractanimation.html">QtAbstractAnimation</a>.</p>
+<p>This class was introduced in qtanimationframework 4.5.</p>
+<ul>
+<li><a href="qtanimation-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="properties"></a>
+<h3>Properties</h3>
+<p><table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr><td width="45%" valign="top"><ul>
+<li><div class="fn"/><b><a href="qtanimation.html#currentValue-prop">currentValue</a></b> : const QVariant</li>
+<li><div class="fn"/><b><a href="qtanimation.html#duration-prop">duration</a></b> : int</li>
+<li><div class="fn"/><b><a href="qtanimation.html#easingCurve-prop">easingCurve</a></b> : QtEasingCurve</li>
+<li><div class="fn"/><b><a href="qtanimation.html#propertyName-prop">propertyName</a></b> : QString</li>
+</ul></td><td valign="top"><ul>
+<li><div class="fn"/><b><a href="qtanimation.html#startValue-prop">startValue</a></b> : QVariant</li>
+<li><div class="fn"/><b><a href="qtanimation.html#targetItem-prop">targetItem</a></b> : QGraphicsItem *</li>
+<li><div class="fn"/><b><a href="qtanimation.html#targetObject-prop">targetObject</a></b> : QObject *</li>
+<li><div class="fn"/><b><a href="qtanimation.html#targetValue-prop">targetValue</a></b> : QVariant</li>
+</ul>
+</td></tr>
+</table></p>
+<ul>
+<li><div class="fn"/>4 properties inherited from <a href="qtabstractanimation.html#properties">QtAbstractAnimation</a></li>
+<li><div class="fn"/>1 property inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#properties">QObject</a></li>
+</ul>
+<a name="public-functions"></a>
+<h3>Public Functions</h3>
+<ul>
+<li><div class="fn"/><b><a href="qtanimation.html#QtAnimation">QtAnimation</a></b> ( QObject * <i>parent</i> = 0 )</li>
+<li><div class="fn"/><b><a href="qtanimation.html#QtAnimation-2">QtAnimation</a></b> ( QObject * <i>target</i>, const QByteArray &amp; <i>propertyName</i>, QObject * <i>parent</i> = 0 )</li>
+<li><div class="fn"/><b><a href="qtanimation.html#QtAnimation-3">QtAnimation</a></b> ( QGraphicsItem * <i>target</i>, const QByteArray &amp; <i>propertyName</i>, QObject * <i>parent</i> = 0 )</li>
+<li><div class="fn"/><b><a href="qtanimation.html#dtor.QtAnimation">~QtAnimation</a></b> ()</li>
+<li><div class="fn"/>QVariant <b><a href="qtanimation.html#currentValue-prop">currentValue</a></b> () const</li>
+<li><div class="fn"/>virtual int <b><a href="qtanimation.html#duration-prop">duration</a></b> () const</li>
+<li><div class="fn"/>QtEasingCurve <b><a href="qtanimation.html#easingCurve-prop">easingCurve</a></b> () const</li>
+<li><div class="fn"/>QByteArray <b><a href="qtanimation.html#propertyName-prop">propertyName</a></b> () const</li>
+<li><div class="fn"/>void <b><a href="qtanimation.html#duration-prop">setDuration</a></b> ( int <i>msecs</i> )</li>
+<li><div class="fn"/>void <b><a href="qtanimation.html#easingCurve-prop">setEasingCurve</a></b> ( const QtEasingCurve &amp; <i>easing</i> )</li>
+<li><div class="fn"/>void <b><a href="qtanimation.html#propertyName-prop">setPropertyName</a></b> ( const QByteArray &amp; <i>propertyName</i> )</li>
+<li><div class="fn"/>void <b><a href="qtanimation.html#startValue-prop">setStartValue</a></b> ( const QVariant &amp; <i>value</i> )</li>
+<li><div class="fn"/>void <b><a href="qtanimation.html#targetItem-prop">setTargetItem</a></b> ( QGraphicsItem * <i>target</i> )</li>
+<li><div class="fn"/>void <b><a href="qtanimation.html#targetObject-prop">setTargetObject</a></b> ( QObject * <i>target</i> )</li>
+<li><div class="fn"/>void <b><a href="qtanimation.html#targetValue-prop">setTargetValue</a></b> ( const QVariant &amp; <i>value</i> )</li>
+<li><div class="fn"/>QVariant <b><a href="qtanimation.html#startValue-prop">startValue</a></b> () const</li>
+<li><div class="fn"/>QGraphicsItem * <b><a href="qtanimation.html#targetItem-prop">targetItem</a></b> () const</li>
+<li><div class="fn"/>QObject * <b><a href="qtanimation.html#targetObject-prop">targetObject</a></b> () const</li>
+<li><div class="fn"/>QVariant <b><a href="qtanimation.html#targetValue-prop">targetValue</a></b> () const</li>
+</ul>
+<ul>
+<li><div class="fn"/>8 public functions inherited from <a href="qtabstractanimation.html#public-functions">QtAbstractAnimation</a></li>
+<li><div class="fn"/>29 public functions inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-functions">QObject</a></li>
+</ul>
+<a name="signals"></a>
+<h3>Signals</h3>
+<ul>
+<li><div class="fn"/>void <b><a href="qtanimation.html#durationChanged">durationChanged</a></b> ( int <i>duration</i> )</li>
+<li><div class="fn"/>void <b><a href="qtanimation.html#valueChanged">valueChanged</a></b> ( const QVariant &amp; <i>value</i> )</li>
+</ul>
+<ul>
+<li><div class="fn"/>5 signals inherited from <a href="qtabstractanimation.html#signals">QtAbstractAnimation</a></li>
+<li><div class="fn"/>1 signal inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#signals">QObject</a></li>
+</ul>
+<a name="static-public-members"></a>
+<h3>Static Public Members</h3>
+<ul>
+<li><div class="fn"/>QtAnimation * <b><a href="qtanimation.html#geometryAnimation">geometryAnimation</a></b> ( QGraphicsWidget * <i>widget</i>, const QRectF &amp; <i>rect</i>, int <i>duration</i> = 250, const QtEasingCurve &amp; <i>easing</i> = QtEasingCurve() )</li>
+<li><div class="fn"/>QtAnimation * <b><a href="qtanimation.html#geometryAnimation-2">geometryAnimation</a></b> ( QWidget * <i>widget</i>, const QRect &amp; <i>rect</i>, int <i>duration</i> = 250, const QtEasingCurve &amp; <i>easing</i> = QtEasingCurve() )</li>
+<li><div class="fn"/>QtAnimation * <b><a href="qtanimation.html#opacityAnimation">opacityAnimation</a></b> ( QGraphicsItem * <i>item</i>, qreal <i>opacity</i>, int <i>duration</i> = 250, const QtEasingCurve &amp; <i>easing</i> = QtEasingCurve() )</li>
+<li><div class="fn"/>QtAnimation * <b><a href="qtanimation.html#posAnimation">posAnimation</a></b> ( QGraphicsItem * <i>item</i>, const QPointF &amp; <i>pos</i>, int <i>duration</i> = 250, const QtEasingCurve &amp; <i>easing</i> = QtEasingCurve() )</li>
+<li><div class="fn"/>QtAnimation * <b><a href="qtanimation.html#posAnimation-2">posAnimation</a></b> ( QWidget * <i>widget</i>, const QPoint &amp; <i>pos</i>, int <i>duration</i> = 250, const QtEasingCurve &amp; <i>easing</i> = QtEasingCurve() )</li>
+<li><div class="fn"/>QtAnimation * <b><a href="qtanimation.html#propertyAnimation">propertyAnimation</a></b> ( QGraphicsItem * <i>item</i>, const char * <i>propertyName</i>, const QVariant &amp; <i>value</i>, int <i>duration</i> = 250, const QtEasingCurve &amp; <i>easing</i> = QtEasingCurve() )</li>
+<li><div class="fn"/>QtAnimation * <b><a href="qtanimation.html#propertyAnimation-2">propertyAnimation</a></b> ( QGraphicsWidget * <i>widget</i>, const char * <i>propertyName</i>, const QVariant &amp; <i>value</i>, int <i>duration</i> = 250, const QtEasingCurve &amp; <i>easing</i> = QtEasingCurve() )</li>
+<li><div class="fn"/>QtAnimation * <b><a href="qtanimation.html#propertyAnimation-3">propertyAnimation</a></b> ( QObject * <i>object</i>, const char * <i>propertyName</i>, const QVariant &amp; <i>value</i>, int <i>duration</i> = 250, const QtEasingCurve &amp; <i>easing</i> = QtEasingCurve() )</li>
+<li><div class="fn"/>QtAnimation * <b><a href="qtanimation.html#visibleAnimation">visibleAnimation</a></b> ( QGraphicsItem * <i>item</i>, bool <i>visible</i> )</li>
+<li><div class="fn"/>QtAnimation * <b><a href="qtanimation.html#visibleAnimation-2">visibleAnimation</a></b> ( QWidget * <i>widget</i>, bool <i>visible</i> )</li>
+</ul>
+<ul>
+<li><div class="fn"/>4 static public members inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#static-public-members">QObject</a></li>
+</ul>
+<a name="protected-functions"></a>
+<h3>Protected Functions</h3>
+<ul>
+<li><div class="fn"/>virtual QVariant <b><a href="qtanimation.html#interpolated">interpolated</a></b> ( const QVariant &amp; <i>from</i>, const QVariant &amp; <i>to</i>, qreal <i>progress</i> ) const</li>
+<li><div class="fn"/>virtual void <b><a href="qtanimation.html#updateCurrentValue">updateCurrentValue</a></b> ( const QVariant &amp; <i>value</i> )</li>
+</ul>
+<ul>
+<li><div class="fn"/>2 protected functions inherited from <a href="qtabstractanimation.html#protected-functions">QtAbstractAnimation</a></li>
+<li><div class="fn"/>7 protected functions inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#protected-functions">QObject</a></li>
+</ul>
+<h3>Additional Inherited Members</h3>
+<ul>
+<li><div class="fn"/>3 public slots inherited from <a href="qtabstractanimation.html#public-slots">QtAbstractAnimation</a></li>
+<li><div class="fn"/>1 public slot inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-slots">QObject</a></li>
+<li><div class="fn"/>1 public type inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#public-variables">QObject</a></li>
+<li><div class="fn"/>2 protected variables inherited from <a href="http://doc.trolltech.com/4.4/qobject.html#protected-variables">QObject</a></li>
+</ul>
+<a name="details"></a>
+<hr />
+<h2>Detailed Description</h2>
+<p>The QtAnimation class animates properties for <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>, <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a>, and <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a></p>
+<p>This class is part of {The Animation Framework}. You can use QtAnimation by itself as a simple animation class, or as part of more complex animations through <a href="qtanimationgroup.html">QtAnimationGroup</a> or <a href="qttransition.html">QtTransition</a>.</p>
+<p>The most common way to use QtAnimation is to construct an instance of it by passing a pointer to a <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>, a <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a> or a <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a>, and the name of the property you would like to animate, to QtAnimation's constructor. You can then set start and target values for the property by calling <a href="qtanimation.html#startValue-prop">setStartValue</a>() and <a href="qtanimation.html#targetValue-prop">setTargetValue</a>(), and finally call <a href="qtabstractanimation.html#start">start</a>() to start the animation. When control goes back to the event loop, QtAnimation will interpolate the property of the target object, widget or item.</p>
+<p>There are two ways to affect how QtAnimation interpolates the values. You can set an easing curve by calling <a href="qtanimation.html#easingCurve-prop">setEasingCurve</a>(), and configure the duration by calling <a href="qtanimation.html#duration-prop">setDuration</a>(). You can change how the QVariants are interpolated by creating a subclass of QtAnimation, and reimplementing the virtual <a href="qtanimation.html#interpolated">interpolated</a>() function.</p>
+<p>The start value of the animation is optional. If you do not set any start value, the animation will operate on the target's current property value at the point when the animation was started. You can call <a href="qtanimation.html#startValue-prop">setStartValue</a>() to set the start value, and <a href="qtanimation.html#targetValue-prop">setTargetValue</a>() to set the target value for the animated property. When used as part of a <a href="qttransition.html">QtTransition</a>, it's common to omit both the start and target values, as these are set automatically by the transition as it is initialized.</p>
+<p>Animations can operate on QObjects, QWidgets and QGraphicsItems. <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> does not inherit <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>, and does not provide any properties as such. For convenience however, QtAnimation emulates properties for <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a>, so that you can animate an item's position, geometry or opacity, just like with QObjects. You can choose to assign a target object by either calling <a href="qtanimation.html#targetObject-prop">setTargetObject</a>() or by passing a <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> pointer to QtAnimation's constructor, or you can assign an item as the target by calling <a href="qtanimation.html#targetItem-prop">setTargetItem</a>(), or by passing an item pointer to QtAnimation's constructor.</p>
+<p>QtAnimation also declares the virtual currentValueChanged() function, which makes it suitable to use as a base class for custom animations that are based on <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> or property interpolation.</p>
+<p>See also <a href="qtanimationgroup.html">QtAnimationGroup</a>, <a href="qtabstractanimation.html">QtAbstractAnimation</a>, <a href="qttransition.html">QtTransition</a>, and <a href="animation.html">The Animation Framework</a>.</p>
+<hr />
+<h2>Property Documentation</h2>
+<h3 class="fn"><a name="currentValue-prop"></a>currentValue : const <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a></h3>
+<p>This property holds the current value of the animation.</p>
+<p>This property describes the current value; an interpolation between the start value and the end value, using the current time for progress.</p>
+<p><a href="qtanimation.html">QtAnimation</a> calls the virtual <a href="qtanimation.html#updateCurrentValue">updateCurrentValue</a>() function when the current value changes. This is particularily useful for subclasses that need to track updates.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>QVariant currentValue () const</b></li>
+</ul>
+<p>See also <a href="qtanimation.html#startValue-prop">startValue</a> and <a href="qtanimation.html#targetValue-prop">targetValue</a>.</p>
+<h3 class="fn"><a name="duration-prop"></a>duration : int</h3>
+<p>This property holds the duration of the animation.</p>
+<p>This property describes the duration of the animation. The default duration is 250 milliseconds.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>virtual int duration () const</b></li>
+<li><div class="fn"/><b>void setDuration ( int <i>msecs</i> )</b></li>
+</ul>
+<p>See also <a href="qtabstractanimation.html#duration">QtAbstractAnimation::duration</a>().</p>
+<h3 class="fn"><a name="easingCurve-prop"></a>easingCurve : <a href="qteasingcurve.html">QtEasingCurve</a></h3>
+<p>This property holds the easing curve of the animation.</p>
+<p>This property defines the easing curve of the animation. By default, a linear easing curve is used, resulting in linear interpolation of the target property. For many animations, it's useful to try different easing curves, including <a href="qteasingcurve.html#Type-enum">QtEasingCurve::InCirc</a>, which provides a circular entry curve, and <a href="qteasingcurve.html#Type-enum">QtEasingCurve::InOutElastic</a>, which provides an elastic effect on the values of the interpolated property.</p>
+<p>The easing curve is used with the interpolator, the <a href="qtanimation.html#interpolated">interpolated</a>() virtual function, the animation's duration, and <a href="qtabstractanimation.html#loopCount-prop">loopCount</a>, to control how the current value changes as the animation progresses.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>QtEasingCurve easingCurve () const</b></li>
+<li><div class="fn"/><b>void setEasingCurve ( const QtEasingCurve &amp; <i>easing</i> )</b></li>
+</ul>
+<h3 class="fn"><a name="propertyName-prop"></a>propertyName : <a href="http://doc.trolltech.com/4.4/qstring.html">QString</a></h3>
+<p>This property holds the target property name for this animation.</p>
+<p>This property defines the target property name for this animation. The property name is required for the animation to operate.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>QByteArray propertyName () const</b></li>
+<li><div class="fn"/><b>void setPropertyName ( const QByteArray &amp; <i>propertyName</i> )</b></li>
+</ul>
+<h3 class="fn"><a name="startValue-prop"></a>startValue : <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a></h3>
+<p>This property holds the optional start value of the animation.</p>
+<p>This property describes the optional start value of the animation. If omitted, or if a null <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> is assigned as the start value, the animation will use the current position of the target when the animation is started.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>QVariant startValue () const</b></li>
+<li><div class="fn"/><b>void setStartValue ( const QVariant &amp; <i>value</i> )</b></li>
+</ul>
+<p>See also <a href="qtanimation.html#targetValue-prop">targetValue</a>.</p>
+<h3 class="fn"><a name="targetItem-prop"></a>targetItem : <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> *</h3>
+<p>This property holds the target QGraphicsItem for this animation.</p>
+<p>This property defines the target <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> for this animation. If you want to animate properties for a <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> instead, you can call <a href="qtanimation.html#targetObject-prop">setTargetObject</a>(). If the animation has no target, or if the target is a <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>, this property will be 0.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>QGraphicsItem * targetItem () const</b></li>
+<li><div class="fn"/><b>void setTargetItem ( QGraphicsItem * <i>target</i> )</b></li>
+</ul>
+<p>See also <a href="qtanimation.html#targetObject-prop">targetObject</a>.</p>
+<h3 class="fn"><a name="targetObject-prop"></a>targetObject : <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> *</h3>
+<p>This property holds the target QObject for this animation.</p>
+<p>This property defines the target <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> for this animation. If you want to animate properties for a <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> instead, you can call <a href="qtanimation.html#targetItem-prop">setTargetItem</a>(). If the animation has no target, or if the target is a <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a>, this property will be 0.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>QObject * targetObject () const</b></li>
+<li><div class="fn"/><b>void setTargetObject ( QObject * <i>target</i> )</b></li>
+</ul>
+<p>See also <a href="qtanimation.html#targetItem-prop">targetItem</a>.</p>
+<h3 class="fn"><a name="targetValue-prop"></a>targetValue : <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a></h3>
+<p>This property holds the target value of the animation.</p>
+<p>This property describes the target value of the animation.</p>
+<p>Access functions:</p>
+<ul>
+<li><div class="fn"/><b>QVariant targetValue () const</b></li>
+<li><div class="fn"/><b>void setTargetValue ( const QVariant &amp; <i>value</i> )</b></li>
+</ul>
+<p>See also <a href="qtanimation.html#startValue-prop">startValue</a>.</p>
+<hr />
+<h2>Member Function Documentation</h2>
+<h3 class="fn"><a name="QtAnimation"></a>QtAnimation::QtAnimation ( <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>parent</i> = 0 )</h3>
+<p>Construct a <a href="qtanimation.html">QtAnimation</a> object. <i>parent</i> is passed to <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>'s constructor.</p>
+<h3 class="fn"><a name="QtAnimation-2"></a>QtAnimation::QtAnimation ( <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>target</i>, const <a href="http://doc.trolltech.com/4.4/qbytearray.html">QByteArray</a> &amp; <i>propertyName</i>, <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>parent</i> = 0 )</h3>
+<p>Construct a <a href="qtanimation.html">QtAnimation</a> object. <i>parent</i> is passed to <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>'s constructor. The animation changes the property <i>propertyName</i> on <i>target</i>. The default duration is 250ms.</p>
+<p>See also <a href="qtanimation.html#targetObject-prop">targetObject</a> and <a href="qtanimation.html#propertyName-prop">propertyName</a>.</p>
+<h3 class="fn"><a name="QtAnimation-3"></a>QtAnimation::QtAnimation ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>target</i>, const <a href="http://doc.trolltech.com/4.4/qbytearray.html">QByteArray</a> &amp; <i>propertyName</i>, <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>parent</i> = 0 )</h3>
+<p>Construct a <a href="qtanimation.html">QtAnimation</a> object. <i>parent</i> is passed to <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a>'s constructor. The animation changes the property <i>propertyName</i> on <i>target</i>. The default duration is 250ms.</p>
+<p>See also <a href="qtanimation.html#targetItem-prop">targetItem</a> and <a href="qtanimation.html#propertyName-prop">propertyName</a>.</p>
+<h3 class="fn"><a name="dtor.QtAnimation"></a>QtAnimation::~QtAnimation ()</h3>
+<p>Destroys the <a href="qtanimation.html">QtAnimation</a> instance.</p>
+<h3 class="fn"><a name="durationChanged"></a>void QtAnimation::durationChanged ( int <i>duration</i> )&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p><a href="qtanimation.html">QtAnimation</a> emits this signal whenever the <i>duration</i> of the animation changes.</p>
+<p>See also <a href="qtanimation.html#duration-prop">setDuration</a>() and <a href="qtanimation.html#duration-prop">duration</a>().</p>
+<h3 class="fn"><a name="geometryAnimation"></a>QtAnimation * QtAnimation::geometryAnimation ( <a href="http://doc.trolltech.com/4.4/qgraphicswidget.html">QGraphicsWidget</a> * <i>widget</i>, const <a href="http://doc.trolltech.com/4.4/qrectf.html">QRectF</a> &amp; <i>rect</i>, int <i>duration</i> = 250, const <a href="qteasingcurve.html">QtEasingCurve</a> &amp; <i>easing</i> = QtEasingCurve() )&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>convenience function to construct a <a href="qtanimation.html">QtAnimation</a> that animates the &quot;geometry&quot; property.</p>
+<p>This is a convenience function that you can use to animate the &quot;geometry&quot; property of <i>widget</i>. <i>rect</i> it the target rectangle, <i>duration</i> is the desired duration and with <i>easing</i> you can specify the easing curve you want to use. It also provides a type-safe way of specifying the property you want to animate.The animation returned can either be added to a <a href="qtanimationgroup.html">QtAnimationGroup</a> or can be started immediately.</p>
+<p>See also <a href="qtanimation.html#posAnimation">posAnimation</a>(), <a href="qtanimation.html#opacityAnimation">opacityAnimation</a>(), <a href="qtanimation.html#propertyAnimation">propertyAnimation</a>(), and <a href="qtanimation.html#visibleAnimation">visibleAnimation</a>().</p>
+<h3 class="fn"><a name="geometryAnimation-2"></a>QtAnimation * QtAnimation::geometryAnimation ( <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a> * <i>widget</i>, const <a href="http://doc.trolltech.com/4.4/qrect.html">QRect</a> &amp; <i>rect</i>, int <i>duration</i> = 250, const <a href="qteasingcurve.html">QtEasingCurve</a> &amp; <i>easing</i> = QtEasingCurve() )&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>This is a convenience function that you can use to construct a simple animation with a single line of code. Use this if you want to animate a <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a>.</p>
+<p>See also <a href="qtanimation.html#geometryAnimation">geometryAnimation</a>(), <a href="qtanimation.html#opacityAnimation">opacityAnimation</a>(), <a href="qtanimation.html#propertyAnimation">propertyAnimation</a>(), and <a href="qtanimation.html#visibleAnimation">visibleAnimation</a>().</p>
+<h3 class="fn"><a name="interpolated"></a><a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> QtAnimation::interpolated ( const <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> &amp; <i>from</i>, const <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> &amp; <i>to</i>, <a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> <i>progress</i> ) const&nbsp;&nbsp;<tt> [virtual protected]</tt></h3>
+<p>This virtual function returns the linear interpolation between variants <i>from</i> and <i>to</i>, at <i>progress</i>, usually a value between 0 and 1. You can reimplement this function in a subclass of <a href="qtanimation.html">QtAnimation</a> to provide your own interpolation algorithm. Note that in order for the interpolation to work with a <a href="qteasingcurve.html">QtEasingCurve</a> that return a value smaller than 0 or larger than 1 (such as <a href="qteasingcurve.html#Type-enum">QtEasingCurve::InBack</a>) you should make sure that it can extrapolate. If the semantic of the datatype does not allow extrapolation this function should handle that gracefully.</p>
+<p>See also <a href="qteasingcurve.html">QtEasingCurve</a>.</p>
+<h3 class="fn"><a name="opacityAnimation"></a>QtAnimation * QtAnimation::opacityAnimation ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>item</i>, <a href="http://doc.trolltech.com/4.4/qtglobal.html#qreal-typedef">qreal</a> <i>opacity</i>, int <i>duration</i> = 250, const <a href="qteasingcurve.html">QtEasingCurve</a> &amp; <i>easing</i> = QtEasingCurve() )&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>convenience function to construct a <a href="qtanimation.html">QtAnimation</a> that animates the &quot;opacity&quot; property.</p>
+<p>This is a convenience function that you can use to animate the &quot;opacity&quot; property of <i>item</i>. <i>opacity</i> it the target opacity, <i>duration</i> is the desired duration and with <i>easing</i> you can specify the easing curve you want to use. It also provides a type-safe way of specifying the property you want to animate.The animation returned can either be added to a <a href="qtanimationgroup.html">QtAnimationGroup</a> or can be started immediately.</p>
+<p>See also <a href="qtanimation.html#posAnimation">posAnimation</a>(), <a href="qtanimation.html#geometryAnimation">geometryAnimation</a>(), <a href="qtanimation.html#propertyAnimation">propertyAnimation</a>(), and <a href="qtanimation.html#visibleAnimation">visibleAnimation</a>().</p>
+<h3 class="fn"><a name="posAnimation"></a>QtAnimation * QtAnimation::posAnimation ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>item</i>, const <a href="http://doc.trolltech.com/4.4/qpointf.html">QPointF</a> &amp; <i>pos</i>, int <i>duration</i> = 250, const <a href="qteasingcurve.html">QtEasingCurve</a> &amp; <i>easing</i> = QtEasingCurve() )&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>convenience function to construct a <a href="qtanimation.html">QtAnimation</a> that animates the &quot;pos&quot; property.</p>
+<p>This is a convenience function that you can use to animate the &quot;pos&quot; property of <i>item</i>. <i>pos</i> it the target position, <i>duration</i> is the desired duration and with <i>easing</i> you can specify the easing curve you want to use. It also provides a type-safe way of specifying the property you want to animate. The animation returned can either be added to a <a href="qtanimationgroup.html">QtAnimationGroup</a> or can be started immediately.</p>
+<p>Calling this convenience function with the following arguments:</p>
+<pre> QtAnimation *anim = QtAnimation::posAnimation(item, QPointF(240, 0), 1000, QtEasingCurve::EaseInOut));</pre>
+<p>is the same as this code:</p>
+<pre> QtAnimation *anim = new QtAnimation(item, &quot;pos&quot;);
+ anim-&gt;setDuration(1000);
+ anim-&gt;setEasingCurve(QtEasingCurve::EaseInOut);
+ anim-&gt;setTargetValue(QPointF(240, 0));</pre>
+<p>If you want to immediately start the animation and let the animation delete itself when it is finished you can do:</p>
+<pre> QGraphicsItem *item;
+ QtAnimation::posAnimation(item, QPointF(240, 0), 250, QtEasingCurve::EaseInOut)-&gt;start(QtAnimation::DeleteWhenFinished);</pre>
+<p>See also <a href="qtanimation.html#geometryAnimation">geometryAnimation</a>(), <a href="qtanimation.html#opacityAnimation">opacityAnimation</a>(), <a href="qtanimation.html#propertyAnimation">propertyAnimation</a>(), and <a href="qtanimation.html#visibleAnimation">visibleAnimation</a>().</p>
+<h3 class="fn"><a name="posAnimation-2"></a>QtAnimation * QtAnimation::posAnimation ( <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a> * <i>widget</i>, const <a href="http://doc.trolltech.com/4.4/qpoint.html">QPoint</a> &amp; <i>pos</i>, int <i>duration</i> = 250, const <a href="qteasingcurve.html">QtEasingCurve</a> &amp; <i>easing</i> = QtEasingCurve() )&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>This is a convenience function that you can use to construct a simple animation with a single line of code. Use this if you want to animate <i>widget</i>.</p>
+<p>See also <a href="qtanimation.html#geometryAnimation">geometryAnimation</a>(), <a href="qtanimation.html#opacityAnimation">opacityAnimation</a>(), <a href="qtanimation.html#propertyAnimation">propertyAnimation</a>(), and <a href="qtanimation.html#visibleAnimation">visibleAnimation</a>().</p>
+<h3 class="fn"><a name="propertyAnimation"></a>QtAnimation * QtAnimation::propertyAnimation ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>item</i>, const char * <i>propertyName</i>, const <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> &amp; <i>value</i>, int <i>duration</i> = 250, const <a href="qteasingcurve.html">QtEasingCurve</a> &amp; <i>easing</i> = QtEasingCurve() )&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>convenience function to construct a <a href="qtanimation.html">QtAnimation</a> that animates the property <i>propertyName</i>.</p>
+<p>This is a convenience function that you can use to animate the <i>propertyName</i> property of <i>item</i>. <i>value</i> it the target value, <i>duration</i> is the desired duration and with <i>easing</i> you can specify the easing curve you want to use. It also provides a type-safe way of specifying the property you want to animate.The animation returned can either be added to a <a href="qtanimationgroup.html">QtAnimationGroup</a> or can be started immediately.</p>
+<p>See also <a href="qtanimation.html#posAnimation">posAnimation</a>(), <a href="qtanimation.html#geometryAnimation">geometryAnimation</a>(), <a href="qtanimation.html#opacityAnimation">opacityAnimation</a>(), and <a href="qtanimation.html#visibleAnimation">visibleAnimation</a>().</p>
+<h3 class="fn"><a name="propertyAnimation-2"></a>QtAnimation * QtAnimation::propertyAnimation ( <a href="http://doc.trolltech.com/4.4/qgraphicswidget.html">QGraphicsWidget</a> * <i>widget</i>, const char * <i>propertyName</i>, const <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> &amp; <i>value</i>, int <i>duration</i> = 250, const <a href="qteasingcurve.html">QtEasingCurve</a> &amp; <i>easing</i> = QtEasingCurve() )&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>This is a convenience function that you can use to construct a simple animation with a single line of code. Use this if you want to animate <i>widget</i>.</p>
+<p>See also <a href="qtanimation.html#posAnimation">posAnimation</a>(), <a href="qtanimation.html#geometryAnimation">geometryAnimation</a>(), <a href="qtanimation.html#opacityAnimation">opacityAnimation</a>(), and <a href="qtanimation.html#visibleAnimation">visibleAnimation</a>().</p>
+<h3 class="fn"><a name="propertyAnimation-3"></a>QtAnimation * QtAnimation::propertyAnimation ( <a href="http://doc.trolltech.com/4.4/qobject.html">QObject</a> * <i>object</i>, const char * <i>propertyName</i>, const <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> &amp; <i>value</i>, int <i>duration</i> = 250, const <a href="qteasingcurve.html">QtEasingCurve</a> &amp; <i>easing</i> = QtEasingCurve() )&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>This is a convenience function that you can use to construct a simple animation with a single line of code. Use this if you want to animate <i>object</i>.</p>
+<p>See also <a href="qtanimation.html#posAnimation">posAnimation</a>(), <a href="qtanimation.html#geometryAnimation">geometryAnimation</a>(), <a href="qtanimation.html#opacityAnimation">opacityAnimation</a>(), and <a href="qtanimation.html#visibleAnimation">visibleAnimation</a>().</p>
+<h3 class="fn"><a name="updateCurrentValue"></a>void QtAnimation::updateCurrentValue ( const <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> &amp; <i>value</i> )&nbsp;&nbsp;<tt> [virtual protected]</tt></h3>
+<p>This virtual function is called by <a href="qtanimation.html">QtAnimation</a> whenever the current value changes. <i>value</i> is the new, updated value. By reimplementing this function in a subclass of <a href="qtanimation.html">QtAnimation</a>, you can easily apply the new value to a custom animation target.</p>
+<p>See also <a href="qtanimation.html#currentValue-prop">currentValue</a> and <a href="qtabstractanimation.html#currentTime-prop">currentTime</a>.</p>
+<h3 class="fn"><a name="valueChanged"></a>void QtAnimation::valueChanged ( const <a href="http://doc.trolltech.com/4.4/qvariant.html">QVariant</a> &amp; <i>value</i> )&nbsp;&nbsp;<tt> [signal]</tt></h3>
+<p><a href="qtanimation.html">QtAnimation</a> emits this signal whenever the current <i>value</i> changes.</p>
+<p>See also <a href="qtanimation.html#currentValue-prop">currentValue</a>, <a href="qtanimation.html#startValue-prop">startValue</a>, and <a href="qtanimation.html#targetValue-prop">targetValue</a>.</p>
+<h3 class="fn"><a name="visibleAnimation"></a>QtAnimation * QtAnimation::visibleAnimation ( <a href="http://doc.trolltech.com/4.4/qgraphicsitem.html">QGraphicsItem</a> * <i>item</i>, bool <i>visible</i> )&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>convenience function to construct a <a href="qtanimation.html">QtAnimation</a> that animates the &quot;visible&quot; property.</p>
+<p>This is a convenience function that you can use to animate the &quot;visible&quot; property of <i>item</i>. <i>visible</i> it the target visibility, <i>duration</i> is the desired duration and with <i>easing</i> you can specify the easing curve you want to use. It also provides a type-safe way of specifying the property you want to animate.The animation returned can either be added to a <a href="qtanimationgroup.html">QtAnimationGroup</a> or can be started immediately.</p>
+<p>See also <a href="qtanimation.html#posAnimation">posAnimation</a>(), <a href="qtanimation.html#geometryAnimation">geometryAnimation</a>(), <a href="qtanimation.html#opacityAnimation">opacityAnimation</a>(), and <a href="qtanimation.html#propertyAnimation">propertyAnimation</a>().</p>
+<h3 class="fn"><a name="visibleAnimation-2"></a>QtAnimation * QtAnimation::visibleAnimation ( <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a> * <i>widget</i>, bool <i>visible</i> )&nbsp;&nbsp;<tt> [static]</tt></h3>
+<p>This is an overloaded member function, provided for convenience.</p>
+<p>This is a convenience function that you can use to construct a simple animation with a single line of code. Use this if you want to animate a <a href="http://doc.trolltech.com/4.4/qwidget.html">QWidget</a>.</p>
+<p>See also <a href="qtanimation.html#posAnimation">posAnimation</a>(), <a href="qtanimation.html#geometryAnimation">geometryAnimation</a>(), <a href="qtanimation.html#opacityAnimation">opacityAnimation</a>(), and <a href="qtanimation.html#propertyAnimation">propertyAnimation</a>().</p>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="30%" align="left">Copyright &copy; 2008 Nokia</td>
+<td width="40%" align="center"><a href="http://doc.trolltech.com/trademarks.html">Trademarks</a></td>
+<td width="30%" align="right"><div align="right">Qt Solutions</div></td>
+</tr></table></div></address></body>
+</html>
