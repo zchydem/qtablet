@@ -28,10 +28,11 @@ QGraphicsLayout * createWall(){
   QGraphicsLinearLayout * layout   = new QGraphicsLinearLayout( Qt::Vertical );
   layout->setSpacing(0);
   layout->setContentsMargins(0,0,0,0);
-  layout->addItem( new qtablet::ImageItem( "../images/default_1.png" ) );
-  layout->addItem( new qtablet::ImageItem( "../images/default_2.png" ) );
-  layout->addItem( new qtablet::ImageItem( "..images/default_3.png" ) );
-  layout->addItem( new qtablet::ImageItem( "../images/default_4.png" ) );
+  layout->addItem( new qtablet::ImageItem( "../../images/default_1.png" ) );
+  layout->addItem( new qtablet::ImageItem( "../../images/default_2.png" ) );
+  layout->addItem( new qtablet::ImageItem( "../../images/default_3.png" ) );
+  layout->addItem( new qtablet::ImageItem( "../../images/default_4.png" ) );
+
   return layout;
 }
 
@@ -39,18 +40,17 @@ QGraphicsLayout * createLauncher(){
   
   QGraphicsGridLayout * layout = new QGraphicsGridLayout;
   layout->setSpacing( 20 );
-  layout->setContentsMargins( 10, 10, 10, 10 );
+  layout->setContentsMargins( 10, 10, 100, 10 );
   int row = 0;
   int i   = 0;
-  QDir dir("../images/thumbs");
+  QDir dir("../../images/thumbs");
   QStringList thumbs = dir.entryList( QDir::Files );
 
 
     
   foreach( QString thumb, thumbs ){
-  //for ( int j=0; j<300; j++ ){
 
-    layout->addItem( new qtablet::ImageItem( "../images/thumbs/"+thumb) ,   row++%3, i);
+    layout->addItem( new qtablet::ImageItem( "../../images/thumbs/"+thumb) ,   row++%3, i);
 
     if ( row % 3 == 0 ){
       ++i;
@@ -78,7 +78,7 @@ int main( int argc, char *argv[] ){
   QApplication app( argc, argv );
   QGraphicsScene scene(0,0,800,480);
 
-  qtablet::PannableView * launcher = new qtablet::PannableView( Qt::Horizontal, 720, 480 );
+  qtablet::PannableView * launcher = new qtablet::PannableView( Qt::Horizontal, 800, 480 );
   launcher->setLayout( createLauncher() );
   scene.addItem( launcher );
 
@@ -107,32 +107,38 @@ int main( int argc, char *argv[] ){
   state1->setConnectionState(button1, SIGNAL(clicked()), state2, SLOT(activate()));
   state1->setGeometry( wall,     QRectF(0,0,800,480) );
   state1->setGeometry( button,   QRectF(720,0, 80, 480 ) );
-  state1->setGeometry( launcher, QRectF(800,0,720,480) );
-  state1->setOpacity( wall,      double(1) );
-  state1->setOpacity( button,    double(1) );
-  state1->setOpacity( launcher,  double(0) );
+  state1->setGeometry( launcher, QRectF(800,0,800,480) );
 
   state2->setConnectionState(button1, SIGNAL(clicked()), state1, SLOT(activate()));
   state2->setGeometry( wall,     QRectF(-800,0,800,480) );
   state2->setGeometry( button,   QRectF(720,0, 80, 480 ) );
-  state2->setGeometry( launcher, QRectF(0,0,720,480) );
-  state2->setOpacity( wall,      double(0) );
-  state2->setOpacity( button,    double(1) );
-  state2->setOpacity( launcher,  double(1) );
+  state2->setGeometry( launcher, QRectF(0,0,800,480) );
 
   QtTransition transition1(state1, state2);
-  transition1.add(new QtAnimation(wall,     "geometry"));
+  QtAnimation * anim1 = new QtAnimation(wall, "geometry");
+  QtAnimation * anim2 = new QtAnimation(launcher, "geometry");
+
+  anim1->setEasingCurve( QtEasingCurve::OutBounce );
+  anim1->setDuration( 1000 );
+  anim2->setEasingCurve( QtEasingCurve::OutBounce );
+  anim2->setDuration( 1000 );
+
+  transition1.add( anim1 );
   transition1.add(new QtAnimation(button,   "geometry"));
-  transition1.add(new QtAnimation(launcher, "geometry"));
-  transition1.add(new QtAnimation(wall,     "opacity"));
-  transition1.add(new QtAnimation(launcher, "opacity"));
+  transition1.add( anim2 );
 
   QtTransition transition2(state2, state1);
-  transition2.add(new QtAnimation(wall,     "geometry"));
+  QtAnimation * anim3 = new QtAnimation(wall, "geometry");
+  QtAnimation * anim4 = new QtAnimation(launcher, "geometry");
+
+  anim3->setEasingCurve( QtEasingCurve::OutBounce );
+  anim3->setDuration( 1000 );
+  anim4->setEasingCurve( QtEasingCurve::OutBounce );
+  anim4->setDuration( 1000 );
+
+  transition2.add(anim3);
   transition2.add(new QtAnimation(button,   "geometry"));
-  transition2.add(new QtAnimation(launcher, "geometry"));
-  transition2.add(new QtAnimation(wall,     "opacity"));
-  transition2.add(new QtAnimation(launcher, "opacity"));
+  transition2.add(anim4);
 
   state1->activate();
 

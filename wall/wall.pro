@@ -4,12 +4,22 @@
 
 include(../3rdparty/qtanimationframework-1.0-opensource/src/qtanimationframework.pri)
 
-TEMPLATE = app
-TARGET =  qtabletwall
-DEPENDPATH += .
+include(../qtablet.pri)
+
+TEMPLATE     = app
+TARGET       =  qtabletwall
+DEPENDPATH  += .
 INCLUDEPATH += . ../gui
-LIBS += -L../gui -lQTabletGui
+LIBS        += -L$$BUILDDIR/gui/lib -lQTabletGui
+
+OBJECTS_DIR += $$BUILDDIR/wall/obj
+MOC_DIR     += $$BUILDDIR/wall/moc
+DESTDIR     += $$BUILDDIR/wall/bin
 
 # Input
 #HEADERS += 
 SOURCES += main.cc 
+
+#install settings
+target.path   = $$INSTALLDIR/bin
+INSTALLS += target

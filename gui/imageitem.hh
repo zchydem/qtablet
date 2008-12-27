@@ -3,12 +3,13 @@
 
 #include <QGraphicsWidget>
 #include <QtDebug>
+#include "abstractitem.hh"
 
 namespace qtablet{
 
 class ImageItemPrivate;
 
-class ImageItem: public QGraphicsWidget{
+class ImageItem: public AbstractItem{
 
 public:
     ImageItem( QString const & imagePath, QGraphicsItem * parent = 0 );
@@ -19,14 +20,11 @@ public:
 
     virtual QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const;
 
-    virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
-
-    virtual void mouseReleaseEvent ( QGraphicsSceneMouseEvent * event );
-
 private:
     ImageItemPrivate * d_ptr;
 
 };
 
 }
+
 #endif // IMAGEITEM_H

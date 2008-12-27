@@ -149,6 +149,9 @@ public:
 
 float QtEasingCurveFunction::value(float t, float b, float c, float d)
 {
+    Q_UNUSED( b );
+    Q_UNUSED( c );
+    Q_UNUSED( d );
     return t;
 }
 

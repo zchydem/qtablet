@@ -5,12 +5,12 @@ namespace qtablet{
 
 class ImageItemPrivate{
 public:
-    ImageItemPrivate( QString const & filePath ):m_pixmap( filePath ){};
+    ImageItemPrivate( QString const & filePath ):m_pixmap( filePath ){}
     QPixmap m_pixmap;
 };
 
 ImageItem::ImageItem( QString const & imagePath, QGraphicsItem * parent ):
-        QGraphicsWidget(parent),
+        AbstractItem(parent),
         d_ptr( new ImageItemPrivate( imagePath ) )
 {
     if ( d_ptr->m_pixmap.isNull() ){
@@ -33,14 +33,6 @@ QSizeF ImageItem::sizeHint ( Qt::SizeHint which, const QSizeF & constraint ) con
     Q_UNUSED( which );
     Q_UNUSED( constraint );
     return QSizeF( d_ptr->m_pixmap.width(), d_ptr->m_pixmap.height() );
-}
-
-void ImageItem::mousePressEvent ( QGraphicsSceneMouseEvent * event ){
-    QGraphicsWidget::mousePressEvent( event );
-}
-
-void ImageItem::mouseReleaseEvent ( QGraphicsSceneMouseEvent * event ){
-    QGraphicsWidget::mouseReleaseEvent( event );
 }
 
 }
