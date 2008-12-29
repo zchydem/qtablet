@@ -10,9 +10,12 @@ public:
 };
 
 ImageItem::ImageItem( QString const & imagePath, QGraphicsItem * parent ):
-        AbstractItem(parent),
+        PannableViewItem(parent),
         d_ptr( new ImageItemPrivate( imagePath ) )
 {
+    // For debugging purpose
+    QObject::setObjectName( imagePath );
+
     if ( d_ptr->m_pixmap.isNull() ){
         qCritical() << "NULL QPixmap";
     }
@@ -25,8 +28,9 @@ ImageItem::~ImageItem(){
 void ImageItem::paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget){
     Q_UNUSED( option );
     Q_UNUSED( widget );
-
+    //qDebug() << "ImageItem::paint";
     painter->drawPixmap( 0, 0, d_ptr->m_pixmap );
+    //PannableViewItem::paint( painter, 0, 0 );
 }
 
 QSizeF ImageItem::sizeHint ( Qt::SizeHint which, const QSizeF & constraint ) const{

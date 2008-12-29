@@ -3,13 +3,13 @@
 
 #include <QGraphicsWidget>
 #include <QtDebug>
-#include "abstractitem.hh"
+#include "pannableviewitem.hh"
 
 namespace qtablet{
 
 class ImageItemPrivate;
 
-class ImageItem: public AbstractItem{
+class ImageItem: public PannableViewItem{
 
 public:
     ImageItem( QString const & imagePath, QGraphicsItem * parent = 0 );

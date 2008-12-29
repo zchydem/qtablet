@@ -118,9 +118,9 @@ int main( int argc, char *argv[] ){
   QtAnimation * anim1 = new QtAnimation(wall, "geometry");
   QtAnimation * anim2 = new QtAnimation(launcher, "geometry");
 
-  anim1->setEasingCurve( QtEasingCurve::OutBounce );
+  //anim1->setEasingCurve( QtEasingCurve::OutBounce );
   anim1->setDuration( 1000 );
-  anim2->setEasingCurve( QtEasingCurve::OutBounce );
+  //anim2->setEasingCurve( QtEasingCurve::OutBounce );
   anim2->setDuration( 1000 );
 
   transition1.add( anim1 );
@@ -131,9 +131,9 @@ int main( int argc, char *argv[] ){
   QtAnimation * anim3 = new QtAnimation(wall, "geometry");
   QtAnimation * anim4 = new QtAnimation(launcher, "geometry");
 
-  anim3->setEasingCurve( QtEasingCurve::OutBounce );
+  //anim3->setEasingCurve( QtEasingCurve::OutBounce );
   anim3->setDuration( 1000 );
-  anim4->setEasingCurve( QtEasingCurve::OutBounce );
+  //anim4->setEasingCurve( QtEasingCurve::OutBounce );
   anim4->setDuration( 1000 );
 
   transition2.add(anim3);

@@ -6,6 +6,7 @@
 #include "globals.hh"
 #include <QGraphicsWidget>
 #include <QPainterPath>
+#include <QTimeLine>
 
 
 class QWidget;
@@ -88,59 +89,61 @@ private:
 // \endcode
 //
 class PannableWidget: public QGraphicsWidget{
-Q_OBJECT
+    Q_OBJECT
 public:
-//! PannableWidget constructor
-//
-//! \param orientation panning orientation i.e. vertical or horizontal
-//! \param parent optional parent
-PannableWidget( Qt::Orientations orientation=Qt::Horizontal, QGraphicsItem * parent = 0 );
+    //! PannableWidget constructor
+    //
+    //! \param orientation panning orientation i.e. vertical or horizontal
+    //! \param parent optional parent
+    PannableWidget( Qt::Orientations orientation=Qt::Horizontal, QGraphicsItem * parent = 0 );
 
-//! Destructor
-virtual ~PannableWidget();
+    //! Destructor
+    virtual ~PannableWidget();
 
-
-virtual QPainterPath shape () const;
+    //! Shape method in order to make childer to clip shape
+    //! \return instance shape in QPainterPath object.
+    virtual QPainterPath shape () const;
 
 
 protected:
-//! Event handler for mouse press event.
-//
-//! This method stops the scrolling and stores the mouse press position.
-//! Also the timer which is used for calculating the acceleration is reset
-//! in this method.
-//!
-//! \param event mouse event
-virtual void mousePressEvent( QGraphicsSceneMouseEvent * event );
 
-//! Event handler for mouse release event.
-//
-//! This method calculates the acceleration and starts the scrolling animation.
-//! \param event mouse release event
-virtual void mouseReleaseEvent( QGraphicsSceneMouseEvent * event );
+    //virtual bool sceneEvent( QEvent * event );
 
-//! Event handler for mouse move event.
-//
-//! This method does the view translation if finger is moved slow enough i.e.
-//! the view follows the finger.
-//! \param event mouse move event
-virtual void mouseMoveEvent(  QGraphicsSceneMouseEvent * event );
+    //! Event handler for mouse press event.
+    //
+    //! This method stops the scrolling and stores the mouse press position.
+    //! Also the timer which is used for calculating the acceleration is reset
+    //! in this method.
+    //!
+    //! \param event mouse event
+    virtual void mousePressEvent( QGraphicsSceneMouseEvent * event );
+
+    //! Event handler for mouse release event.
+    //
+    //! This method calculates the acceleration and starts the scrolling animation.
+    //! \param event mouse release event
+    virtual void mouseReleaseEvent( QGraphicsSceneMouseEvent * event );
+
+    //! Event handler for mouse move event.
+    //
+    //! This method does the view translation if finger is moved slow enough i.e.
+    //! the view follows the finger.
+    //! \param event mouse move event
+    virtual void mouseMoveEvent(  QGraphicsSceneMouseEvent * event );
 
 
 protected slots:
-//! Slot for animating the scrolling after fast finger swipe.
-//
-//! This method is also responsible of calculating when one of the ends
-//! is reached and the scrolling must be stopped.
-void scroll( qreal value );
+    //! Slot for animating the scrolling after fast finger swipe.
+    //
+    //! This method is also responsible of calculating when one of the ends
+    //! is reached and the scrolling must be stopped.
+    void scroll( qreal value );
 
-void animateEnd();
 
-private:
-bool endReached();
+    void animateEnd();
 
 private:
-PannableWidgetPrivate * d_ptr;
+    PannableWidgetPrivate * d_ptr;
 };
 
 }

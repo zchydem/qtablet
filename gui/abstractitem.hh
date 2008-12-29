@@ -6,7 +6,9 @@
 
 namespace qtablet{
 
+
 class AbstractItemPrivate;
+
 
 //! AbstractItem class is a super class for all the items, which should react on orientation changes.
 //!
@@ -20,29 +22,23 @@ class AbstractItem : public QGraphicsWidget
 {
     Q_OBJECT
     Q_PROPERTY(qreal rotationZ READ rotationZ WRITE setRotationZ )
-public:
+
+ public:
     AbstractItem( QGraphicsItem * parent = 0 );
 
     virtual ~AbstractItem();
-
-    virtual void paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 ) = 0;
+/*
+    virtual void paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 );
 
     virtual QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const = 0;
-
+*/
     virtual qreal rotationZ() const;
 
     virtual void setRotationZ(qreal rr);
-protected:
-    virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
-
-    virtual void mouseReleaseEvent ( QGraphicsSceneMouseEvent * event );
-
-signals:
-    void mousePressedTimeout();
-    void clicked();
 
 private:
     AbstractItemPrivate * d_ptr;
+    Q_DISABLE_COPY( AbstractItem );
 
 };
 
