@@ -13,6 +13,8 @@
 #include <QRectF>
 #include <QCoreApplication>
 
+#define PANNABLE_FRICTION_COEFFICIENT 0.2 * 9.81  // F = y*N
+
 namespace qtablet{
 
 class PannableViewPrivate{
@@ -29,6 +31,8 @@ public:
     m_acceleration     (   0   ),
     m_deltaX           (   0   ),
     m_deltaY           (   0   ),
+    m_vX               (   0   ),
+    m_vY               (   0   ),
     m_time             (       ),
     m_scrollingTimeLine(   0   ),
     m_isPressed        ( false ),
@@ -40,6 +44,8 @@ public:
     qreal              m_acceleration;
     qreal              m_deltaX;
     qreal              m_deltaY;
+    qreal              m_vX;
+    qreal              m_vY;
     QTime              m_time;
     QTimeLine        * m_scrollingTimeLine;    
     bool               m_isPressed;
@@ -78,8 +84,7 @@ PannableWidget::PannableWidget( Qt::Orientations orientation, QGraphicsItem * pa
     setFlags( QGraphicsItem::ItemClipsChildrenToShape );
     d_ptr->m_orientation = orientation;
     d_ptr->m_scrollingTimeLine = new QTimeLine( 1000, this );
-    d_ptr->m_scrollingTimeLine->setCurveShape( QTimeLine::EaseInCurve );
-    d_ptr->m_scrollingTimeLine->setDirection( QTimeLine::Backward );
+    d_ptr->m_scrollingTimeLine->setCurveShape( QTimeLine::LinearCurve );
 
     connect( d_ptr->m_scrollingTimeLine, SIGNAL( valueChanged( qreal ) ),
              this,                       SLOT  ( scroll( qreal ) ) );
@@ -120,6 +125,7 @@ void PannableWidget::mousePressEvent( QGraphicsSceneMouseEvent * event ){
     }
 
     d_ptr->m_isPressed  = true;
+    d_ptr->m_scrollingTimeLine->setCurrentTime(0);
     d_ptr->m_time.start();
 }
 
@@ -133,44 +139,42 @@ void PannableWidget::mouseReleaseEvent( QGraphicsSceneMouseEvent * event ){
         d_ptr->m_selectedItem = 0;                
     }
 
+    qint32 tD  =  d_ptr->m_time.elapsed();  // Delta Time
     qreal  dxD = (event->scenePos() - event->buttonDownScenePos(Qt::LeftButton) ).x(); // Delta X distance
     qreal  dyD = (event->scenePos() - event->buttonDownScenePos(Qt::LeftButton) ).y(); // Delta Y distance
-    qint32 tD  =  d_ptr->m_time.elapsed() ;                                            // Delta Time
 
+/*    if(tD > 200 && (dxD < 300 || dyD < 100)) {  // If the touch is >0.2s then it is probably not a flick -> do not pan.
+                                                // and the flick is short.
+                                                // TODO: Check if 0.2s is ok.
+        return;
 
-    // Calculate acceleration
-    if ( d_ptr->m_orientation & Qt::Horizontal ){
-      d_ptr->m_acceleration = fabs( dxD / tD );
-    }else{
-      d_ptr->m_acceleration = fabs( dyD / tD );
     }
+*/
+    qreal vx = (dxD / tD ) * 1000;          // Velocity in x dimension (pixels / second).
+    qreal vy = (dyD / tD ) * 1000;          // Velocity in y dimension (pixels / second).
 
-    // Start to scroll only if delta values are more that 20 px
-    if ( fabs(dxD) > 20 || fabs(dyD) > 20 ){
+    //        qDebug() << event->scenePos() << event->buttonDownScenePos(Qt::LeftButton) << d_ptr->m_mousePressPos;
+
+    qDebug() << "dX" << dxD << "vx: " << vx << "tD: " << tD;
+    if ( fabs( vx ) > 1.0 || fabs(vy) > 1.0 ){
+        qreal velocity = 0;  // Current velocity in x or y dimension.
 
         d_ptr->m_deltaX = dxD;
         d_ptr->m_deltaY = dyD;
-        qint32 multiplier = 1000;
 
-        // Magic multiplier value is based on the acceleration. These are just values
-        // which have been found by trying things out.
-        if ( d_ptr->m_acceleration <= 0.4 ) multiplier = 0;
-        else if ( d_ptr->m_acceleration <= 0.6 ) multiplier = 200;
-        else if ( d_ptr->m_acceleration <= 0.8 ) multiplier = 300;
-        else if ( d_ptr->m_acceleration <= 1.0 ) multiplier = 400;
-        else if ( d_ptr->m_acceleration <= 1.2 ) multiplier = 500;
-        else if ( d_ptr->m_acceleration <= 1.4 ) multiplier = 600;
-        else if ( d_ptr->m_acceleration <= 1.6 ) multiplier = 700;
-        else if ( d_ptr->m_acceleration <= 1.8 ) multiplier = 800;
-        else if ( d_ptr->m_acceleration <= 2.0 ) multiplier = 900;
+        d_ptr->m_vX = vx;
+        d_ptr->m_vY = vy;
 
-        // User has done scrolling movement. Let's set correct duration
-        // for the scrolling based on the calculated acceleration and
-        // start a new animation for scrolling.        
-        if ( multiplier != 0 ){
-            d_ptr->m_scrollingTimeLine->setDuration(  static_cast<qint32>( d_ptr->m_acceleration * multiplier ) );
-            d_ptr->m_scrollingTimeLine->start();
-        }        
+        if ( d_ptr->m_orientation & Qt::Horizontal ){
+            velocity = fabs( vx );
+        }else{
+            velocity = fabs( vy );
+        }
+
+        d_ptr->m_scrollingTimeLine->setDuration(  static_cast<qint32>( ( velocity/(PANNABLE_FRICTION_COEFFICIENT) ) ) );
+        d_ptr->m_scrollingTimeLine->start();
+
+        return;
     }
 }
 
@@ -227,30 +231,37 @@ void PannableWidget::scroll( qreal value ){
         return;
     }
 
-    QRectF geom = geometry();
-
-    // Scroll to the left or right by translating geometry
-    // x and y positions. We use 100 here as a multiplier.
     if ( d_ptr->m_orientation & Qt::Horizontal ){
-        if ( d_ptr->m_deltaX > 0 ){
-            geom.translate( value*100, 0 );
-        }else
-        if ( d_ptr->m_deltaX < 0 ){
-            geom.translate( value*-100, 0 );
-        }
-    }
+        // s = 1/2 * (u + v)t,
+        // u=0,
+        // t=update interval (in ms) of the QTimeLine.
+        qreal s = d_ptr->m_vX * (d_ptr->m_scrollingTimeLine->updateInterval()/ 2) / 1000;
 
-    if ( d_ptr->m_orientation & Qt::Vertical ){
-        if ( d_ptr->m_deltaY > 0 ){
-          geom.translate( 0, value*100 );
-        }else
-        if ( d_ptr->m_deltaY < 0 ){
-          geom.translate( 0, value*-100 );
-        }
+        // v = u + at,
+        // u = d_ptr->m_vX (current speed),
+        // a = yN/m, m = 1kg (just to have something), yN = friction
+        qreal v = ( fabs(d_ptr->m_vX) - (PANNABLE_FRICTION_COEFFICIENT * d_ptr->m_scrollingTimeLine->updateInterval()) );
+        d_ptr->m_vX = (d_ptr->m_vX < 0 ? -v : v);
+
+        moveBy(s, 0);
+    } else {
+        // s = 1/2 * (u + v)t,
+        // u=0,
+        // t=update interval (in ms) of the QTimeLine.
+        qreal s = d_ptr->m_vY * (d_ptr->m_scrollingTimeLine->updateInterval()/ 2) / 1000;
+
+        // v = u + at,
+        // u = d_ptr->m_vY (current speed),
+        // a = yN/m, m = 1kg (just to have something), yN = friction
+        qreal v = ( fabs(d_ptr->m_vY) - (PANNABLE_FRICTION_COEFFICIENT * d_ptr->m_scrollingTimeLine->updateInterval()) );
+        d_ptr->m_vY = (d_ptr->m_vY < 0 ? -v : v);
+
+        moveBy(0, s);
     }
 
     // Let's calculate next, if  we need to stop scrolling and if so,
     // calculate the end position also based on the parent view size.
+    QRectF geom = geometry();
     qreal viewWidth    = parentItem()->boundingRect().width();
     qreal viewHeight   = parentItem()->boundingRect().height();
     qreal layoutWidth  = layout()->geometry().width();
@@ -269,6 +280,7 @@ void PannableWidget::scroll( qreal value ){
             geom.setX( 0 );
             d_ptr->m_scrollingTimeLine->stop();            
         }
+        setGeometry( geom );
     }
 
     if ( d_ptr->m_orientation & Qt::Vertical ){
@@ -284,10 +296,8 @@ void PannableWidget::scroll( qreal value ){
             geom.setY( 0 );
             d_ptr->m_scrollingTimeLine->stop();
         }
+         setGeometry( geom );
     }
-
-    // And finally set new x or y to this widget.
-    setGeometry( geom );
 }
 
 void PannableWidget::animateEnd(){
