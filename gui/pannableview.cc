@@ -13,7 +13,7 @@
 #include <QRectF>
 #include <QCoreApplication>
 
-#define PANNABLE_FRICTION_COEFFICIENT 0.2 * 9.81  // F = y*N
+#define PANNABLE_FRICTION_COEFFICIENT 0.1 * 9.81  // F = y*N, 0.1 = friction coefficient for ice on ice.
 
 namespace qtablet{
 
@@ -143,13 +143,13 @@ void PannableWidget::mouseReleaseEvent( QGraphicsSceneMouseEvent * event ){
     qreal  dxD = (event->scenePos() - event->buttonDownScenePos(Qt::LeftButton) ).x(); // Delta X distance
     qreal  dyD = (event->scenePos() - event->buttonDownScenePos(Qt::LeftButton) ).y(); // Delta Y distance
 
-/*    if(tD > 200 && (dxD < 300 || dyD < 100)) {  // If the touch is >0.2s then it is probably not a flick -> do not pan.
+    if(tD > 200 && (dxD < 300 || dyD < 100)) {  // If the touch is >0.2s then it is probably not a flick -> do not pan.
                                                 // and the flick is short.
                                                 // TODO: Check if 0.2s is ok.
         return;
 
     }
-*/
+
     qreal vx = (dxD / tD ) * 1000;          // Velocity in x dimension (pixels / second).
     qreal vy = (dyD / tD ) * 1000;          // Velocity in y dimension (pixels / second).
 
@@ -267,20 +267,22 @@ void PannableWidget::scroll( qreal value ){
     qreal layoutWidth  = layout()->geometry().width();
     qreal layoutHeight = layout()->geometry().height();
 
+    // TODO: If panning is kept like the implementation above, this must be checked.
     if ( d_ptr->m_orientation & Qt::Horizontal ){
 
         if ( d_ptr->m_deltaX < 0 && ( ( fabs( geom.x() ) + viewWidth ) > layoutWidth )){
             // Moving right
             geom.setX( viewWidth - layoutWidth );
             d_ptr->m_scrollingTimeLine->stop();
+            setGeometry( geom );
         }
 
         if ( d_ptr->m_deltaX > 0 && geom.x() > 0 ){
             // Moving left
             geom.setX( 0 );
             d_ptr->m_scrollingTimeLine->stop();            
+            setGeometry( geom );
         }
-        setGeometry( geom );
     }
 
     if ( d_ptr->m_orientation & Qt::Vertical ){
@@ -289,14 +291,15 @@ void PannableWidget::scroll( qreal value ){
             // Moving down
             geom.setY( viewHeight - layoutHeight );
             d_ptr->m_scrollingTimeLine->stop();            
+             setGeometry( geom );
         }
 
         if (  d_ptr->m_deltaY > 0 && geom.y() > 0 ){
             // Moving up
             geom.setY( 0 );
             d_ptr->m_scrollingTimeLine->stop();
+             setGeometry( geom );
         }
-         setGeometry( geom );
     }
 }
 
