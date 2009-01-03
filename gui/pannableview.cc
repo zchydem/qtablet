@@ -51,6 +51,8 @@ public:
     bool               m_isPressed;
     Qt::Orientations   m_orientation;
     PannableViewItem * m_selectedItem;
+
+
 };
 
 
@@ -237,6 +239,12 @@ void PannableWidget::scroll( qreal value ){
         return;
     }
 
+    if(endReached()) {
+        d_ptr->m_scrollingTimeLine->stop();
+        animateEnd();
+        return;
+    }
+
     if ( d_ptr->m_orientation & Qt::Horizontal ){
         // s = 1/2 * (u + v)t,
         // u=0,
@@ -264,54 +272,56 @@ void PannableWidget::scroll( qreal value ){
 
         moveBy(0, s);
     }
-
-    // Let's calculate next, if  we need to stop scrolling and if so,
-    // calculate the end position also based on the parent view size.
-    QRectF geom = geometry();
-    qreal viewWidth    = parentItem()->boundingRect().width();
-    qreal viewHeight   = parentItem()->boundingRect().height();
-    qreal layoutWidth  = layout()->geometry().width();
-    qreal layoutHeight = layout()->geometry().height();
-
-    // TODO: If panning is kept like the implementation above, this must be checked.
-    if ( d_ptr->m_orientation & Qt::Horizontal ){
-
-        if ( d_ptr->m_deltaX < 0 && ( ( fabs( geom.x() ) + viewWidth ) > layoutWidth )){
-            // Moving right
-            geom.setX( viewWidth - layoutWidth );
-            d_ptr->m_scrollingTimeLine->stop();
-            setGeometry( geom );
-        }
-
-        if ( d_ptr->m_deltaX > 0 && geom.x() > 0 ){
-            // Moving left
-            geom.setX( 0 );
-            d_ptr->m_scrollingTimeLine->stop();            
-            setGeometry( geom );
-        }
-    }
-
-    if ( d_ptr->m_orientation & Qt::Vertical ){
-
-        if ( d_ptr->m_deltaY < 0 && ( ( fabs(geom.y()) + viewHeight ) > layoutHeight )){
-            // Moving down
-            geom.setY( viewHeight - layoutHeight );
-            d_ptr->m_scrollingTimeLine->stop();            
-            setGeometry( geom );
-        }
-
-        if (  d_ptr->m_deltaY > 0 && geom.y() > 0 ){
-            // Moving up
-            geom.setY( 0 );
-            d_ptr->m_scrollingTimeLine->stop();
-            setGeometry( geom );
-        }
-    }
 }
 
 void PannableWidget::animateEnd(){
     //TODO: Implement this
 }
+
+bool PannableWidget::endReached() {
+
+    if ( d_ptr->m_orientation & Qt::Horizontal ){
+        qreal widgetX     = geometry().x();
+        qreal layoutWidth = layout()->geometry().width();
+        qreal viewWidth   = parentItem()->boundingRect().width();
+
+        if ( d_ptr->m_deltaX > 0 && widgetX >= 0){
+            // Stop scrolling to right
+            return true;
+        }else
+            if ( d_ptr->m_deltaX < 0 && ( ( fabs( widgetX ) + viewWidth ) >= layoutWidth ) ){
+            // Stop scrolling to left
+            return true;
+        }
+    } else
+
+    if ( d_ptr->m_orientation & Qt::Vertical ){
+
+        qreal widgetY      = geometry().y();
+        qreal layoutHeight = layout()->geometry().height();
+        qreal viewHeight   = parentItem()->boundingRect().height();
+        /*
+            qDebug() << "Widget Y: " << widgetY << "\n"
+                     << "Layout H: " << layoutHeight << "\n"
+                     << "WY + WH:  " << fabs(widgetY) + viewHeight << "\n"
+                     << "View H:   " << viewHeight;
+            */
+        if ( d_ptr->m_deltaY > 0 && widgetY <= 0){
+            // Stop scrolling to up
+            qDebug() << "Stop scrolling to up";
+            return true;
+        }
+
+        if ( d_ptr->m_deltaY < 0 && ( ( fabs( widgetY ) + viewHeight ) >= layoutHeight ) ){
+            // Stop scrolling to down
+            qDebug() << "Stop scrolling to down";
+            return true;
+        }
+
+    }
+    return false;
+}
+
 
 }
 

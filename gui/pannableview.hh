@@ -139,11 +139,12 @@ protected slots:
     //! is reached and the scrolling must be stopped.
     void scroll( qreal value );
 
-
     void animateEnd();
 
 private:
     PannableWidgetPrivate * d_ptr;
+
+    bool endReached();
 };
 
 }
