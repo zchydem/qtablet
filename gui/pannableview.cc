@@ -13,7 +13,7 @@
 #include <QRectF>
 #include <QCoreApplication>
 
-#define PANNABLE_FRICTION_COEFFICIENT 0.1 * 9.81  // F = y*N, 0.1 = friction coefficient for ice on ice.
+#define PANNABLE_FRICTION_COEFFICIENT 0.15 * 9.81  // F = y*N, 0.1 = friction coefficient for ice on ice.
 
 namespace qtablet{
 
