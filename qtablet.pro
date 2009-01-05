@@ -3,5 +3,6 @@
 ######################################################################
 TEMPLATE = subdirs
 CONFIG  += ordered
-SUBDIRS = gui \
+SUBDIRS = core \
+          gui \
           wall

@@ -10,23 +10,33 @@ class PannableViewItem : public AbstractItem
 {
     Q_OBJECT
 public:
-    PannableViewItem( QGraphicsItem * parent = 0 );
+    PannableViewItem( QString const & imageFile, QString const & labelText=QString(), QGraphicsItem * parent = 0 );
 
     virtual ~PannableViewItem();
 
     virtual void paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 );
 
+    virtual QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const;
+
     virtual void pannableViewMousePressEvent( QGraphicsSceneMouseEvent * event );
 
     virtual void pannableViewMouseReleaseEvent( QGraphicsSceneMouseEvent * event );
 
-    virtual void pannableViewMousePressCancelled();
+    virtual void pannableViewMouseMoveEvent( QGraphicsSceneMouseEvent * event );
 
-protected:
-    virtual void timerEvent( QTimerEvent * event );
+    virtual void setShowSelection( bool show );
+
+    virtual bool showSelection() const;
+
+    virtual void setAcceptMouseEvent( bool accept );
+
+    virtual bool acceptMouseEvent() const;
 
 signals:
     void clicked();
+
+protected slots:
+    void update();
 
 private:
     PannableViewItemPrivate * d_ptr;

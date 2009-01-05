@@ -60,7 +60,7 @@ namespace qtablet{
     //! Signal for indicating channel creation.
     //! 
     //! \param newChannelName The Name of the new channel.
-    void channelCreated( QString const & newChannelName )
+    void channelCreated( QString const & newChannelName );
     
     //! Signal for indicating channel deletion.
     //!

@@ -113,11 +113,13 @@ void PannableWidget::mousePressEvent( QGraphicsSceneMouseEvent * event ){
         stopped = true;
     }
 
-    // Make item aware of press event if there is an item and the scrolling hasn't been stopped
-    // this int event.
-    QGraphicsWidget * widget = static_cast<QGraphicsWidget*>(scene()->itemAt( event->scenePos() ));
-    if ( !stopped && widget != this && widget != 0){
-        PannableViewItem * item = static_cast<PannableViewItem*>( scene()->itemAt( event->scenePos() ) );
+    // If scrolling is stopped but not in this method call, make sure that item if there
+    // is any, get's the mouse press event. Otherwise make the previously selected
+    // item unselected.
+    PannableViewItem * item = qgraphicsitem_cast<PannableViewItem*>(scene()->itemAt( event->scenePos() ));
+    bool isThisWidget       = qgraphicsitem_cast<QGraphicsWidget*>( item ) == qgraphicsitem_cast<QGraphicsWidget*>( this );
+
+    if ( !stopped && !isThisWidget && item != 0 && item->acceptMouseEvent() ){
         d_ptr->m_selectedItem = item;
         d_ptr->m_selectedItem->pannableViewMousePressEvent( event );
     }else{
@@ -133,29 +135,31 @@ void PannableWidget::mouseReleaseEvent( QGraphicsSceneMouseEvent * event ){
 
     d_ptr->m_isPressed = false;
 
-    PannableViewItem * item = static_cast<PannableViewItem*>( scene()->itemAt( event->scenePos() ) );
-    if ( d_ptr->m_selectedItem != 0 && d_ptr->m_selectedItem == item && item != 0 ){
+    PannableViewItem * item = qgraphicsitem_cast<PannableViewItem*>( scene()->itemAt( event->scenePos() ) );
+    if ( d_ptr->m_selectedItem != 0 && d_ptr->m_selectedItem == item && item != 0 && item->acceptMouseEvent() ){
         d_ptr->m_selectedItem->pannableViewMouseReleaseEvent( event );
-        d_ptr->m_selectedItem = 0;                
+        d_ptr->m_selectedItem = 0;
     }
 
     qint32 tD  =  d_ptr->m_time.elapsed();  // Delta Time
     qreal  dxD = (event->scenePos() - event->buttonDownScenePos(Qt::LeftButton) ).x(); // Delta X distance
     qreal  dyD = (event->scenePos() - event->buttonDownScenePos(Qt::LeftButton) ).y(); // Delta Y distance
+    if ( tD == 0 ){
+        return;
+    }
 
-    if(tD > 200 && (dxD < 300 || dyD < 100)) {  // If the touch is >0.2s then it is probably not a flick -> do not pan.
+    /*
+    if(tD > 200 && (dxD < 100 || dyD < 100)) {  // If the touch is >0.2s then it is probably not a flick -> do not pan.
                                                 // and the flick is short.
                                                 // TODO: Check if 0.2s is ok.
+
         return;
 
     }
-
+    */
     qreal vx = (dxD / tD ) * 1000;          // Velocity in x dimension (pixels / second).
     qreal vy = (dyD / tD ) * 1000;          // Velocity in y dimension (pixels / second).
 
-    //        qDebug() << event->scenePos() << event->buttonDownScenePos(Qt::LeftButton) << d_ptr->m_mousePressPos;
-
-    qDebug() << "dX" << dxD << "vx: " << vx << "tD: " << tD;
     if ( fabs( vx ) > 1.0 || fabs(vy) > 1.0 ){
         qreal velocity = 0;  // Current velocity in x or y dimension.
 
@@ -171,9 +175,10 @@ void PannableWidget::mouseReleaseEvent( QGraphicsSceneMouseEvent * event ){
             velocity = fabs( vy );
         }
 
-        d_ptr->m_scrollingTimeLine->setDuration(  static_cast<qint32>( ( velocity/(PANNABLE_FRICTION_COEFFICIENT) ) ) );
-        d_ptr->m_scrollingTimeLine->start();
-
+        if ( velocity > 0 ){
+            d_ptr->m_scrollingTimeLine->setDuration(  static_cast<qint32>( ( velocity/(PANNABLE_FRICTION_COEFFICIENT) ) ) );
+            d_ptr->m_scrollingTimeLine->start();
+        }
         return;
     }
 }
@@ -182,6 +187,13 @@ void PannableWidget::mouseMoveEvent(  QGraphicsSceneMouseEvent * event ){
 
     if ( !d_ptr->m_isPressed ){
         return;
+    }
+
+    // If moving mouse while some item is selected, we don't want to pan the view.
+    // Just pass the event to the item and exit.
+    if ( d_ptr->m_selectedItem != 0 ){        
+        d_ptr->m_selectedItem->pannableViewMouseMoveEvent( event );        
+        //return;
     }
 
     qreal deltaX = 0;
@@ -205,12 +217,6 @@ void PannableWidget::mouseMoveEvent(  QGraphicsSceneMouseEvent * event ){
     if ( ( d_ptr->m_orientation & Qt::Horizontal && fabs( deltaX ) == 0 ) ||
        ( d_ptr->m_orientation & Qt::Vertical   && fabs( deltaY ) == 0 ) ){
         return;
-    }
-
-    // We are moving, not selecting the item. Reset the currently selected item if there's a one.    
-    if ( d_ptr->m_selectedItem != 0 ){
-        d_ptr->m_selectedItem->pannableViewMousePressCancelled();
-        d_ptr->m_selectedItem = 0;
     }
 
     // translate the view by delta
@@ -291,14 +297,14 @@ void PannableWidget::scroll( qreal value ){
             // Moving down
             geom.setY( viewHeight - layoutHeight );
             d_ptr->m_scrollingTimeLine->stop();            
-             setGeometry( geom );
+            setGeometry( geom );
         }
 
         if (  d_ptr->m_deltaY > 0 && geom.y() > 0 ){
             // Moving up
             geom.setY( 0 );
             d_ptr->m_scrollingTimeLine->stop();
-             setGeometry( geom );
+            setGeometry( geom );
         }
     }
 }

@@ -1,23 +1,15 @@
-#ifndef QLAUNCHER_HH
-#define QLAUNCHER_HH
+#ifndef QLAUNCHER_H
+#define QLAUNCHER_H
 
-#include <QGraphicsWidget>
-
+#include "abstractitem.hh"
 
 namespace qtablet{
 
-  class PannableView;
+class QLauncher : public AbstractItem
+{
+public:
+    QLauncher();
+};
 
-  class QLauncher: public QGraphicsWidget{
-    Q_OBJECT
-    public:
-
-    QLauncher( QGraphicsWidget * parent = 0 );
-    virtual ~QLauncher();
-
-  private:
-    PannableView * pannableView;
-
-  };
 }
-#endif
+#endif // QLAUNCHER_H

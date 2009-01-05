@@ -3,13 +3,15 @@
 namespace qtablet{
 
   ComChannel::ComChannel( QString const & channelName, QObject * parent ):
-    QObject( parent ){
+    QObject( parent )
+  {
 
   }
 
   
   ComChannel::ComChannel( QObject * parent ):
-    QObject( parent ){
+    QObject( parent )
+  {
 
   }
 

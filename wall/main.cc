@@ -1,5 +1,5 @@
 #include "pannableview.hh"
-#include "imageitem.hh"
+#include "pannableviewitem.hh"
 
 #include <QApplication>
 #include <QGraphicsGridLayout>
@@ -28,10 +28,25 @@ QGraphicsLayout * createWall(){
   QGraphicsLinearLayout * layout   = new QGraphicsLinearLayout( Qt::Vertical );
   layout->setSpacing(0);
   layout->setContentsMargins(0,0,0,0);
-  layout->addItem( new qtablet::ImageItem( "../../images/default_1.png" ) );
-  layout->addItem( new qtablet::ImageItem( "../../images/default_2.png" ) );
-  layout->addItem( new qtablet::ImageItem( "../../images/default_3.png" ) );
-  layout->addItem( new qtablet::ImageItem( "../../images/default_4.png" ) );
+  qtablet::PannableViewItem * d1 = new qtablet::PannableViewItem( "../../images/default_1.png", "" );
+  qtablet::PannableViewItem * d2 = new qtablet::PannableViewItem( "../../images/default_2.png", "" );
+  qtablet::PannableViewItem * d3 = new qtablet::PannableViewItem( "../../images/default_3.png", "" );
+  qtablet::PannableViewItem * d4 = new qtablet::PannableViewItem( "../../images/default_4.png", "" );
+
+  d1->setShowSelection( false );
+  d2->setShowSelection( false );
+  d3->setShowSelection( false );
+  d4->setShowSelection( false );
+
+  d1->setAcceptMouseEvent( false );
+  d2->setAcceptMouseEvent( false );
+  d3->setAcceptMouseEvent( false );
+  d4->setAcceptMouseEvent( false );
+
+  layout->addItem( d1 );
+  layout->addItem( d2 );
+  layout->addItem( d3 );
+  layout->addItem( d4 );
 
   return layout;
 }
@@ -50,9 +65,9 @@ QGraphicsLayout * createLauncher(){
     
   foreach( QString thumb, thumbs ){
 
-    layout->addItem( new qtablet::ImageItem( "../../images/thumbs/"+thumb) ,   row++%3, i);
+    layout->addItem( new qtablet::PannableViewItem( "../../images/thumbs/"+thumb, thumb ) ,   row++%2, i);
 
-    if ( row % 3 == 0 ){
+    if ( row % 2 == 0 ){
       ++i;
     }
   }
