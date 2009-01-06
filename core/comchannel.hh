@@ -70,6 +70,7 @@ namespace qtablet{
   private:    
     //! Private member
     ComChannelPrivate * d_ptr;  
+    Q_DISABLE_COPY( ComChannel );
   };
 }
 #endif 

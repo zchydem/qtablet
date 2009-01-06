@@ -44,7 +44,7 @@ class LabelItemPrivate{
         QPainter painter( &pixmap );
 
         painter.setFont ( m_font  );
-        painter.setBrush( m_color );
+        painter.setPen( m_color );
         painter.drawText( pixmap.rect(), m_text, option );
         return pixmap;
     }

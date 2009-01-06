@@ -16,6 +16,8 @@ public:
 
     ImageItem( QString const & imagePath, QGraphicsItem * parent = 0 );
 
+    ImageItem( QPixmap const & pixmap, QGraphicsItem * parent = 0 );
+    
     virtual ~ImageItem();
 
     virtual void paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 );
@@ -27,6 +29,8 @@ public:
     virtual QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const;
 
     virtual void setImage( QString const & path );
+
+    virtual void setImage( QPixmap const & pixmap );
 
 private:
     ImageItemPrivate * d_ptr;

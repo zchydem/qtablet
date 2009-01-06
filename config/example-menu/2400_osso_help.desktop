@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Name=help application
+Comment=help_ap_help_application_thumb
+Exec=/usr/bin/osso_help
+Icon=qgn_list_help
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Service=osso_help
+X-Osso-Type=application/x-executable

@@ -1,0 +1,15 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+StartupNotify=false
+StartupWMClass=osso-global-search
+Name=global search
+Comment=srch_ap_search_thumb
+Exec=/usr/bin/osso-global-search
+Icon=qgn_list_find
+X-Window-Icon=qgn_list_find
+X-Window-Icon-Dimmed=qgn_list_find
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Type=application/x-executable
+X-Osso-Service=osso_global_search

@@ -12,6 +12,8 @@ class PannableViewItem : public AbstractItem
 public:
     PannableViewItem( QString const & imageFile, QString const & labelText=QString(), QGraphicsItem * parent = 0 );
 
+    PannableViewItem( QPixmap const & pixmap, QString const & labelText=QString(), QGraphicsItem * parent = 0 );
+
     virtual ~PannableViewItem();
 
     virtual void paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 );
@@ -31,6 +33,7 @@ public:
     virtual void setAcceptMouseEvent( bool accept );
 
     virtual bool acceptMouseEvent() const;
+
 
 signals:
     void clicked();

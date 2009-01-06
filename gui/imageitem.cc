@@ -25,6 +25,13 @@ ImageItem::ImageItem( QString const & imagePath, QGraphicsItem * parent ):
     }
 }
 
+ImageItem::ImageItem( QPixmap const & pixmap, QGraphicsItem * parent ):
+    AbstractItem( parent ),
+    d_ptr( new ImageItemPrivate )
+{
+    d_ptr->m_pixmap = pixmap;
+}
+
 ImageItem::~ImageItem(){
     delete d_ptr;
 }
@@ -58,4 +65,15 @@ void ImageItem::setImage( QString const & path ){
 
     update();
 }
+
+void ImageItem::setImage( QPixmap const & pixmap ){
+    if ( pixmap.isNull() ){
+        qCritical() << "ImageItem::setImage: NULL pixmap";
+        return;
+    }
+
+    d_ptr->m_pixmap = pixmap;
+    update();
+}
+
 }

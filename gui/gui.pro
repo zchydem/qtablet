@@ -23,6 +23,7 @@ SOURCES += pannableview.cc \
     abstractitem.cc \
     pannableviewitem.cc \
     labelitem.cc
+
 target.path = $$INSTALLDIR/lib
 headers.files = $$HEADERS
 headers.path = $$INSTALLDIR/include

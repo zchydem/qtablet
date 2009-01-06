@@ -4,6 +4,7 @@
 #include <QtDebug>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
+#include <QHash>
 
 namespace qtablet{
 
@@ -15,6 +16,7 @@ public:
     }
 
     qreal m_currentRotation;
+    QHash <QString, QVariant> m_attributes;
 };
 
 // AbstractItem class
@@ -40,5 +42,13 @@ void AbstractItem::setRotationZ(qreal rr){
     setTransform(QTransform().translate(c.x(), c.y()).rotate(rr, Qt::ZAxis).translate(-c.x(), -c.y()));
 }
 
+
+void AbstractItem::addItemAttribute( QString const & key, QVariant const & value ){
+    d_ptr->m_attributes.insert( key, value );
+}
+
+QVariant AbstractItem::itemAttribute( QString const & key ) const{
+    return d_ptr->m_attributes.value( key );
+}
 
 }

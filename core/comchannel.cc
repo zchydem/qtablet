@@ -19,8 +19,9 @@ namespace qtablet{
 
   }
 			 
-  void sendMessage( QString const & message, QByteArray const & data ){
-
+  void ComChannel::sendMessage( QString const & message, QByteArray const & data ){
+    Q_UNUSED( message );
+    Q_UNUSED( data );
   }
 
 }

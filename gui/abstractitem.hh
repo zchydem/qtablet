@@ -29,6 +29,10 @@ class AbstractItem : public QGraphicsWidget
 
     virtual void setRotationZ(qreal rr);
 
+    virtual void addItemAttribute( QString const & key, QVariant const & value );
+
+    virtual QVariant itemAttribute( QString const & key ) const;
+
 private:
     AbstractItemPrivate * d_ptr;
     Q_DISABLE_COPY( AbstractItem );

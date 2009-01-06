@@ -1,5 +1,7 @@
 #include "pannableview.hh"
 #include "pannableviewitem.hh"
+#include "settings.hh"
+#include "qlauncher.hh"
 
 #include <QApplication>
 #include <QGraphicsGridLayout>
@@ -15,6 +17,7 @@
 #include <QtDebug>
 
 
+
 // Animation stuff
 #include <qstate.h>
 #include <qstategroup.h>
@@ -28,10 +31,10 @@ QGraphicsLayout * createWall(){
   QGraphicsLinearLayout * layout   = new QGraphicsLinearLayout( Qt::Vertical );
   layout->setSpacing(0);
   layout->setContentsMargins(0,0,0,0);
-  qtablet::PannableViewItem * d1 = new qtablet::PannableViewItem( "../../images/default_1.png", "" );
-  qtablet::PannableViewItem * d2 = new qtablet::PannableViewItem( "../../images/default_2.png", "" );
-  qtablet::PannableViewItem * d3 = new qtablet::PannableViewItem( "../../images/default_3.png", "" );
-  qtablet::PannableViewItem * d4 = new qtablet::PannableViewItem( "../../images/default_4.png", "" );
+  qtablet::PannableViewItem * d1 = new qtablet::PannableViewItem( "image:default_1.png" );
+  qtablet::PannableViewItem * d2 = new qtablet::PannableViewItem( "image:default_2.png" );
+  qtablet::PannableViewItem * d3 = new qtablet::PannableViewItem( "image:default_3.png" );
+  qtablet::PannableViewItem * d4 = new qtablet::PannableViewItem( "image:default_4.png" );
 
   d1->setShowSelection( false );
   d2->setShowSelection( false );
@@ -51,50 +54,22 @@ QGraphicsLayout * createWall(){
   return layout;
 }
 
-QGraphicsLayout * createLauncher(){
-  
-  QGraphicsGridLayout * layout = new QGraphicsGridLayout;
-  layout->setSpacing( 20 );
-  layout->setContentsMargins( 10, 10, 100, 10 );
-  int row = 0;
-  int i   = 0;
-  QDir dir("../../images/thumbs");
-  QStringList thumbs = dir.entryList( QDir::Files );
 
-
-    
-  foreach( QString thumb, thumbs ){
-
-    layout->addItem( new qtablet::PannableViewItem( "../../images/thumbs/"+thumb, thumb ) ,   row++%2, i);
-
-    if ( row % 2 == 0 ){
-      ++i;
-    }
-  }
-
-  return layout;
-}
-
-
-QGraphicsWidget * createToolbar(){
-  QPushButton * button = new QPushButton;
-  button->resize( 50, 480 );
-  button->setMinimumSize( 50, 480);
-  button->setMaximumSize( 50, 480);
-
-  QGraphicsProxyWidget * widget = new QGraphicsProxyWidget;
-  widget->setWidget( button );
-  return widget;
-
-}
 
 int main( int argc, char *argv[] ){
   
   QApplication app( argc, argv );
+
+  // Set first search path manually in order to make possible
+  // to find the configuration file.
+  QDir::setSearchPaths("config", QStringList( "../config") );
+  qtablet::Settings * settings = qtablet::Settings::instance();
+  Q_UNUSED( settings );
+
+
   QGraphicsScene scene(0,0,800,480);
 
-  qtablet::PannableView * launcher = new qtablet::PannableView( Qt::Horizontal, 800, 480 );
-  launcher->setLayout( createLauncher() );
+  qtablet::QLauncher * launcher = new qtablet::QLauncher;  
   scene.addItem( launcher );
 
   qtablet::PannableView * wall = new qtablet::PannableView( Qt::Vertical, 800, 480 );
@@ -134,9 +109,9 @@ int main( int argc, char *argv[] ){
   QtAnimation * anim2 = new QtAnimation(launcher, "geometry");
 
   //anim1->setEasingCurve( QtEasingCurve::OutBounce );
-  anim1->setDuration( 1000 );
+  //anim1->setDuration( 1000 );
   //anim2->setEasingCurve( QtEasingCurve::OutBounce );
-  anim2->setDuration( 1000 );
+  //anim2->setDuration( 1000 );
 
   transition1.add( anim1 );
   transition1.add(new QtAnimation(button,   "geometry"));

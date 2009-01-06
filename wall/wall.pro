@@ -7,9 +7,12 @@ TEMPLATE = app
 TARGET = qtabletwall
 DEPENDPATH += .
 INCLUDEPATH += . \
-    ../gui
+    ../gui \
+    ../core
 LIBS += -L$$BUILDDIR/gui/lib \
-    -lQTabletGui
+    -lQTabletGui \
+    -L$$BUILDDIR/core/lib \
+    -lQTabletCore
 OBJECTS_DIR += $$BUILDDIR/wall/obj
 MOC_DIR += $$BUILDDIR/wall/moc
 DESTDIR += $$BUILDDIR/wall/bin
@@ -17,9 +20,11 @@ DESTDIR += $$BUILDDIR/wall/bin
 # Input
 # HEADERS +=
 SOURCES += main.cc \
-    qlauncher.cc
+    qlauncher.cc \
+    desktopfileparser.cc
 
 # install settings
 target.path = $$INSTALLDIR/bin
 INSTALLS += target
-HEADERS += qlauncher.hh
+HEADERS += qlauncher.hh \
+    desktopfileparser.hh

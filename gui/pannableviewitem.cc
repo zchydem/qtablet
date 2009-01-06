@@ -19,7 +19,9 @@ public:
             m_image( new ImageItem ),
             m_label( new LabelItem )
     {
-
+        // Make sure that child items don't get events i.e. they are behind this item
+        m_image->setFlag( QGraphicsItem::ItemStacksBehindParent, true );
+        m_label->setFlag( QGraphicsItem::ItemStacksBehindParent, true );
     }
 
     ~PannableViewItemPrivate(){
@@ -32,11 +34,11 @@ public:
         }
     }
 
-    bool        m_isPressed;
-    bool        m_showSelection;
-    bool        m_acceptMouseEvent;
-    ImageItem * m_image;
-    LabelItem * m_label;
+    bool                      m_isPressed;
+    bool                      m_showSelection;
+    bool                      m_acceptMouseEvent;
+    ImageItem               * m_image;
+    LabelItem               * m_label;    
 };
 
 
@@ -44,9 +46,6 @@ PannableViewItem::PannableViewItem(  QString const & imageFile, QString const & 
     AbstractItem( parent ),
     d_ptr( new PannableViewItemPrivate )
 {
-    // Make sure that child items don't get events i.e. they are behind this item
-    d_ptr->m_image->setFlag( QGraphicsItem::ItemStacksBehindParent, true );
-    d_ptr->m_label->setFlag( QGraphicsItem::ItemStacksBehindParent, true );
 
     // Set image for the image item
     d_ptr->m_image->setImage( imageFile );
@@ -76,6 +75,38 @@ PannableViewItem::PannableViewItem(  QString const & imageFile, QString const & 
     setLayout( layout );
 }
 
+PannableViewItem::PannableViewItem( QPixmap const & pixmap, QString const & labelText, QGraphicsItem * parent ):
+    AbstractItem( parent ),
+    d_ptr( new PannableViewItemPrivate )
+{
+
+    // Set image for the image item
+    d_ptr->m_image->setImage( pixmap    );
+    d_ptr->m_label->setText ( labelText );
+
+
+    // Create layout and add items there
+    QGraphicsLinearLayout * layout = new QGraphicsLinearLayout( Qt::Vertical );
+    layout->setContentsMargins(0,0,0,0);
+
+    if ( !d_ptr->m_image->isNull() ){
+        layout->addItem( d_ptr->m_image );
+        layout->setAlignment( d_ptr->m_image, Qt::AlignCenter );
+    }
+
+    if ( !d_ptr->m_label->isEmpty() ){
+        // Set text and other settings for the text item
+        QSizeF imageSize = d_ptr->m_image->sizeHint( Qt::MaximumSize );
+        d_ptr->m_label->setWidth( static_cast<qint32>( imageSize.width() ) );
+        d_ptr->m_label->setAlignment( Qt::AlignCenter );
+        d_ptr->m_label->setFont( QFont( "Arial", 18, 68 ) );
+        layout->addItem( d_ptr->m_label );
+        layout->setAlignment( d_ptr->m_label, Qt::AlignCenter );
+    }
+
+    // And finally set the layout.
+    setLayout( layout );
+}
 
 PannableViewItem::~PannableViewItem(){
     delete d_ptr;
@@ -92,7 +123,7 @@ void PannableViewItem::paint ( QPainter * painter, const QStyleOptionGraphicsIte
     }
 
     // Let's set flag to false here in order to enable fast tappings i.e. user
-    // sees the selection of the item
+    // sees the selection of the item    
     d_ptr->m_isPressed = false;
 }
 
@@ -114,7 +145,7 @@ void PannableViewItem::pannableViewMousePressEvent( QGraphicsSceneMouseEvent * e
     // Doing the this with small delay we make possible that items are not selected
     // when user is panning the items.
     d_ptr->m_isPressed = true;
-    QTimer::singleShot( 1000, this, SLOT( update() ) );
+    QTimer::singleShot( 2000, this, SLOT( update() ) );
 }
 
 void PannableViewItem::pannableViewMouseReleaseEvent( QGraphicsSceneMouseEvent * event ){    
@@ -128,7 +159,7 @@ void PannableViewItem::pannableViewMouseReleaseEvent( QGraphicsSceneMouseEvent *
 
     if ( bBox.contains( mapFromScene( mouseReleasePos) ) &&
          bBox.contains( mapFromScene( mousePressPos ) ) ){
-        update();
+        update();        
         emit clicked();        
     }
 }
@@ -140,15 +171,16 @@ void PannableViewItem::pannableViewMouseMoveEvent( QGraphicsSceneMouseEvent * ev
 
     QRectF bBox = boundingRect();
     if ( !bBox.contains( this->mapFromScene( event->scenePos() ) ) ){
-        d_ptr->m_isPressed = false;
+        d_ptr->m_isPressed = false;        
         update();
     }
 }
 
 
-void PannableViewItem::update(){
+void PannableViewItem::update(){    
     QGraphicsItem::update();
 }
+
 
 void PannableViewItem::setShowSelection( bool show ){
     d_ptr->m_showSelection = show;
@@ -165,5 +197,6 @@ void PannableViewItem::setAcceptMouseEvent( bool accept){
 bool PannableViewItem::acceptMouseEvent() const{
     return d_ptr->m_acceptMouseEvent;
 }
+
 
 }

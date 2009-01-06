@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Name=file manager
+Comment=sfil_ap_file_manager_thumb
+Exec=/usr/bin/ossofilemanager
+Icon=qgn_list_filemanager
+X-Window-Icon=qgn_list_filemanager
+X-Window-Icon-Dimmed=qgn_list_filemanager
+X-Osso-Service=osso_filemanager
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Type=application/x-executable
+StartupWMClass=ossofilemanager
