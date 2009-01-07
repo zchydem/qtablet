@@ -13,9 +13,13 @@ DESTDIR = $$BUILDDIR/core/lib
 
 # Input
 HEADERS += comchannel.hh \
-    settings.hh
+    settings.hh \
+    processmanager.hh
+
 SOURCES += comchannel.cc \
-    settings.cc
+    settings.cc \
+    processmanager.cc
+
 target.path = $$INSTALLDIR/lib
 headers.files = $$HEADERS
 headers.path = $$INSTALLDIR/include

@@ -26,6 +26,9 @@ protected slots:
     void execApplication();
     void showApplicationInfo();
 
+signals:
+    void hideQLauncher();
+
 private:
     QLauncherPrivate * d_ptr;
 };

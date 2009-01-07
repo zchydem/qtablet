@@ -4,6 +4,7 @@
 #include "settings.hh"
 #include "labelitem.hh"
 #include "desktopfileparser.hh"
+#include "processmanager.hh"
 
 #include <QtDebug>
 #include <QGraphicsGridLayout>
@@ -132,9 +133,15 @@ void QLauncher::execApplication(){
         qCritical() << "Failed to get signal emitter item";
         return;
     }
+    ProcessManager * procMgr = ProcessManager::instance();
+    if ( procMgr == 0 ){
+        qCritical() << "QLauncher: Null process manager. Can't execute application";
+        return;
+    }
 
-    qDebug() << "TODO: execApplication not implemented yet."
-             << "exec: " << item->itemAttribute( DesktopFileParser::Exec ).toString();
+    // TODO: Handle all the signals that ProcessManager emits.
+    procMgr->exec( item->itemAttribute( DesktopFileParser::Exec ).toString() );
+    emit hideQLauncher();
 }
 
 void QLauncher::showApplicationInfo(){

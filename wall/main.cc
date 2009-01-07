@@ -72,6 +72,7 @@ int main( int argc, char *argv[] ){
   qtablet::QLauncher * launcher = new qtablet::QLauncher;  
   scene.addItem( launcher );
 
+
   qtablet::PannableView * wall = new qtablet::PannableView( Qt::Vertical, 800, 480 );
   wall->setLayout( createWall() );
   scene.addItem( wall );
@@ -93,6 +94,8 @@ int main( int argc, char *argv[] ){
   QtStateGroup group;
   group.addState(state1);
   group.addState(state2);
+
+  QObject::connect( launcher, SIGNAL(hideQLauncher()), state1, SLOT(activate()) );
 
   state1->setConnectionState(button1, SIGNAL(clicked()), state2, SLOT(activate()));
   state1->setGeometry( wall,     QRectF(0,0,800,480) );
@@ -122,9 +125,9 @@ int main( int argc, char *argv[] ){
   QtAnimation * anim4 = new QtAnimation(launcher, "geometry");
 
   //anim3->setEasingCurve( QtEasingCurve::OutBounce );
-  anim3->setDuration( 1000 );
+  //anim3->setDuration( 1000 );
   //anim4->setEasingCurve( QtEasingCurve::OutBounce );
-  anim4->setDuration( 1000 );
+  //anim4->setDuration( 1000 );
 
   transition2.add(anim3);
   transition2.add(new QtAnimation(button,   "geometry"));
