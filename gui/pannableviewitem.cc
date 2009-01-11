@@ -14,6 +14,8 @@ class PannableViewItemPrivate{
 public:
     PannableViewItemPrivate():
             m_isPressed( false ),
+            m_cancelPressed( false ),
+            m_mouseReleasePress( false ),
             m_showSelection( true ),
             m_acceptMouseEvent( true ),
             m_image( new ImageItem ),
@@ -35,6 +37,8 @@ public:
     }
 
     bool                      m_isPressed;
+    bool                      m_cancelPressed;
+    bool                      m_mouseReleasePress;
     bool                      m_showSelection;
     bool                      m_acceptMouseEvent;
     ImageItem               * m_image;
@@ -115,16 +119,34 @@ PannableViewItem::~PannableViewItem(){
 void PannableViewItem::paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ){
     Q_UNUSED( option );
     Q_UNUSED( widget );
-    //qDebug() << "PannableViewItem::paint";
 
-    if ( d_ptr->m_isPressed && d_ptr->m_showSelection ){
-        painter->setPen( QPen( Qt::red, 4 ) );
-        painter->drawRect( boundingRect() );
+    if ( !d_ptr->m_showSelection ){
+        return;
+    }
+
+    if (  d_ptr->m_mouseReleasePress || ( !d_ptr->m_cancelPressed && d_ptr->m_isPressed )  ){
+        QRectF bBox = boundingRect();
+        bBox.moveLeft( bBox.left() - 10 );
+        bBox.moveRight( bBox.right() + 10 );
+        bBox.moveTop( bBox.top() - 10 );
+        bBox.moveBottom( bBox.bottom() + 10 );
+        painter->setPen( QPen( Qt::gray, 4 ) );
+        painter->drawRoundRect(bBox, 10, 10 );;
     }
 
     // Let's set flag to false here in order to enable fast tappings i.e. user
-    // sees the selection of the item    
-    d_ptr->m_isPressed = false;
+    // sees the selection of the item
+    if ( d_ptr->m_isPressed ){        
+        d_ptr->m_isPressed = false;
+    }
+
+    if ( d_ptr->m_mouseReleasePress ){        
+        d_ptr->m_mouseReleasePress = false;
+    }
+
+    if ( d_ptr->m_cancelPressed ){
+        d_ptr->m_cancelPressed = false;
+    }
 }
 
 QSizeF PannableViewItem::sizeHint ( Qt::SizeHint which, const QSizeF & constraint ) const{    
@@ -144,8 +166,10 @@ void PannableViewItem::pannableViewMousePressEvent( QGraphicsSceneMouseEvent * e
 
     // Doing the this with small delay we make possible that items are not selected
     // when user is panning the items.
+    /*
     d_ptr->m_isPressed = true;
-    QTimer::singleShot( 2000, this, SLOT( update() ) );
+    QTimer::singleShot( 1500, this, SLOT( showMousePress() ) );
+    */
 }
 
 void PannableViewItem::pannableViewMouseReleaseEvent( QGraphicsSceneMouseEvent * event ){    
@@ -159,8 +183,12 @@ void PannableViewItem::pannableViewMouseReleaseEvent( QGraphicsSceneMouseEvent *
 
     if ( bBox.contains( mapFromScene( mouseReleasePos) ) &&
          bBox.contains( mapFromScene( mousePressPos ) ) ){
+        //d_ptr->m_isPressed         = false;
+        d_ptr->m_mouseReleasePress = true;
         update();        
-        emit clicked();        
+
+        // Emit signal with small delay so that the selection effect is shown
+        QTimer::singleShot( 500, this, SIGNAL( clicked() ) );        
     }
 }
 
@@ -170,15 +198,24 @@ void PannableViewItem::pannableViewMouseMoveEvent( QGraphicsSceneMouseEvent * ev
     }
 
     QRectF bBox = boundingRect();
-    if ( !bBox.contains( this->mapFromScene( event->scenePos() ) ) ){
-        d_ptr->m_isPressed = false;        
+    QPointF mousePressPos   = event->buttonDownScenePos( Qt::LeftButton );
+    QPointF mousePos        = event->scenePos();
+
+    // Check if mouse has moved outside of this item. We don't want to highlight
+    // the item in that case.
+    /*
+    if ( !bBox.contains( mapFromScene( mousePos ) ) ){
+        d_ptr->m_cancelPressed = true;
         update();
     }
+    */
+
 }
 
 
-void PannableViewItem::update(){    
-    QGraphicsItem::update();
+void PannableViewItem::showMousePress(){    
+
+    update();
 }
 
 

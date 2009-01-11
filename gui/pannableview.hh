@@ -104,6 +104,9 @@ public:
     //! \return instance shape in QPainterPath object.
     virtual QPainterPath shape () const;
 
+    //! Overloaded method for settings layout for this widget.
+    //! \param layout layout instance.
+    virtual void setLayout( QGraphicsLayout * layout );
 
 protected:
 
@@ -144,7 +147,7 @@ protected slots:
 private:
     PannableWidgetPrivate * d_ptr;
 
-    bool endReached();
+    bool endReached( bool stopScrolling );
 };
 
 }

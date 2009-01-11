@@ -27,6 +27,7 @@ namespace qtablet{
         static QMap <QString, QString> parse( QString const & desktopFileName );
 
         // Desktop file keys
+        static QString const Entry;
         static QString const Encoding;
         static QString const Version;
         static QString const Type;

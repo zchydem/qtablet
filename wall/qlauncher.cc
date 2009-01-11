@@ -84,6 +84,7 @@ void QLauncher::createLauncherItems(){
     layout->setRowFixedHeight( 0, 190 );
     layout->setRowFixedHeight( 1, 190 );
     layout->setSpacing( 30 );
+    layout->setContentsMargins(20, 0, 100, 0 );
 
     quint32 row = 0;
     quint32 col = 0;

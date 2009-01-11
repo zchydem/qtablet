@@ -27,12 +27,15 @@ qtablet::PannableWidget * m_pannableWidget;
 
 class PannableWidgetPrivate{
 public:
-    PannableWidgetPrivate():
-    m_acceleration     (   0   ),
+    PannableWidgetPrivate():    
     m_deltaX           (   0   ),
     m_deltaY           (   0   ),
     m_vX               (   0   ),
     m_vY               (   0   ),
+    m_minX             (   0   ),
+    m_minY             (   0   ),
+    m_maxX             (   0   ),
+    m_maxY             (   0   ),
     m_time             (       ),
     m_scrollingTimeLine(   0   ),
     m_isPressed        ( false ),
@@ -40,12 +43,15 @@ public:
     m_selectedItem     (   0   )
     {}
 
-    // Members
-    qreal              m_acceleration;
+    // Members    
     qreal              m_deltaX;
     qreal              m_deltaY;
     qreal              m_vX;
     qreal              m_vY;
+    qreal              m_minX;
+    qreal              m_minY;
+    qreal              m_maxX;
+    qreal              m_maxY;
     QTime              m_time;
     QTimeLine        * m_scrollingTimeLine;    
     bool               m_isPressed;
@@ -74,7 +80,7 @@ PannableView::~PannableView(){
 }
 
 void PannableView::setLayout( QGraphicsLayout * layout ){
-    d_ptr->m_pannableWidget->setLayout( layout );
+    d_ptr->m_pannableWidget->setLayout( layout );   
 }
 
 
@@ -104,6 +110,26 @@ QPainterPath PannableWidget::shape () const{
     QSizeF size = QGraphicsWidget::size();
     path.addRect( QRectF(0,0,size.width(), size.height() ) );
     return path;
+}
+
+void PannableWidget::setLayout( QGraphicsLayout * layout ){
+    if ( layout == 0 ){
+        qWarning() << "PannableWidget::setLayout: NULL layout";
+        return;
+    }
+
+    // Set layout for this widget and make sure it'll be activated
+    // i.e. it takes all the spaces that are needed for laying out
+    // the content.
+    QGraphicsWidget::setLayout( layout );
+    this->layout()->activate();
+    QRectF geom = this->layout()->geometry();
+
+    // Get the limits for the panning and store them for later usage.     
+    d_ptr->m_minX = parentItem()->boundingRect().width() - geom.width();
+    d_ptr->m_maxX = geom.x();
+    d_ptr->m_minY = parentItem()->boundingRect().height() - geom.height();
+    d_ptr->m_maxY = geom.y();
 }
 
 void PannableWidget::mousePressEvent( QGraphicsSceneMouseEvent * event ){
@@ -183,6 +209,9 @@ void PannableWidget::mouseReleaseEvent( QGraphicsSceneMouseEvent * event ){
         }
         return;
     }
+
+
+    endReached( true );
 }
 
 void PannableWidget::mouseMoveEvent(  QGraphicsSceneMouseEvent * event ){    
@@ -230,26 +259,26 @@ void PannableWidget::mouseMoveEvent(  QGraphicsSceneMouseEvent * event ){
 
 void PannableWidget::scroll( qreal value ){
 
-    if ( value == 0 ){
-        d_ptr->m_acceleration = 0;
-        return;
-    }
-
     if ( layout() == 0 ){
         return;
     }
 
-    if(endReached()) {
+    // Check if scrolling has reached the end and make it stop also
+    // by passing true parameter. We must reset the old vX and vY
+    // values in order to make scrolling to stop in the right place.
+    if( endReached( true )) {
         d_ptr->m_scrollingTimeLine->stop();
+        d_ptr->m_vX = 0;
+        d_ptr->m_vY = 0;
         animateEnd();
-        return;
     }
+
 
     if ( d_ptr->m_orientation & Qt::Horizontal ){
         // s = 1/2 * (u + v)t,
         // u=0,
         // t=update interval (in ms) of the QTimeLine.
-        qreal s = d_ptr->m_vX * (d_ptr->m_scrollingTimeLine->updateInterval()/ 2) / 1000;
+        qreal s = d_ptr->m_vX * (d_ptr->m_scrollingTimeLine->updateInterval()/ 2) / 1000 ;
 
         // v = u + at,
         // u = d_ptr->m_vX (current speed),
@@ -258,7 +287,9 @@ void PannableWidget::scroll( qreal value ){
         d_ptr->m_vX = (d_ptr->m_vX < 0 ? -v : v);
 
         moveBy(s, 0);
-    } else {
+    }
+
+    if ( d_ptr->m_orientation & Qt::Vertical ){
         // s = 1/2 * (u + v)t,
         // u=0,
         // t=update interval (in ms) of the QTimeLine.
@@ -272,52 +303,60 @@ void PannableWidget::scroll( qreal value ){
 
         moveBy(0, s);
     }
+
+
 }
 
 void PannableWidget::animateEnd(){
-    //TODO: Implement this
+    //TODO: Implement e.g. bounce effect
 }
 
-bool PannableWidget::endReached() {
+bool PannableWidget::endReached( bool stopScrolling ) {
+
+
+    qreal widgetX = geometry().x();
+    qreal widgetY = geometry().y();
 
     if ( d_ptr->m_orientation & Qt::Horizontal ){
-        qreal widgetX     = geometry().x();
-        qreal layoutWidth = layout()->geometry().width();
-        qreal viewWidth   = parentItem()->boundingRect().width();
 
-        if ( d_ptr->m_deltaX > 0 && widgetX >= 0){
-            // Stop scrolling to right
-            return true;
-        }else
-            if ( d_ptr->m_deltaX < 0 && ( ( fabs( widgetX ) + viewWidth ) >= layoutWidth ) ){
+        if ( d_ptr->m_deltaX < 0 && widgetX <= d_ptr->m_minX ){
+            if ( stopScrolling ){                
+                setPos( d_ptr->m_minX, 0 );
+            }
             // Stop scrolling to left
             return true;
         }
-    } else
 
-    if ( d_ptr->m_orientation & Qt::Vertical ){
+        if ( d_ptr->m_deltaX > 0 &&  widgetX >= d_ptr->m_maxX ){
+            // Stop scrolling to left
+            if ( stopScrolling ){
+                setPos( d_ptr->m_maxX , 0 );
+            }            
+            return true;
+        }
+    }
 
-        qreal widgetY      = geometry().y();
-        qreal layoutHeight = layout()->geometry().height();
-        qreal viewHeight   = parentItem()->boundingRect().height();
-        /*
-            qDebug() << "Widget Y: " << widgetY << "\n"
-                     << "Layout H: " << layoutHeight << "\n"
-                     << "WY + WH:  " << fabs(widgetY) + viewHeight << "\n"
-                     << "View H:   " << viewHeight;
-            */
-        if ( d_ptr->m_deltaY > 0 && widgetY <= 0){
+    if ( d_ptr->m_orientation & Qt::Vertical ){                
+
+        if ( d_ptr->m_deltaY < 0 && widgetY <= d_ptr->m_minY){
             // Stop scrolling to up
-            qDebug() << "Stop scrolling to up";
+            qDebug() << "Stop scrolling to down" << d_ptr->m_minY;
+            if ( stopScrolling ){
+                setPos( 0, d_ptr->m_minY );
+                //moveBy( 0, d_ptr->m_minY - widgetY );
+            }
             return true;
         }
-
-        if ( d_ptr->m_deltaY < 0 && ( ( fabs( widgetY ) + viewHeight ) >= layoutHeight ) ){
+        else
+        if (  d_ptr->m_deltaY > 0  && widgetY >= d_ptr->m_maxY ){
             // Stop scrolling to down
-            qDebug() << "Stop scrolling to down";
+            qDebug() << "Stop scrolling up" << widgetY << d_ptr->m_maxY;
+            if ( stopScrolling ){
+                setPos( 0, d_ptr->m_maxY );
+                //moveBy( 0, d_ptr->m_maxY - widgetY );
+            }
             return true;
         }
-
     }
     return false;
 }

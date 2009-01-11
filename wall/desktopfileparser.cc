@@ -6,6 +6,7 @@
 namespace qtablet{
 
 //Keys
+QString const DesktopFileParser::Entry       = "Desktop Entry";
 QString const DesktopFileParser::Encoding    = "Encoding";
 QString const DesktopFileParser::Version     = "Version";
 QString const DesktopFileParser::Type        = "Type";
@@ -33,7 +34,7 @@ QMap <QString, QString> DesktopFileParser::parse( QString const & desktopFileNam
 
     // Get the group
     QStringList group = desktopFile.childGroups();
-    if ( !group.contains("Desktop Entry") ){
+    if ( !group.contains( DesktopFileParser::Entry ) ){
         qCritical() << "File: " << desktopFileName << "contains wrong syntax!" << group;
         return result;
     }
@@ -51,9 +52,15 @@ QMap <QString, QString> DesktopFileParser::parse( QString const & desktopFileNam
             << Categories;
 
 
-    desktopFile.beginGroup( "Desktop Entry" );
+    desktopFile.beginGroup( DesktopFileParser::Entry );
     foreach( QString key, keys ){
-        result.insert(key, desktopFile.value( key, "").toString() );
+        QString value = desktopFile.value( key, "").toString();
+
+        if ( key == DesktopFileParser::Type && value != "Application" ){
+            continue; // We are only interested in about applications. Skip other types.
+        }
+
+        result.insert(key, value );
         //qDebug() << key << desktopFile.value( key, "").toString();
     }
     desktopFile.endGroup();

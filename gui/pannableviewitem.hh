@@ -39,7 +39,7 @@ signals:
     void clicked();
 
 protected slots:
-    void update();
+    void showMousePress();
 
 private:
     PannableViewItemPrivate * d_ptr;
