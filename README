@@ -1,29 +1,53 @@
 README FOR QTABLET
 
 STATUS:
+
 - Really, really immature and only few classes implemented. Doing PoC before anything real.
 - Don't try this at home:)
 
 BUILDING:
+
 cd qtablet
 qmake
 make
+make install
 
-RUNNING:
-export LD_LIBRARY_PATH=path_to_gui_dir
-cd wall
-./qtabletwall [-fullscreen]
+RUNNING on N8X0:
 
+Copy the install directory as it is in to the device. Note that you must
+have Qt properly installed in the device before you can run qtablet.
+
+For example (using USB networking):
+scp -r qtablet/install root@192.168.2.15:/opt/
+
+Create ssh connection:
+ssh root@192.168.2.15
+
+Go to the install directory and run:
+cd /opt/install
+sh stop_services.sh
+sh start_qtablet.sh 
+
+And you should see lots of debug output on terminal and QTablet should appear
+on the screen.
 
 Directory structure:
-gui    - Directory for graphical classes
-core   - Directory for non-graphical classes for supporting gui and other 
-         classes.
-wall   - Directory for "Wall" which is the executable application 
-         framework for QTable. The Wall provides home screen and menu 
-         etc.
-images - Images for the framework
+gui     - Directory for graphical classes
+core    - Directory for non-graphical classes for supporting gui and other 
+          classes.
+wall    - Directory for "Wall" which is the executable application 
+          framework for QTable. The Wall provides home screen and menu 
+          etc.
+qlwm   -  Window manager for QTablet's X11 version.
+scri√pts- Directory for scripts
+conf    - Directory for QTablet's configuration files. 
+images -  Images for the framework
+
 
 Dependencies:
 - Qt Animation Framework (sources in git)
-- Qt Extension Library
+- Qt Extension Library (not yet, but in future QTablet will use this )
+
+
+Contact:
+Marko Mattila, marko.a.mattila@gmail.com

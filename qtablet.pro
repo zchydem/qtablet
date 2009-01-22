@@ -7,7 +7,8 @@ TEMPLATE = subdirs
 CONFIG  += ordered
 SUBDIRS = core \
           gui \
-          wall
+          wall \
+	  qlwm
 
 
 
@@ -15,4 +16,7 @@ images.files        = images
 images.path         = $$INSTALLDIR
 configuration.files = config
 configuration.path  = $$INSTALLDIR
-INSTALLS += images configuration
+scripts.files       = scripts/run_qtablet.sh scripts/stop_services.sh
+scripts.path        = $$INSTALLDIR
+
+INSTALLS += images configuration scripts

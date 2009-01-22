@@ -1,0 +1,34 @@
+# Application specific defaults. The reference is usually the CLASSNAME
+# of the application. You can see it in the Class field if you click with
+# the middle mouse button on the title of a window. It is also possible 
+# to specify a reference for Name and Classname with a comma separator, 
+# in the format name,classname.
+#
+# Valid flags are:
+#
+# Sticky        : The application will follow you around on virtual desktops.
+# WindowListSkip: Do not show this application on the window list.
+# SmallFrame    : Draw only a small move handle on top of the window. Suggested
+#               : use is for add-ons (load monitors or whatever).
+# NoResize      : Do not draw resize handles below the window.
+# NoTile        : Do not integrate this window into a tiled desktop. Useful
+#               : for applications that do not work in a very small window.
+# NoKey         : Skip this application in keyboard access.
+# NoScreen      : Skip this application in screenmode.
+# StayOnBottom  : Always stay below other windows
+# ToolBar       : Swallow application as an applet on the right side of the 
+#               : toolbar. Applets will appear from left to right in order
+#               : of the ToolBar statements, the order of execution is 
+#               : irrelevant. Applets can appear and disappear and the other
+#               : toolbar contents will change their size accordingly.
+#               : Note that only the application height becomes adjusted
+#               : for the toolbar size. If an applet takes too much width
+#               : you must adjust it (normally by invoking the application 
+#               : with --geometry <width>).
+
+Biff                   ToolBar
+Dclock                 ToolBar     
+xeyes                  Sticky,WindowListSkip
+kworldwatch,toplevel   SmallFrame
+Konqueror              NoTile,NoScreen
+XLoad                  ToolBar

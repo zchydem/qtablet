@@ -1,0 +1,34 @@
+# Sample menu for qlwm
+
+Kill "Kill window"
+Separator
+
+Entry "Edit menu" xedit ~/.qlwm/menuconfig && killall -HUP qlwm
+
+Menu Desktop 
+  Entry "Edit defaults" xedit ~/.qlwm/defaults && killall -HUP qlwm
+  Entry "Edit appdefaults" xedit ~/.qlwm/appdefaults && killall -HUP qlwm
+  Restart "Restart WM"
+  Entry "Qt Configuration" qtconfig-qt4
+  Quit "End session"
+  Entry "Session Manager" xsm
+  Menu Mouse
+    Entry slow xset m 5
+    Entry mid  xset m 8
+    Entry fast xset m 12
+  End
+  Menu Background
+    Entry blue   xsetroot -solid darkblue
+    Entry dark   xsetroot -solid '#000060'
+    Entry black  xsetroot -solid black
+  End
+End
+Separator
+
+Entry xterm xterm -sb -sl 2000 -T $LOGNAME
+Entry Firefox firefox 
+
+Menu Applications
+  Entry "color xterm" xterm +cm +ulc +bdc -cr red -bg black -fg peachpuff -sb -sl 2000 -fn 10x20 -tn xterm-color
+  Entry Emacs /usr/bin/emacs
+End

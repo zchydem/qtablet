@@ -3,8 +3,8 @@
 # #####################################################################
 include(../3rdparty/qtanimationframework-1.0-opensource/src/qtanimationframework.pri)
 include(../qtablet.pri)
-TEMPLATE = app
-TARGET = qtabletwall
+TEMPLATE = lib
+TARGET = QTabletWall
 DEPENDPATH += .
 INCLUDEPATH += . \
     ../gui \
@@ -15,16 +15,23 @@ LIBS += -L$$BUILDDIR/gui/lib \
     -lQTabletCore
 OBJECTS_DIR += $$BUILDDIR/wall/obj
 MOC_DIR += $$BUILDDIR/wall/moc
-DESTDIR += $$BUILDDIR/wall/bin
+DESTDIR += $$BUILDDIR/wall/lib
 
 # Input
 # HEADERS +=
-SOURCES += main.cc \
-    qlauncher.cc \
-    desktopfileparser.cc
+SOURCES += qlauncher.cc \
+    desktopfileparser.cc \
+    wall.cc \
+    home.cc
+
+
+HEADERS += qlauncher.hh \
+    desktopfileparser.hh \
+    wall.hh \
+    home.hh
 
 # install settings
-target.path = $$INSTALLDIR/bin
-INSTALLS += target
-HEADERS += qlauncher.hh \
-    desktopfileparser.hh
+target.path = $$INSTALLDIR/lib
+headers.files = $$HEADERS
+headers.path = $$INSTALLDIR/include
+INSTALLS += target headers

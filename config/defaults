@@ -1,0 +1,116 @@
+# QLWM startup file
+
+# Pixel sizes for toolbar and window frames. Note that the minimum
+# size for toolbar and window title is limited by the choosen font
+# height.
+
+ToolbarHeight           18
+WindowButtonSize        14
+LowerBorderHeight       5
+LowerBorderWidth        22
+PagerHeight             16
+
+# Fonts for window title and icons. The height is in pixels, not the 
+# point size
+
+WindowFontName          Helvetica
+WindowFontHeight        11
+IconFontName            Helvetica
+IconFontHeight          11
+
+# Set this to TRUE if you want the toolbar on top of the screen
+
+ToolbarOnTop            FALSE
+
+# Window geometry in maximized state, format X1 Y1 X2 Y2. If commented
+# use automatic defaults: Maximize1 will set to the rim of the toolbar
+# and Maximize2 to full screen size.
+
+# Maximize1  0   0   1000 500
+# Maximize2  0   20  1000 500
+
+# Horizontal screen percentage for the left (maximized) frame in tiled mode.
+
+TileSplit              70
+
+# <ALT+TAB> selects the next window on a desktop. In tiled mode it can be used 
+# to swap the selected window with the maximized window on the left frame after
+# the given timeout in milliseconds. A value of zero will disable this.
+
+TileMaxWithTab         600
+
+# Start the following desktops in tiled mode
+
+# TileStart              2 3
+
+# Use a smaller frame for windows in the right row if more than <n> windows are
+# minimized
+
+TileMinframe 3
+
+# Number of virtual desktops (pager)
+
+VirtualDesktops         3
+
+# Set these to FALSE if you don't want a menue or winlist on the toolbar.
+# Functions remain accessible with a keystroke.
+
+ShowMenue               TRUE
+ShowWinlist		TRUE
+
+# PointerFocus is always enabled in QLWM. Windows will also raise
+# automatically after the specified timeout in ms. Setting to zero
+# will disable this. Note that a window will automatically disable 
+# it's autoraise policy if it would fully obscure another window.
+
+AutoRaiseTime           600
+
+# The window list will show the name of the host on which an application
+# is running. Set this to FALSE if you do not want this.
+
+ShowClientMachines      TRUE
+
+# Specify an internal style or the name of a Qt style plugin.
+
+Style Plastique
+# Style Motif
+# Style Cleanlooks
+# Style Windows
+# Style CDE
+
+# Uncomment the color settings to change QLWM defaults.
+# The normal colors are taken from the X resources and can be changed there
+
+# InactiveWindowColor     DarkGray
+
+# Window frames and icon buttons will change to this color if an application
+# marks them as urgent to get the users attention.
+
+# UrgentWindowColor       red
+
+# New windows will appear in the color you have specified with 
+# UrgentWindowColor. Set this to FALSE if you do not want this feature.
+
+StartClientsUrgent      TRUE
+
+# Initial root window background. Specify a solid color or an image.
+# An image can be in any format that Qt can read (not all Qt installations
+# have been compiled with gif support, use PNG instead).
+
+RootBackgroundColor       darkblue
+# RootBackgroundPicture   picture
+
+# Pager colors
+
+# PagerActiveColor        DarkGray
+# PagerVisibleColor       DarkRed
+# PagerInvisibleColor     blue
+
+# Applications to start with QLWM.
+
+# Place a load monitor on the toolbar
+# Exec xload -nolabel -update 3 -geometry 20 -bg darkgreen -fg cyan 
+
+#Exec xterm -sb -sl 2000 -g 80x24+12+89 
+#Exec /usr/local/qlwm/dclock
+#Exec /usr/local/qlwm/biff
