@@ -100,10 +100,8 @@ d_ptr( new HomePrivate )
     Q_CHECK_PTR( d_ptr->m_pager );
     d_ptr->m_scene->addItem( d_ptr->m_pager );
 
-
     //d_ptr->m_launcher->setCacheMode( QGraphicsItem::ItemCoordinateCache );
     //d_ptr->m_wall->setCacheMode( QGraphicsItem::ItemCoordinateCache );
-
 
     d_ptr->m_state1 = new QtState( d_ptr->m_scene );
     d_ptr->m_state2 = new QtState( d_ptr->m_scene );
@@ -144,109 +142,7 @@ d_ptr( new HomePrivate )
     d_ptr->createTransition( d_ptr->m_state2, d_ptr->m_state3, this );
     d_ptr->createTransition( d_ptr->m_state3, d_ptr->m_state2, this );
 
-    /*
-    // Transition from wall to qlauncher
-    QtTransition * transition1 = new QtTransition(d_ptr->m_state1, d_ptr->m_state2, this );
-    QtAnimation * anim1 = new QtAnimation(wall, "geometry");
-    QtAnimation * anim2 = new QtAnimation(launcher, "geometry");
-    QtAnimation * anim22 = new QtAnimation(d_ptr->m_pager, "geometry");
-
-    anim1->setEasingCurve( QtEasingCurve::InOutCubic );
-    anim1->setDuration( 1000 );
-    anim2->setEasingCurve( QtEasingCurve::InOutCubic );
-    anim2->setDuration( 1000 );
-    anim22->setEasingCurve( QtEasingCurve::InOutCubic );
-    anim22->setDuration( 1000 );
-
-    transition1->add( anim1 );
-    transition1->add( anim2 );
-    transition1->add( anim22 );
-
-    // Transition from qlauncher to wall
-    QtTransition * transition2 = new QtTransition(d_ptr->m_state2, d_ptr->m_state1, this);
-    QtAnimation * anim3 = new QtAnimation(wall, "geometry");
-    QtAnimation * anim4 = new QtAnimation(launcher, "geometry");
-    QtAnimation * anim44 = new QtAnimation(d_ptr->m_pager, "geometry");
-
-    anim3->setEasingCurve( QtEasingCurve::OutQuad );
-    anim3->setDuration( 1000 );
-    anim4->setEasingCurve( QtEasingCurve::OutQuad );
-    anim4->setDuration( 1000 );
-    anim44->setEasingCurve( QtEasingCurve::OutQuad );
-    anim44->setDuration( 1000 );
-
-    transition2->add(anim3);
-    transition2->add(anim4);
-    transition2->add(anim44);
-
-
-    // Transition from wall to pager
-    QtTransition * transition3 = new QtTransition(d_ptr->m_state1, d_ptr->m_state3, this);
-    QtAnimation * anim5 = new QtAnimation(wall, "geometry");
-    QtAnimation * anim6 = new QtAnimation(d_ptr->m_pager, "geometry");
-    QtAnimation * anim66 = new QtAnimation(launcher, "geometry");
-
-    anim5->setEasingCurve( QtEasingCurve::OutQuad );
-    anim5->setDuration( 1000 );
-    anim6->setEasingCurve( QtEasingCurve::OutQuad );
-    anim6->setDuration( 1000 );
-    anim66->setEasingCurve( QtEasingCurve::OutQuad );
-    anim66->setDuration( 1000 );
-
-    transition3->add(anim5);
-    transition3->add(anim6);
-    transition3->add(anim66);
-
-    // Transition from pager to wall
-    QtTransition * transition4 = new QtTransition(d_ptr->m_state3, d_ptr->m_state1, this);
-    QtAnimation * anim7 = new QtAnimation(wall, "geometry");
-    QtAnimation * anim8 = new QtAnimation(d_ptr->m_pager, "geometry");
-    QtAnimation * anim88 = new QtAnimation(launcher, "geometry");
-
-    anim7->setEasingCurve( QtEasingCurve::OutQuad );
-    anim7->setDuration( 1000 );
-    anim8->setEasingCurve( QtEasingCurve::OutQuad );
-    anim8->setDuration( 1000 );
-    anim8->setEasingCurve( QtEasingCurve::OutQuad );
-    anim8->setDuration( 1000 );
-
-    transition4->add(anim7);
-    transition4->add(anim8);
-    transition4->add(anim88);
-
-    QtTransition * transition5 = new QtTransition(d_ptr->m_state2, d_ptr->m_state3, this);
-    QtAnimation * anim9 = new QtAnimation(wall, "geometry");
-    QtAnimation * anim10 = new QtAnimation(d_ptr->m_pager, "geometry");
-    QtAnimation * anim11 = new QtAnimation(launcher, "geometry");
-
-    anim9->setEasingCurve( QtEasingCurve::OutQuad );
-    anim9->setDuration( 1000 );
-    anim10->setEasingCurve( QtEasingCurve::OutQuad );
-    anim10->setDuration( 1000 );
-    anim11->setEasingCurve( QtEasingCurve::OutQuad );
-    anim11->setDuration( 1000 );
-
-    transition5->add(anim9);
-    transition5->add(anim10);
-    transition5->add(anim11);
-
-    QtTransition * transition6 = new QtTransition(d_ptr->m_state3, d_ptr->m_state2, this);
-    QtAnimation * anim12 = new QtAnimation(wall, "geometry");
-    QtAnimation * anim13 = new QtAnimation(d_ptr->m_pager, "geometry");
-    QtAnimation * anim14 = new QtAnimation(launcher, "geometry");
-
-    anim12->setEasingCurve( QtEasingCurve::OutQuad );
-    anim12->setDuration( 1000 );
-    anim13->setEasingCurve( QtEasingCurve::OutQuad );
-    anim13->setDuration( 1000 );
-    anim14->setEasingCurve( QtEasingCurve::OutQuad );
-    anim14->setDuration( 1000 );
-
-    transition6->add(anim12);
-    transition6->add(anim13);
-    transition6->add(anim14);
-    */
-
+    // Make sure that wall is shown first.
     d_ptr->m_state1->activate();
 }
 
