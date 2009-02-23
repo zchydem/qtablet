@@ -23,6 +23,10 @@ ImageItem::ImageItem( QString const & imagePath, QGraphicsItem * parent ):
     if ( d_ptr->m_pixmap.isNull() ){
         qCritical() << "ImageItem::ImageItem: NULL QPixmap";
     }
+
+    setMinimumSize  ( d_ptr->m_pixmap.size() );
+    setMaximumSize  ( d_ptr->m_pixmap.size() );
+    setPreferredSize( d_ptr->m_pixmap.size() );
 }
 
 ImageItem::ImageItem( QPixmap const & pixmap, QGraphicsItem * parent ):
@@ -30,6 +34,9 @@ ImageItem::ImageItem( QPixmap const & pixmap, QGraphicsItem * parent ):
     d_ptr( new ImageItemPrivate )
 {
     d_ptr->m_pixmap = pixmap;
+    setMinimumSize  ( d_ptr->m_pixmap.size() );
+    setMaximumSize  ( d_ptr->m_pixmap.size() );
+    setPreferredSize( d_ptr->m_pixmap.size() );
 }
 
 ImageItem::~ImageItem(){
@@ -50,19 +57,21 @@ bool ImageItem::isNull() const{
     return d_ptr->m_pixmap.isNull();
 }
 
-
+/*
 QSizeF ImageItem::sizeHint ( Qt::SizeHint which, const QSizeF & constraint ) const{
     Q_UNUSED( which );
     Q_UNUSED( constraint );
     return QSizeF( d_ptr->m_pixmap.width(), d_ptr->m_pixmap.height() );
 }
-
+*/
 void ImageItem::setImage( QString const & path ){
     if ( !d_ptr->m_pixmap.load( path ) ){
         qCritical() << "ImageItem::setImage: failed to load pixmap: " << path;
         return;
     }
-
+    setMinimumSize  ( d_ptr->m_pixmap.size() );
+    setMaximumSize  ( d_ptr->m_pixmap.size() );
+    setPreferredSize( d_ptr->m_pixmap.size() );
     update();
 }
 
@@ -73,6 +82,9 @@ void ImageItem::setImage( QPixmap const & pixmap ){
     }
 
     d_ptr->m_pixmap = pixmap;
+    setMinimumSize  ( d_ptr->m_pixmap.size() );
+    setMaximumSize  ( d_ptr->m_pixmap.size() );
+    setPreferredSize( d_ptr->m_pixmap.size() );
     update();
 }
 

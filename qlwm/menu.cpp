@@ -285,7 +285,7 @@ void menu::mousePressEvent(QMouseEvent *event)
 
 void menu::winkill_all()
 { 
-        HomeDesktop::instance()->getProcbar()->remove_all();
+        //HomeDesktop::instance()->getProcbar()->remove_all();
 	for(int i=0; i < clients.size(); i++) 
 		clients.at(i)->wdestroy();
 		

@@ -12,8 +12,10 @@ class menu;
 class apbar;
 class QBoxLayout;
 
+
 namespace qtablet{
     class Home;
+    class Pager;
 }
 
 // The old toolbar
@@ -49,12 +51,13 @@ class HomeDesktop: public QWidget
     pager   * getPager() const;
     winlist * getWinlist() const;
     menu    * getMenu() const;
-    procbar * getProcbar() const;
+    qtablet::Pager   * getProcbar() const;
     apbar   * getApbar() const;
     qtablet::Home * getHome() const;
 
     public slots:
     void qButtonClicked();
+    void changeVirtualDesktop( int desktop );
 
     private:
     Toolbar2      * toolbar;

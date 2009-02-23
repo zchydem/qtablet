@@ -51,6 +51,9 @@ public:
     //! Set the layout which is pannable to this view.
     void setLayout( QGraphicsLayout * layout );
 
+    void refresh();
+
+    //virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem * const option, QWidget * widget=0 );
 private:
     PannableViewPrivate * d_ptr;
 };
@@ -104,9 +107,13 @@ public:
     //! \return instance shape in QPainterPath object.
     virtual QPainterPath shape () const;
 
+
+
     //! Overloaded method for settings layout for this widget.
     //! \param layout layout instance.
     virtual void setLayout( QGraphicsLayout * layout );
+
+    virtual void refresh();
 
 protected:
 

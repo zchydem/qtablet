@@ -30,10 +30,11 @@ HomeDesktop::HomeDesktop( QWidget * parent ) :
     home = new qtablet::Home( this );
     home->setGeometry(0,0,800,480);
     toolbar = new Toolbar2(this);
-    toolbar->setGeometry(710,0,90,480);
+    //toolbar->setGeometry(710,0,90,480);
+    toolbar->hide();
     setGeometry(0,0,800,480);
     show();
-    connect( toolbar, SIGNAL(qButtonClicked()), this, SLOT(qButtonClicked()) );
+    //connect( toolbar, SIGNAL(qButtonClicked()), this, SLOT(qButtonClicked()) );
 }
 
 pager   * HomeDesktop::getPager() const
@@ -48,9 +49,10 @@ menu    * HomeDesktop::getMenu() const
 {
     return toolbar->tb_mn;
 }
-procbar * HomeDesktop::getProcbar() const
+qtablet::Pager * HomeDesktop::getProcbar() const
 {
-    return toolbar->tb_pb;
+    return home->pager();
+    //return toolbar->tb_pb;
 }
 apbar   * HomeDesktop::getApbar() const
 {
@@ -68,6 +70,42 @@ void HomeDesktop::qButtonClicked(){
     qDebug() << "Clicked()";
 
     home->showOrHideWall();
+}
+
+void HomeDesktop::changeVirtualDesktop( int desktop ){
+    xwindow *client;
+
+    if(desktop == qapp::adesk || desktop < 0 || desktop >= defaults::vdesks)
+            return;
+
+    int dwidth = QApplication::desktop()->width();
+    int dx = (qapp::adesk-desktop)*dwidth;
+    XGrabServer(QX11Info::display());
+
+    bool curdesk;
+    bool get_event = FALSE;
+    foreach(client, clients)
+    {
+            curdesk = client->x() <= dwidth && client->x() >= 0;
+
+            if(! (client->get_pflags() & qapp::Sticky) && (client->isVisible() || ! curdesk))
+            {
+                    client->move(client->x()+dx, client->y());
+                    client->repaint();
+                    get_event = TRUE;
+            }
+    }
+
+    qapp::adesk = desktop;
+    XUngrabServer(QX11Info::display());
+
+    if(defaults::sttiled[desktop])
+    {
+            qapp::toggle_tiled();
+            defaults::sttiled[desktop] = FALSE;
+    }
+
+    HomeDesktop::instance()->getProcbar()->changeDesktop( desktop );
 }
 
 /*
@@ -138,7 +176,7 @@ Toolbar2::Toolbar2(QWidget *parent) : QFrame(parent)
 	tb_pb->setFixedHeight(defaults::tc_height);
 	layout->addWidget(tb_pb);
 
-	tb_ap = new apbar(this);
+        tb_ap = new apbar(this);
 	layout->addWidget(tb_ap);
 
 

@@ -30,8 +30,10 @@ class LabelItemPrivate{
         QTextOption option( m_alignment );
         quint32 height;
 
+        option.setWrapMode( QTextOption::WrapAnywhere );
+
         if ( textWidth() > m_width && m_width != 0 ){
-            option.setWrapMode( QTextOption::WrapAnywhere );
+            //option.setWrapMode( QTextOption::WrapAnywhere );
             height = textHeight() * ( textWidth() / ((float)(m_width)) );
         }else{
             height = textHeight();
@@ -99,16 +101,10 @@ void LabelItem::paint ( QPainter * painter, const QStyleOptionGraphicsItem * opt
     QPixmap pixmap;
     if ( !QPixmapCache::find( d_ptr->key(), pixmap ) ){        
         pixmap = d_ptr->generatePixmap();
-        QPixmapCache::insert( d_ptr->key(), pixmap );
+        QPixmapCache::insert( d_ptr->key(), pixmap );                
     }
 
     painter->drawPixmap( 0, 0, pixmap );
-}
-
-QSizeF LabelItem::sizeHint ( Qt::SizeHint which, const QSizeF & constraint ) const{
-    Q_UNUSED( which );
-    Q_UNUSED( constraint );
-    return QSizeF(d_ptr->textWidth(), d_ptr->textHeight() );
 }
 
 void LabelItem::setText( QString const & text ){
@@ -138,6 +134,7 @@ void LabelItem::setWidth( quint32 width ){
 
 void LabelItem::clear(){
     setText("");
+    updateLabel();
 }
 
 QString const & LabelItem::text() const{
@@ -158,6 +155,12 @@ Qt::Alignment const & LabelItem::alignment() const{
 
 void LabelItem::updateLabel(){
     QPixmapCache::remove( d_ptr->key() );
+    QPixmap pixmap = d_ptr->generatePixmap();
+    QPixmapCache::insert( d_ptr->key(), pixmap );
+    setMinimumSize  ( pixmap.size() );
+    setMaximumSize  ( pixmap.size() );
+    setPreferredSize( pixmap.size() );
+    updateGeometry();
     update();
 }
 

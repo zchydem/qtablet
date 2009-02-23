@@ -52,6 +52,10 @@ QLauncher::QLauncher( QGraphicsItem * parent ):
 
     setLayout( mainLayout );
     createLauncherItems();
+
+    setMinimumSize( d_ptr->m_size );
+    setMaximumSize( d_ptr->m_size );
+    setPreferredSize( d_ptr->m_size );
 }
 
 QLauncher::~QLauncher(){
@@ -70,12 +74,13 @@ void QLauncher::paint ( QPainter * painter, const QStyleOptionGraphicsItem * opt
     }
 }
 
+/*
 QSizeF QLauncher::sizeHint ( Qt::SizeHint which, const QSizeF & constraint ) const{
     Q_UNUSED( which );
     Q_UNUSED( constraint );
     return d_ptr->m_size;
 }
-
+*/
 void QLauncher::createLauncherItems(){
 
     // Layout for items
@@ -96,17 +101,21 @@ void QLauncher::createLauncherItems(){
 
         QMap<QString, QString> content = DesktopFileParser::parse( file );
 
-        // Create PannableViewItem
         QPixmap pxm( "icon:" + content.value( DesktopFileParser::Icon ) );
         QString name = content.value( DesktopFileParser::Name );
 
+        /*
+        if ( pxm.isNull() || name.isEmpty() ){
+            continue;
+        }
+        */
         PannableViewItem * item = new PannableViewItem( pxm, name );
 
         layout->addItem( item, row % 2, col, Qt::AlignCenter );
         layout->setAlignment( item, Qt::AlignCenter | Qt::AlignHCenter );
 
         if ( row % 2 == 1 ){
-            ++col;
+            ++col;            
         }
         ++row;
 
@@ -125,7 +134,7 @@ void QLauncher::createLauncherItems(){
         connect( item, SIGNAL( clicked() ), this, SLOT( execApplication() ) );
     }
 
-    d_ptr->m_pannableView->setLayout( layout );
+    d_ptr->m_pannableView->setLayout( layout );    
 }
 
 void QLauncher::execApplication(){

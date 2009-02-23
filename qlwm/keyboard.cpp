@@ -217,7 +217,7 @@ void keyboard::pdesk(void)
 	if(--desk < 0)
 		desk = defaults::vdesks-1;
 
-        HomeDesktop::instance()->getPager()->change_desk(desk);
+        //HomeDesktop::instance()->getPager()->change_desk(desk);
 }
 
 void keyboard::ndesk(void)
@@ -230,5 +230,5 @@ void keyboard::ndesk(void)
 	if(++desk >= defaults::vdesks)
 		desk = 0;
 
-        HomeDesktop::instance()->getPager()->change_desk(desk);
+        //HomeDesktop::instance()->getPager()->change_desk(desk);
 }

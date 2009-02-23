@@ -204,13 +204,15 @@ void qapp::wm_restart(void)
 		if(tdesks[i])
 		{
                         HomeDesktop::instance()->getPager()->change_desk(i);
+                        //HomeDesktop::instance()->getPager()->changeDesktop(i);
 			toggle_tiled();
 		}
 	}
 
 	winf->release_cancel();
         HomeDesktop::instance()->getPager()->change_desk(0);
-        HomeDesktop::instance()->getProcbar()->remove_all();
+        HomeDesktop::instance()->getProcbar()->removeAll();
+        HomeDesktop::instance()->getProcbar()->changeDesktop(0);
 	
 	foreach(client, clients)
 	{
@@ -524,7 +526,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			if(event->xdestroywindow.event != w)
 				return TRUE;
 
-                        if( w == home->winId()|| w == home->getPager()->winId() || w == home->getWinlist()->winId() || w == home->getMenu()->winId() || w == home->getProcbar()->winId() || w == home->getHome()->winId() )
+                        if( w == home->winId()|| w == home->getPager()->winId() || w == home->getWinlist()->winId() || w == home->getMenu()->winId() || /*w == home->getProcbar()->winId() ||*/ w == home->getHome()->winId() )
 				sig_term(SIGTERM);
 
 			return FALSE;
@@ -535,6 +537,7 @@ bool qapp::x11EventFilter(XEvent *event)
 		
                         if((client = pwindows[event->xmap.window]) != NULL){
                             home->getPager()->add(client);  // add to pager
+                            //home->getPager()->addWindow( client->icaption() );
                             client->show();                            
                         }
 
@@ -572,7 +575,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			
 			if(event->xcrossing.window == QX11Info::appRootWindow())
 			{
-                            qDebug() << "Root window";
+                          //  qDebug() << "Root window";
 				stopautofocus();
 				rootptr = TRUE;
 			}
@@ -591,7 +594,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			return FALSE;
 
 		case ColormapNotify:
-                        qDebug() << "ColormapNotify";
+                        //qDebug() << "ColormapNotify";
 
 			if((client = cwindows[event->xcolormap.window]) != NULL)
 			{
@@ -601,7 +604,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			return FALSE;
 
 		case PropertyNotify:
-                        qDebug() << "PropertyNotify";
+                        //qDebug() << "PropertyNotify";
 
 			pev = &event->xproperty;
 #ifdef DEBUGMSG			
@@ -634,7 +637,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			return FALSE;
 
 		case ConfigureNotify:
-                        qDebug() << "ConfigureNotify";
+                        //qDebug() << "ConfigureNotify";
 			if(event->xconfigure.event != event->xconfigure.window)
 				return TRUE;
 				
@@ -644,7 +647,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			return FALSE; 
 			
 		case ReparentNotify:
-                        qDebug() << "ReparentNotify:";
+                        //qDebug() << "ReparentNotify:";
 
                         if((client = cwindows[event->xreparent.window]) != NULL &&
 			event->xreparent.parent != client->winId())
@@ -654,15 +657,16 @@ bool qapp::x11EventFilter(XEvent *event)
 			}	
 			return TRUE;
 		
+
 		case ButtonPress:
-                        qDebug() << "ButtonPress";
+                        //qDebug() << "ButtonPress";
 
 			w = event->xbutton.window;
 			
                         if(w == QX11Info::appRootWindow())  // set focus to root window
                                 XSetInputFocus(QX11Info::display(), w, RevertToPointerRoot, CurrentTime);
 
-                        if( w == home->winId() || w == home->getProcbar()->winId() || w == home->getApbar()->winId() ){
+                        if( w == home->winId() || w == home->getApbar()->winId() ){
                                 XRaiseWindow(QX11Info::display(), home->winId() );
                                 //XSetInputFocus(QX11Info::display(), w, RevertToPointerRoot, CurrentTime);
                          }
@@ -674,7 +678,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			return FALSE;
 
 		case ClientMessage:
-                        qDebug() << "ClientMessage";
+                        //qDebug() << "ClientMessage";
 
                         mev = &event->xclient;
 			
@@ -685,7 +689,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			return TRUE;	
 
 		case CirculateRequest:
-                        qDebug() << "CirculateRequest";
+                        //qDebug() << "CirculateRequest";
 			rev = &event->xcirculaterequest;
 
 			if((client = cwindows[rev->window]) != NULL)
@@ -699,7 +703,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			return TRUE;
 
 		case ConfigureRequest:
-                        qDebug() << "COnfigureRequest";
+                        //qDebug() << "COnfigureRequest";
 
 			cev = &event->xconfigurerequest;
 			XWindowChanges wc;
@@ -759,7 +763,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			}
 			else  // never mapped window
 			{
-                            qDebug() << "Never Mapped Window";
+                            //qDebug() << "Never Mapped Window";
                                 if( cev->window == home->winId() || /*cev->window == home->getHome()->winId() ||*/ home->getApbar()->client_exists(cev->window))  // deny requests on toolbar
 					return TRUE;
 
@@ -779,12 +783,13 @@ bool qapp::x11EventFilter(XEvent *event)
 			return TRUE;
 			
 		case MapRequest:
-                        qDebug() << "MapRequest";
+                        //qDebug() << "MapRequest";
 			run_client(event->xmaprequest.window);
 			return TRUE;
-			
+
+
 		case KeyPress:
-                        qDebug() << "Keypress";
+                        //qDebug() << "Keypress";
 			return(keyboard::keypress(&event->xkey));
 
 		default:                        

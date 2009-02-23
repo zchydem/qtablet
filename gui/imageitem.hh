@@ -26,7 +26,7 @@ public:
 
     bool isNull() const;
 
-    virtual QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const;
+    //virtual QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const;
 
     virtual void setImage( QString const & path );
 

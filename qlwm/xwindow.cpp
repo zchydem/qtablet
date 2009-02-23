@@ -72,8 +72,8 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	}
 	else
 	{
-		uborderh = defaults::windowbuttonsize;
-		borderh = defaults::windowbuttonsize+defaults::lowerborderheight;
+                uborderh = 90;//defaults::windowbuttonsize;
+                borderh = 90/*defaults::windowbuttonsize*/+defaults::lowerborderheight;
 	}
 
 	// check for nonrectangular window
@@ -276,6 +276,13 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	}	
 	else map();
 
+        // Make window appear in pager
+        qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getProcbar()->addWindow( this->winId(), this->icaption() );
+        if ( item ){
+            connect( item, SIGNAL( showWindow( bool ) ), this, SLOT(state(bool)) );
+        }
+
+
 #ifdef DEBUGMSG
 	logmsg << "class xwindow constructed (WId:" << winId() << ")\n";
 #endif	
@@ -317,11 +324,13 @@ void xwindow::create_wborder(void)
 			connect(ubdr->leftframe, SIGNAL(left_press()), SLOT(iconify()));
 		}
 		connect(ubdr->rightframe, SIGNAL(press()), SLOT(wdestroy()));
+                /*
 		connect(midmove, SIGNAL(right_press()), SLOT(s_maximize()));
 		connect(midmove, SIGNAL(left_press(QMouseEvent *)), SLOT(press_move(QMouseEvent *)));
 		connect(midmove, SIGNAL(left_release(QMouseEvent *)), SLOT(release_move(QMouseEvent *)));
 		connect(midmove, SIGNAL(mid_press()), SLOT(show_info()));
 		connect(midmove, SIGNAL(mouse_move(QMouseEvent *)), SLOT(move_move(QMouseEvent *)));
+                */
         //}
 	layout->addStretch();
 
@@ -390,6 +399,7 @@ void xwindow::getsize(int *pw, int *ph)   // adjust for possible width and heigh
 
 void xwindow::resize_request(int cx, int cy, int cw, int ch)  // client requested resize
 {
+    qDebug() << "resize_request";
 	if(cy-=uborderh < 0)
 		cy = 0;
 		
@@ -484,6 +494,7 @@ void xwindow::s_maximize(void)
 	
 	if(maxstate != 2)  // maximize
 	{
+            qDebug() << "xwindow::s_maximize";
 		if(maxstate == 0)
 		{
 			icx = x();
@@ -737,6 +748,7 @@ void xwindow::tile_maximize(void)
 
 void xwindow::minimize_frame(bool mf)
 {
+    qDebug() << "xwindow::minimize_frame";
 	if(pflags & qapp::SmallFrame)
 		return;
 
@@ -748,7 +760,7 @@ void xwindow::minimize_frame(bool mf)
 			return;
 
 		ubdr->set_small();
-		uborderh = defaults::lowerborderheight;
+                uborderh = 90;//defaults::lowerborderheight;
 		borderh = 2*uborderh;
 	}
 	else
@@ -759,8 +771,8 @@ void xwindow::minimize_frame(bool mf)
 		if(ubdr != NULL)
 			ubdr->set_normal();
 
-		uborderh = defaults::windowbuttonsize;
-		borderh = defaults::windowbuttonsize + defaults::lowerborderheight;
+                uborderh = 90;//defaults::windowbuttonsize;
+                borderh = 90/*defaults::windowbuttonsize*/ + defaults::lowerborderheight;
 		set_title();
 	}
 	
@@ -769,7 +781,7 @@ void xwindow::minimize_frame(bool mf)
 
 	get_wmnormalhints();
 	resize(width(), ch+borderh);
-	XMoveWindow(QX11Info::display(), clientid, 0, uborderh);
+        XMoveWindow(QX11Info::display(), clientid, 0, 90/*uborderh*/);
 }
 
 int xwindow::set_tile(int cx, int cy, int cw, int ch)
@@ -829,7 +841,7 @@ void xwindow::setinactive(void)
 
 	if(urgpal)
 	{
-                HomeDesktop::instance()->getProcbar()->change_palette(QApplication::palette(), this);
+                //HomeDesktop::instance()->getProcbar()->change_palette(QApplication::palette(), this);
 		urgpal = FALSE;
 	}	
 }
@@ -844,7 +856,7 @@ void xwindow::setactive(void)
 
 	if(urgpal)
 	{
-                HomeDesktop::instance()->getProcbar()->change_palette(QApplication::palette(), this);
+                //HomeDesktop::instance()->getProcbar()->change_palette(QApplication::palette(), this);
 		urgpal = FALSE;
 	}	
 }
@@ -854,7 +866,7 @@ void xwindow::seturgent(void)
 	if(! urgpal)
 	{
 		setPalette(*qapp::upal);
-                HomeDesktop::instance()->getProcbar()->change_palette(*qapp::upal, this);
+                //HomeDesktop::instance()->getProcbar()->change_palette(*qapp::upal, this);
 		urgpal = TRUE;
 	}
 }
@@ -879,7 +891,9 @@ void xwindow::map(void)
 
 	if(map_iconic)  // InitialState WMHint
 	{
-                HomeDesktop::instance()->getProcbar()->add(this);
+                qDebug() << "xwindow::map";
+                //HomeDesktop::instance()->getProcbar()->add(this);
+
 		set_clientstate(IconicState);
 
 		if(urgent || urgpal)
@@ -890,11 +904,19 @@ void xwindow::map(void)
 	}	
 	else
 	{
-		if(! isVisible())
-                        HomeDesktop::instance()->getProcbar()->set_on(this);
-			
-		map_normal();
+                if(! isVisible()){
+                        //HomeDesktop::instance()->getProcbar()->set_on(this);
+                    state( true );
+                }
+		map_normal();                
+
 	}	
+
+        // We can handle the old clients here also i.e. after restart of qlwm
+        qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getProcbar()->addWindow( this->winId(), this->icaption() );  // add to procbar
+        if ( item != 0 ){
+            connect( item, SIGNAL( showWindow( bool ) ), this, SLOT(state(bool)) );
+        }
 }
 
 void xwindow::map_normal(void)
@@ -941,12 +963,15 @@ void xwindow::map_normal(void)
 		set_clientstate(NormalState);
 
 		XSync(QX11Info::display(), FALSE);
+
 	}
 
 	if(pflags & qapp::StayOnBottom)
 		XLowerWindow(QX11Info::display(), winId());
-	else	
+        else{
+                s_maximize();
 		raise();
+            }
 }
 
 void xwindow::unmap(void)
@@ -972,14 +997,24 @@ void xwindow::unmap(void)
 
 void xwindow::iconify(void)  // transition to iconic
 {
+        qDebug() << "xwindow::iconify";
 	if(qapp::tmaxclient == this && qapp::is_tileddesk())
 		trsize = TRUE;
 	
+         //HomeDesktop::instance()->getProcbar()->add(this);  // add to procbar
+        qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getProcbar()->addWindow( this->winId(), this->icaption() );  // add to procbar
+        Q_UNUSED( item );
+        /*
+        if ( item ){
+            connect( item, SIGNAL( showWindow( bool ) ), this, SLOT(state(bool)) );
+        }
+        */
+
 	unmap();
 	withdrawnstate = FALSE;
 	set_clientstate(IconicState);
 
-        HomeDesktop::instance()->getProcbar()->add(this);  // add to procbar
+
 }
 
 void xwindow::whide(void)  
@@ -988,7 +1023,8 @@ void xwindow::whide(void)
 	withdrawnstate = FALSE;
 	set_clientstate(IconicState);
 
-        HomeDesktop::instance()->getProcbar()->remove(this);
+        //HomeDesktop::instance()->getProcbar()->remove(this);
+        //HomeDesktop::instance()->getProcbar()->removeWindow( this->winId() );
 	whidden = TRUE;
 }
 
@@ -997,7 +1033,8 @@ void xwindow::withdraw(void)
 	unmap();
 	withdrawnstate = TRUE;
 	set_clientstate(WithdrawnState);
-        HomeDesktop::instance()->getProcbar()->remove(this);
+        //HomeDesktop::instance()->getProcbar()->remove(this);
+        //HomeDesktop::instance()->getProcbar()->removeWindow(this->winId() );  // add to procbar
 	
 #ifdef DEBUGMSG
 	logmsg << "changed to withdrawn (WId:" << winId() << ")\n";
@@ -1383,7 +1420,7 @@ void xwindow::set_pflags(int tflags)
 #ifdef DEBUGMSG
 	logmsg << "rebuilding window frame (WId:" << winId() << ")\n";
 #endif	
-
+                qDebug() << "rebuilding window frame";
 		delete mrb;
 		delete midmove;
 		delete ubdr;
@@ -1394,13 +1431,13 @@ void xwindow::set_pflags(int tflags)
 		
 		if(pflags & qapp::SmallFrame)
 		{
-			uborderh = defaults::lowerborderheight;
+                        uborderh = 90;//defaults::lowerborderheight;
 			borderh = 2*uborderh;
 		}
 		else
 		{
-			uborderh = defaults::windowbuttonsize;
-			borderh = defaults::windowbuttonsize+defaults::lowerborderheight;
+                        uborderh = 90;//defaults::windowbuttonsize;
+                        borderh = 90;/*defaults::windowbuttonsize+defaults::lowerborderheight;*/
 		}
 	
 		if(pflags & qapp::NoResize)
@@ -1408,7 +1445,7 @@ void xwindow::set_pflags(int tflags)
 
 		get_wmnormalhints();
 		resize(width(), ch+borderh);
-		XMoveWindow(QX11Info::display(), clientid, 0, uborderh);
+                XMoveWindow(QX11Info::display(), clientid, 0, 90/*uborderh*/);
 		
 		create_wborder();
 		wmname = "";
@@ -1526,7 +1563,7 @@ void xwindow::get_wmhints(void)  // get WMHints
 	{
 #ifdef DEBUGMSG
 	logmsg << "reading WMHints (WId:" << winId() << ")\n";
-#endif	
+#endif	                
 
 		if(xwmhints->flags & StateHint && xwmhints->initial_state == IconicState)
 			map_iconic = TRUE;
@@ -1534,9 +1571,11 @@ void xwindow::get_wmhints(void)  // get WMHints
 		if(! (xwmhints->flags & InputHint))  // focus
 			inputfield = FALSE;
 			
-		if(xwmhints->flags & IconPixmapHint)
+                if(xwmhints->flags & IconPixmapHint){
+                    qDebug() << "Icon PIXMAP: " << xwmhints->icon_pixmap;
 			get_servericon(xwmhints->icon_pixmap, (xwmhints->flags & IconMaskHint)?(xwmhints->icon_mask):(None));
 
+                    }
 		if(xwmhints->flags & (1L << 8))
 		{
 			urgent = TRUE;
@@ -1636,8 +1675,8 @@ void xwindow::get_wmname(void)  // get WM_NAME and ICON_NAME and set caption and
 		set_title();
 	}	
 		
-	if(icname != oldiname)  // change icon text on procbar
-                HomeDesktop::instance()->getProcbar()->change_text(&icname, this);
+        //if(icname != oldiname)  // change icon text on procbar
+                //HomeDesktop::instance()->getProcbar()->change_text(&icname, this);
 }
 
 void xwindow::get_servericon(Pixmap icon, Pixmap mask)  // get pixmap from server and scale it
@@ -1678,13 +1717,16 @@ void xwindow::state(bool on)
 
 xwindow::~xwindow(void)
 {
+        HomeDesktop::instance()->getProcbar()->removeWindow(this->winId());
+
 	delete [] cmapwins;
 	delete mrb;
 
 	if(qapp::winf->get_client() == this)
 		qapp::winf->release_cancel();
-	
-        HomeDesktop::instance()->getProcbar()->remove(this);  // remove from procbar
+
+        //HomeDesktop::instance()->getProcbar()->remove(this);  // remove from procbar
+
 	qapp::cwindows.remove(clientid);
 	qapp::pwindows.remove(winId());
 	

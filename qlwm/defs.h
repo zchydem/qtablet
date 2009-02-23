@@ -59,6 +59,8 @@
 
 #include "home.hh"
 #include "settings.hh"
+#include "pager.hh"
+
 // virtual desktops
 #define MAXDESKS 10
 

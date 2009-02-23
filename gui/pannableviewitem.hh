@@ -5,6 +5,8 @@
 namespace qtablet{
 
 class PannableViewItemPrivate;
+class LabelItem;
+class ImageItem;
 
 class PannableViewItem : public AbstractItem
 {
@@ -17,8 +19,6 @@ public:
     virtual ~PannableViewItem();
 
     virtual void paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 );
-
-    virtual QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const;
 
     virtual void pannableViewMousePressEvent( QGraphicsSceneMouseEvent * event );
 
@@ -33,6 +33,12 @@ public:
     virtual void setAcceptMouseEvent( bool accept );
 
     virtual bool acceptMouseEvent() const;
+
+    virtual LabelItem * label() const;
+
+    virtual ImageItem * image() const;
+
+    virtual void refresh();
 
 
 signals:

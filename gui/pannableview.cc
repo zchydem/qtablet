@@ -13,6 +13,8 @@
 #include <QRectF>
 #include <QCoreApplication>
 
+#include <QPainter>
+
 #define PANNABLE_FRICTION_COEFFICIENT 0.15 * 9.81  // F = y*N, 0.1 = friction coefficient for ice on ice.
 
 namespace qtablet{
@@ -67,11 +69,12 @@ PannableView::PannableView( Qt::Orientations orientation, qreal width, qreal hei
 QGraphicsWidget( parent ),
 d_ptr( new PannableViewPrivate )
 {
-    setMinimumSize( width, height );
-    setMaximumSize( width, height );
+    setMinimumSize  ( width, height );
+    setPreferredSize( width, height );
+    setMaximumSize  ( width, height );
     setFlags( QGraphicsItem::ItemClipsChildrenToShape );
 
-    d_ptr->m_pannableWidget = new PannableWidget( orientation, this );
+    d_ptr->m_pannableWidget = new PannableWidget( orientation, this );    
 }
 
 PannableView::~PannableView(){
@@ -83,6 +86,19 @@ void PannableView::setLayout( QGraphicsLayout * layout ){
     d_ptr->m_pannableWidget->setLayout( layout );   
 }
 
+
+void PannableView::refresh(){
+    d_ptr->m_pannableWidget->refresh();
+}
+
+
+/*
+void PannableView::paint(QPainter *painter, const QStyleOptionGraphicsItem * const option, QWidget * widget ){
+    painter->drawRect( boundingRect() );
+    Q_UNUSED( option );
+    Q_UNUSED( widget );
+}
+*/
 
 //// Pannable Widget Implementation ////
 PannableWidget::PannableWidget( Qt::Orientations orientation, QGraphicsItem * parent ):
@@ -105,12 +121,14 @@ PannableWidget::~PannableWidget(){
 }
 
 
+
 QPainterPath PannableWidget::shape () const{
     QPainterPath path;
     QSizeF size = QGraphicsWidget::size();
-    path.addRect( QRectF(0,0,size.width(), size.height() ) );
+    path.addRect( QRectF( 0,0, size.width(), size.height() ) );
     return path;
 }
+
 
 void PannableWidget::setLayout( QGraphicsLayout * layout ){
     if ( layout == 0 ){
@@ -123,16 +141,41 @@ void PannableWidget::setLayout( QGraphicsLayout * layout ){
     // the content.
     QGraphicsWidget::setLayout( layout );
     this->layout()->activate();
-    QRectF geom = this->layout()->geometry();
+    QRectF geom = layout->geometry();
+
+    qDebug() << "PannableWidget::setLayout: geometry:" << geom;
 
     // Get the limits for the panning and store them for later usage.     
     d_ptr->m_minX = parentItem()->boundingRect().width() - geom.width();
     d_ptr->m_maxX = geom.x();
     d_ptr->m_minY = parentItem()->boundingRect().height() - geom.height();
+    d_ptr->m_maxY = geom.y();    
+
+}
+
+
+void PannableWidget::refresh(){
+
+    layout()->activate();
+    QRectF geom = layout()->geometry();
+
+    // Get the limits for the panning and store them for later usage.
+    d_ptr->m_minX = parentItem()->boundingRect().width() - geom.width();
+    d_ptr->m_maxX = geom.x();
+    d_ptr->m_minY = parentItem()->boundingRect().height() - geom.height();
     d_ptr->m_maxY = geom.y();
+
+    if ( d_ptr->m_orientation & Qt::Vertical ){
+        setPos( 0, 0 );
+    }
+
+    if ( d_ptr->m_orientation & Qt::Horizontal ){
+        setPos( 0, 0 );
+    }
 }
 
 void PannableWidget::mousePressEvent( QGraphicsSceneMouseEvent * event ){
+
 
     // Press event stops the scrolling
     bool stopped = false;
@@ -141,18 +184,30 @@ void PannableWidget::mousePressEvent( QGraphicsSceneMouseEvent * event ){
         stopped = true;
     }
 
+
+
     // If scrolling is stopped but not in this method call, make sure that item if there
     // is any, get's the mouse press event. Otherwise make the previously selected
     // item unselected.
     PannableViewItem * item = qgraphicsitem_cast<PannableViewItem*>(scene()->itemAt( event->scenePos() ));
-    bool isThisWidget       = qgraphicsitem_cast<QGraphicsWidget*>( item ) == qgraphicsitem_cast<QGraphicsWidget*>( this );
+    bool isThisWidget       = ( qgraphicsitem_cast<QGraphicsWidget*>( item ) == qgraphicsitem_cast<QGraphicsWidget*>( this ) );
+    qDebug() << "clicked item:" << item->metaObject()->className();
 
-    if ( !stopped && !isThisWidget && item != 0 && item->acceptMouseEvent() ){
+    QString itemClassName( item->metaObject()->className() );
+    QString superClassName( item->metaObject()->superClass()->className() );
+    QString allowedClassName("qtablet::PannableViewItem" );
+
+    bool classTypeOk = (itemClassName == allowedClassName || superClassName == allowedClassName );
+
+    if ( !stopped && !isThisWidget && item != 0 &&
+         classTypeOk &&
+         item->acceptMouseEvent() ){
         d_ptr->m_selectedItem = item;
         d_ptr->m_selectedItem->pannableViewMousePressEvent( event );
     }else{
         d_ptr->m_selectedItem = 0;
     }
+
 
     d_ptr->m_isPressed  = true;
     d_ptr->m_scrollingTimeLine->setCurrentTime(0);
@@ -322,6 +377,7 @@ bool PannableWidget::endReached( bool stopScrolling ) {
         if ( d_ptr->m_deltaX < 0 && widgetX <= d_ptr->m_minX ){
             if ( stopScrolling ){                
                 setPos( d_ptr->m_minX, 0 );
+                qDebug() << "stop 1" << widgetX;
             }
             // Stop scrolling to left
             return true;
@@ -331,6 +387,7 @@ bool PannableWidget::endReached( bool stopScrolling ) {
             // Stop scrolling to left
             if ( stopScrolling ){
                 setPos( d_ptr->m_maxX , 0 );
+                qDebug() << "stop 2" << widgetX;
             }            
             return true;
         }

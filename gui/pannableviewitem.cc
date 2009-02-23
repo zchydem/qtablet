@@ -7,6 +7,7 @@
 #include <QPainter>
 #include <QTimer>
 #include <QGraphicsLinearLayout>
+#include <QPainterPath>
 
 namespace qtablet{
 
@@ -67,7 +68,7 @@ PannableViewItem::PannableViewItem(  QString const & imageFile, QString const & 
 
     if ( !d_ptr->m_label->isEmpty() ){
         // Set text and other settings for the text item
-        QSizeF imageSize = d_ptr->m_image->sizeHint( Qt::MaximumSize );
+        QSizeF imageSize = d_ptr->m_image->maximumSize();
         d_ptr->m_label->setWidth( static_cast<qint32>( imageSize.width() ) );
         d_ptr->m_label->setAlignment( Qt::AlignCenter );
         d_ptr->m_label->setFont( QFont( "Arial", 18, 68 ) );
@@ -93,6 +94,7 @@ PannableViewItem::PannableViewItem( QPixmap const & pixmap, QString const & labe
     QGraphicsLinearLayout * layout = new QGraphicsLinearLayout( Qt::Vertical );
     layout->setContentsMargins(0,0,0,0);
 
+
     if ( !d_ptr->m_image->isNull() ){
         layout->addItem( d_ptr->m_image );
         layout->setAlignment( d_ptr->m_image, Qt::AlignCenter );
@@ -100,8 +102,8 @@ PannableViewItem::PannableViewItem( QPixmap const & pixmap, QString const & labe
 
     if ( !d_ptr->m_label->isEmpty() ){
         // Set text and other settings for the text item
-        QSizeF imageSize = d_ptr->m_image->sizeHint( Qt::MaximumSize );
-        d_ptr->m_label->setWidth( static_cast<qint32>( imageSize.width() ) );
+        QSizeF imageSize = d_ptr->m_image->maximumSize();
+        //d_ptr->m_label->setWidth( static_cast<qint32>( imageSize.width() ) );
         d_ptr->m_label->setAlignment( Qt::AlignCenter );
         d_ptr->m_label->setFont( QFont( "Arial", 18, 68 ) );
         layout->addItem( d_ptr->m_label );
@@ -110,6 +112,9 @@ PannableViewItem::PannableViewItem( QPixmap const & pixmap, QString const & labe
 
     // And finally set the layout.
     setLayout( layout );
+    layout->activate();
+
+
 }
 
 PannableViewItem::~PannableViewItem(){
@@ -146,15 +151,6 @@ void PannableViewItem::paint ( QPainter * painter, const QStyleOptionGraphicsIte
 
     if ( d_ptr->m_cancelPressed ){
         d_ptr->m_cancelPressed = false;
-    }
-}
-
-QSizeF PannableViewItem::sizeHint ( Qt::SizeHint which, const QSizeF & constraint ) const{    
-    QGraphicsLinearLayout * l = static_cast<QGraphicsLinearLayout*>( layout() );
-    if ( l){
-        return l->sizeHint( which, constraint );
-    }else{
-        return QSizeF(0,0);
     }
 }
 
@@ -234,6 +230,16 @@ void PannableViewItem::setAcceptMouseEvent( bool accept){
 bool PannableViewItem::acceptMouseEvent() const{
     return d_ptr->m_acceptMouseEvent;
 }
+LabelItem * PannableViewItem::label() const{
+    return d_ptr->m_label;
+}
 
+ImageItem * PannableViewItem::image() const{
+    return d_ptr->m_image;
+}
+
+void PannableViewItem::refresh(){    
+    layout()->activate();
+}
 
 }

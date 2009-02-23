@@ -108,7 +108,7 @@ bool apbar::add(Window w, int number, QString &name)
 	for(i=0; i < ap.size(); i++)
 		twidth += ap.at(i)->width+4;
 
-        if(twidth+attr.width+100 > home->getPager()->width())
+        if(twidth+attr.width+100 > 90 /*home->getPager()->width()*/)
 	{
 		logmsg << "WM: No space left on toolbar\n";
 		return FALSE;

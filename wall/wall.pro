@@ -22,16 +22,21 @@ DESTDIR += $$BUILDDIR/wall/lib
 SOURCES += qlauncher.cc \
     desktopfileparser.cc \
     wall.cc \
-    home.cc
-
-
+    home.cc \
+    toolbar.cc \
+    pager.cc \
+    toolbarbutton.cc
 HEADERS += qlauncher.hh \
     desktopfileparser.hh \
     wall.hh \
-    home.hh
+    home.hh \
+    toolbar.hh \
+    pager.hh \
+    toolbarbutton.hh
 
 # install settings
 target.path = $$INSTALLDIR/lib
 headers.files = $$HEADERS
 headers.path = $$INSTALLDIR/include
-INSTALLS += target headers
+INSTALLS += target \
+    headers

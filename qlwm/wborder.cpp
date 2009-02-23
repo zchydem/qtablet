@@ -102,6 +102,8 @@ lborder::lborder(QWidget *parent) : QWidget(parent)
 
 void uborder::set_small(void)
 {
+    set_normal();
+    return;
 	setFixedHeight(defaults::lowerborderheight);
 	leftframe->setFixedWidth(defaults::lowerborderwidth);
 	rightframe->setFixedWidth(defaults::lowerborderwidth);
@@ -112,9 +114,9 @@ void uborder::set_small(void)
 
 void uborder::set_normal(void)
 {
-	setFixedHeight(defaults::windowbuttonsize);
-	leftframe->setFixedWidth(defaults::windowbuttonsize);
-	rightframe->setFixedWidth(defaults::windowbuttonsize);
+        setFixedHeight( 90 /*defaults::windowbuttonsize */);
+        leftframe->setFixedWidth( 90/*defaults::windowbuttonsize */);
+        rightframe->setFixedWidth(90/*defaults::windowbuttonsize*/);
 	leftframe->setPixmap(*qapp::leftwinpix);
 	rightframe->setPixmap(*qapp::rightwinpix);
 }
@@ -123,24 +125,28 @@ uborder::uborder(bool showleft, QWidget *parent) : QWidget(parent)
 {
 	layout = new QHBoxLayout(this);
 	Q_CHECK_PTR(layout);
-        setFixedHeight(defaults::windowbuttonsize);
+        //setFixedHeight(defaults::windowbuttonsize);
+        setFixedHeight( 90 );
+        setWindowOpacity(0.5);
 
 	if(showleft)
 	{
 		leftframe = new wframe(this);
 		Q_CHECK_PTR(leftframe);
-		leftframe->setFixedWidth(defaults::windowbuttonsize);
+                leftframe->setFixedWidth( 90 );
 		leftframe->setAlignment(Qt::AlignCenter);
 		leftframe->setPixmap(*qapp::leftwinpix);
-			
+                leftframe->setFixedHeight( 90 );
 		layout->addWidget(leftframe);
 	}
 	
 	midframe = new wframe(this);
+        midframe->setFixedHeight( 90 );
 	Q_CHECK_PTR(midframe);
 	rightframe = new wframe(this);
 	Q_CHECK_PTR(rightframe);
-	rightframe->setFixedWidth(defaults::windowbuttonsize);
+        rightframe->setFixedWidth( 90 );
+        rightframe->setFixedHeight( 90 );
 	rightframe->setAlignment(Qt::AlignCenter);
 	rightframe->setPixmap(*qapp::rightwinpix);
 

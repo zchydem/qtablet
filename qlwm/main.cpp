@@ -44,7 +44,7 @@ void sig_hup(int)
 
 void sig_term(int)  // terminate
 {
-        HomeDesktop::instance()->getProcbar()->remove_all();
+        //HomeDesktop::instance()->getProcbar()->remove_all();
 	
 	for(int i=0; i < clients.size(); i++)
 		XReparentWindow(QX11Info::display(), clients.at(i)->winId(), QX11Info::appRootWindow(), 0, 0);

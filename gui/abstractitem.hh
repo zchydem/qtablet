@@ -23,7 +23,7 @@ class AbstractItem : public QGraphicsWidget
 
     virtual ~AbstractItem();
 
-    virtual QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const = 0;
+    //virtual QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const = 0;
 
     virtual qreal rotationZ() const;
 

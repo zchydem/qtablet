@@ -118,7 +118,7 @@ void pager::change_desk(int desk)  // change virtual desktop
 {
 	xwindow *client;
 	
-	if(desk == qapp::adesk || desk < 0 || desk >= defaults::vdesks)
+        if(desk == qapp::adesk || desk < 0 || desk >= defaults::vdesks)
 		return;
 
 	int dx = (qapp::adesk-desk)*dwidth;
