@@ -104,11 +104,11 @@ void QLauncher::createLauncherItems(){
         QPixmap pxm( "icon:" + content.value( DesktopFileParser::Icon ) );
         QString name = content.value( DesktopFileParser::Name );
 
-        /*
+
         if ( pxm.isNull() || name.isEmpty() ){
             continue;
         }
-        */
+
         PannableViewItem * item = new PannableViewItem( pxm, name );
 
         layout->addItem( item, row % 2, col, Qt::AlignCenter );

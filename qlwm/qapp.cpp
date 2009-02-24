@@ -211,8 +211,8 @@ void qapp::wm_restart(void)
 
 	winf->release_cancel();
         HomeDesktop::instance()->getPager()->change_desk(0);
-        HomeDesktop::instance()->getProcbar()->removeAll();
-        HomeDesktop::instance()->getProcbar()->changeDesktop(0);
+        //HomeDesktop::instance()->getProcbar()->removeAll();
+        HomeDesktop::instance()->getProcbar()->setActiveDesktop(0);
 	
 	foreach(client, clients)
 	{

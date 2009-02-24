@@ -115,6 +115,7 @@ d_ptr( new HomePrivate )
     connect( d_ptr->m_launcher, SIGNAL(hideQLauncher()),          this, SLOT( showOrHideWall () ) );
     connect( d_ptr->m_toolbar,  SIGNAL(pagerButtonClicked()),     this, SLOT( showOrHidePager() ) );
     connect( d_ptr->m_toolbar,  SIGNAL(qlauncherButtonClicked()), this, SLOT( showOrHideWall () ) );
+    connect( d_ptr->m_pager,    SIGNAL(closePager()),             this, SLOT( showOrHidePager() ) );
 
     // Wall is visible
     d_ptr->m_state1->setGeometry( d_ptr->m_toolbar,  QRectF(710,0,90,480 ) );
@@ -130,7 +131,7 @@ d_ptr( new HomePrivate )
 
     //! Pager is visible
     d_ptr->m_state3->setGeometry( d_ptr->m_toolbar,  QRectF(710,0,90,480 ) );
-    d_ptr->m_state3->setGeometry( d_ptr->m_wall,     QRectF(0, -480,800,480) );
+    d_ptr->m_state3->setGeometry( d_ptr->m_wall,     QRectF(0, 0,800,480) );
     d_ptr->m_state3->setGeometry( d_ptr->m_launcher, QRectF(800,0,800,480) );
     d_ptr->m_state3->setGeometry( d_ptr->m_pager,    QRectF(0, 0,710,480) );
 

@@ -8,6 +8,7 @@ class LabelItemPrivate;
 
 class LabelItem : public AbstractItem
 {
+    Q_OBJECT
 public:
     LabelItem( QGraphicsItem * parent = 0 );
 
@@ -38,6 +39,14 @@ public:
     virtual Qt::Alignment const & alignment() const;
 
     virtual bool isEmpty() const;
+
+Q_SIGNALS:
+    void clicked();
+
+protected:
+    virtual void mousePressEvent ( QGraphicsSceneMouseEvent * event );
+
+    virtual void mouseReleaseEvent ( QGraphicsSceneMouseEvent * event );
 
 private:
     void updateLabel();

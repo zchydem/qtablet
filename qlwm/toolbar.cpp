@@ -29,12 +29,14 @@ HomeDesktop::HomeDesktop( QWidget * parent ) :
 {
     home = new qtablet::Home( this );
     home->setGeometry(0,0,800,480);
-    toolbar = new Toolbar2(this);
-    //toolbar->setGeometry(710,0,90,480);
+    toolbar = new Toolbar2(this);    
     toolbar->hide();
     setGeometry(0,0,800,480);
     show();
-    //connect( toolbar, SIGNAL(qButtonClicked()), this, SLOT(qButtonClicked()) );
+
+    if ( connect( home->pager(), SIGNAL(changeDesktop(int)), this, SLOT(changeVirtualDesktop(int)) ) ){
+        qDebug() << "Connection success.::";
+    }
 }
 
 pager   * HomeDesktop::getPager() const
@@ -75,6 +77,7 @@ void HomeDesktop::qButtonClicked(){
 void HomeDesktop::changeVirtualDesktop( int desktop ){
     xwindow *client;
 
+    qDebug() << "HomeDesktop::changeVirtualDesktop to: " << desktop;
     if(desktop == qapp::adesk || desktop < 0 || desktop >= defaults::vdesks)
             return;
 
@@ -105,7 +108,7 @@ void HomeDesktop::changeVirtualDesktop( int desktop ){
             defaults::sttiled[desktop] = FALSE;
     }
 
-    HomeDesktop::instance()->getProcbar()->changeDesktop( desktop );
+    getProcbar()->setActiveDesktop( desktop );
 }
 
 /*
@@ -139,7 +142,7 @@ Toolbar2::Toolbar2(QWidget *parent) : QFrame(parent)
 	
         qreal width  = QApplication::desktop()->width();
         qreal height = QApplication::desktop()->height();
-        setGeometry(0, 0, width, height );
+        //setGeometry(0, 0, width, height );
         /*
 	setGeometry(0, (defaults::toolbar_top)?(0):(QApplication::desktop()->height()-defaults::tb_height),
 	QApplication::desktop()->width(), defaults::tb_height);

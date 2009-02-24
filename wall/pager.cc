@@ -13,12 +13,10 @@ namespace qtablet{
 class PagerPrivate{
 public:
     PagerPrivate():
-    m_currentDesktop(0),
-    m_background(),
+    m_currentDesktop(0),    
     m_size(800, 480){}
 
-    qint32 m_currentDesktop;
-    QPixmap m_background;
+    qint32 m_currentDesktop;    
     QSizeF  m_size;
 };
 
@@ -33,20 +31,17 @@ d_ptr( new PagerPrivate )
 
     QGraphicsLinearLayout * layout = new QGraphicsLinearLayout( Qt::Horizontal );
     for (int i=0; i < 2; i++){
-        PagerDesktop * pagerDesktop = new PagerDesktop(tr("Desktop %1").arg(i), this );
-        layout->insertItem( i,  pagerDesktop );
+        PagerDesktop * desktop = new PagerDesktop( i, tr("Desktop %1").arg(i), this );
+        layout->insertItem( i,  desktop );
+        connect( desktop, SIGNAL(changeDesktop(int)), this, SIGNAL(changeDesktop(int)) );
 
-        // Test highlighting
+        // Default desktop is 0
         if (i == 0){
-            pagerDesktop->highlight( true );
+            desktop->highlight( true );
         }
     }
 
     setLayout( layout );    
-    QPixmap pxm("image:pager_bg1");
-    d_ptr->m_background = pxm.scaled( d_ptr->m_size.width(), d_ptr->m_size.height(),
-                                      Qt::IgnoreAspectRatio,
-                                      Qt::SmoothTransformation );
 }
 
 Pager::~Pager()
@@ -55,27 +50,41 @@ Pager::~Pager()
     d_ptr = 0;
 }
 
-void Pager::paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ){
-    Q_UNUSED( option );
-    Q_UNUSED( widget );
 
-    if ( d_ptr->m_background.isNull() ){
-        qCritical() << "Pager: NULL background image. Can't draw the background!";
-    }else{
-        painter->drawPixmap(0,0, d_ptr->m_background );
+void Pager::setActiveDesktop( qint32 desktop ){
+    QGraphicsLayout * currentLayout = layout();
+    Q_CHECK_PTR( currentLayout );
+
+    if ( currentLayout == 0 ){
+        return;
     }
-}
 
-void Pager::changeDesktop( qint32 desktop ){
-    PagerDesktop * pd = static_cast<PagerDesktop*>(layout()->itemAt( desktop ));
-    pd->highlight( true );
-    d_ptr->m_currentDesktop = desktop;
+    for( qint32 i = 0; i < currentLayout->count(); i++ ){
+        PagerDesktop * pd = static_cast<PagerDesktop*>(currentLayout->itemAt( i ));
+
+        if ( pd == 0 ){
+            continue;
+        }
+
+        if ( i == desktop ){
+            pd->highlight( true );
+            d_ptr->m_currentDesktop = desktop;
+        }else{
+            pd->highlight( false );
+        }
+    }
 }
 
 
 PagerDesktopItem * Pager::addWindow( qlonglong id, QString const & caption ){
    PagerDesktop * pd = static_cast<PagerDesktop*>(layout()->itemAt( d_ptr->m_currentDesktop ));
-   return pd->addWindow( id, caption );
+   PagerDesktopItem * item = pd->addWindow( id, caption );
+
+   if ( item != 0 ){
+       connect( item, SIGNAL(showWindow(bool)), this, SIGNAL(closePager()) );       
+   }
+
+   return item;
 }
 
 void Pager::removeWindow( qlonglong id ){
@@ -94,7 +103,8 @@ public:
             m_pannableLayout(0),
             m_highlight(false),
             m_windows(),
-            m_size( 330, 460 )
+            m_size( 340, 460 ),
+            m_id( -1 )
     {}
 
 
@@ -106,9 +116,10 @@ public:
     bool                    m_highlight;
     QHash<qlonglong, PagerDesktopItem * > m_windows;
     QSizeF                  m_size;    
+    int                     m_id;
 };
 
-PagerDesktop::PagerDesktop( QString const & name, QGraphicsItem * parent ):
+PagerDesktop::PagerDesktop( int id, QString const & name, QGraphicsItem * parent ):
 AbstractItem( parent ),
 d_ptr( new PagerDesktopPrivate )
 {
@@ -120,17 +131,17 @@ d_ptr( new PagerDesktopPrivate )
     // Initialize members and put them into a main layout
     d_ptr->m_pannableView   = new PannableView(Qt::Vertical, d_ptr->m_size.width() - 20 , d_ptr->m_size.height() - 70, this );
     d_ptr->m_desktopName    = new LabelItem(name, this );
-
+    d_ptr->m_id             = id;
 
     d_ptr->m_desktopName->setFont( QFont("Arial", 28, 55 ) );
     d_ptr->m_pannableLayout = new QGraphicsLinearLayout( Qt::Vertical );
     d_ptr->m_pannableView->setLayout( d_ptr->m_pannableLayout );
 
-
+    connect( d_ptr->m_desktopName, SIGNAL(clicked()), this, SLOT( changeDesktop() ) );
 
     //d_ptr->m_pannableLayout->setSpacing( 20 );
     qint32 margin = (minimumWidth() - 270) / 2;
-    d_ptr->m_pannableLayout->setContentsMargins(margin, 20, margin, 50 );
+    d_ptr->m_pannableLayout->setContentsMargins(margin, 20, margin, 20 );
 
     QGraphicsLinearLayout * layout = new QGraphicsLinearLayout(Qt::Vertical );
     layout->addItem( d_ptr->m_desktopName  );
@@ -200,6 +211,7 @@ PagerDesktopItem * PagerDesktop::addWindow( qlonglong id, QString const & captio
         d_ptr->m_windows.insert( id, window );      
         d_ptr->m_pannableLayout->addItem( window );
         d_ptr->m_pannableLayout->setAlignment( window, Qt::AlignCenter );
+        connect( window, SIGNAL(ensureDesktop()), this, SLOT(changeDesktop()) );
     }
 
     qDebug() << "Adding/updating window:" << id << caption;
@@ -242,6 +254,12 @@ void PagerDesktop::removeWindow( qlonglong id ){
 }
 
 
+void PagerDesktop::changeDesktop(){    
+    qDebug() << "PagerDesktop::changeDesktop:" << d_ptr->m_id;
+    Q_EMIT changeDesktop( d_ptr->m_id );
+}
+
+
 // Pager desktop item
 PagerDesktopItem::PagerDesktopItem(  QPixmap const & pixmap, QString const & name, QGraphicsItem * parent ):
 PannableViewItem(pixmap, name, parent ){    
@@ -257,7 +275,9 @@ PagerDesktopItem::~PagerDesktopItem(){
 
 
 void PagerDesktopItem::showWindow(){
-    emit showWindow( true );
+
+    Q_EMIT ensureDesktop();
+    Q_EMIT showWindow( true );
 }
 
 void PagerDesktopItem::updateImage( QPixmap const & pixmap ){ 
@@ -266,7 +286,6 @@ void PagerDesktopItem::updateImage( QPixmap const & pixmap ){
     refresh();
     updateGeometry();
 }
-
 
 
 }

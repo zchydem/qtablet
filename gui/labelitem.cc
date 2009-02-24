@@ -29,18 +29,21 @@ class LabelItemPrivate{
 
         QTextOption option( m_alignment );
         quint32 height;
+        quint32 width;
 
-        option.setWrapMode( QTextOption::WrapAnywhere );
+        //option.setWrapMode( QTextOption::WrapAnywhere );
 
         if ( textWidth() > m_width && m_width != 0 ){
-            //option.setWrapMode( QTextOption::WrapAnywhere );
-            height = textHeight() * ( textWidth() / ((float)(m_width)) );
+            option.setWrapMode( QTextOption::WrapAtWordBoundaryOrAnywhere );
+            height = (textHeight()+ textHeight()*1.5) * ( textWidth() / ((float)(m_width)) );
+            width  = m_width;
         }else{
             height = textHeight();
+            width  = textWidth();
         }
 
 
-        QPixmap pixmap( textWidth(), textHeight() );
+        QPixmap pixmap( width, height );
         QColor color(0,0,0,0);
         pixmap.fill( color );
         QPainter painter( &pixmap );
@@ -153,6 +156,17 @@ Qt::Alignment const & LabelItem::alignment() const{
     return d_ptr->m_alignment;
 }
 
+void LabelItem::mousePressEvent ( QGraphicsSceneMouseEvent * event ){
+    Q_UNUSED( event );
+}
+
+void LabelItem::mouseReleaseEvent ( QGraphicsSceneMouseEvent * event ){
+    Q_UNUSED( event );
+    qDebug() << "Label clicked";
+    Q_EMIT clicked();
+}
+
+
 void LabelItem::updateLabel(){
     QPixmapCache::remove( d_ptr->key() );
     QPixmap pixmap = d_ptr->generatePixmap();
@@ -161,10 +175,15 @@ void LabelItem::updateLabel(){
     setMaximumSize  ( pixmap.size() );
     setPreferredSize( pixmap.size() );
     updateGeometry();
-    update();
+
+    if ( isVisible() ){
+        update();
+    }
 }
 
 bool LabelItem::isEmpty() const{
     return d_ptr->m_text.isEmpty();
 }
+
+
 }
