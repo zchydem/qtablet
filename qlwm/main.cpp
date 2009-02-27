@@ -2,7 +2,6 @@
 
 #include "defs.h"
 #include "conf.h"
-#include "keyboard.h"
 #include "winfo.h"
 #include "qapp.h"
 #include "defaults.h"
@@ -33,6 +32,7 @@ void getrunprocs(void)  // get already running clients
 		if(attr.map_state == IsViewable && ! attr.override_redirect)
 			qapp::run_client(w);
 	}
+
 	XSync(QX11Info::display(), FALSE);
 	defaults::starturgent = surgent;
 }
@@ -44,7 +44,7 @@ void sig_hup(int)
 
 void sig_term(int)  // terminate
 {
-        //HomeDesktop::instance()->getProcbar()->remove_all();
+
 	
 	for(int i=0; i < clients.size(); i++)
 		XReparentWindow(QX11Info::display(), clients.at(i)->winId(), QX11Info::appRootWindow(), 0, 0);
@@ -170,16 +170,6 @@ int main(int argc, char **argv)
 		XFree(isize);
 	}	
 
-        /*
-	if(defaults::root_pix.isNull()) 
-		a.desktop()->setPalette(QPalette(defaults::root_bg));
-	else
-	{
-		QPalette br;
-		br.setBrush(QPalette::Window, QBrush(QPixmap(defaults::root_pix)));
-		a.desktop()->setPalette(br);
-        }
-        */
 	XClearWindow(QX11Info::display(), QX11Info::appRootWindow());
 
 
@@ -201,7 +191,7 @@ int main(int argc, char **argv)
 		qapp::tdesks[0] = TRUE;
 		defaults::sttiled[0] = FALSE;
 	}
-        HomeDesktop::instance()->getWinlist()->set_pixmap();
+
 	getrunprocs();
 	defaults::start_restart = FALSE;
 
@@ -225,7 +215,6 @@ int main(int argc, char **argv)
 	act.sa_handler = sig_term;
 	sigaction(SIGTERM, &act, NULL);
 
-	keyboard::init();
 	wm_init = FALSE;
 	startprg();
 	
