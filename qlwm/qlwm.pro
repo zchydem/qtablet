@@ -17,28 +17,18 @@ DESTDIR += $$BUILDDIR/qlwm/bin
 HEADERS += conf.h \
            defaults.h \
            defs.h \
-           eventnames.h \           
-           #menu.h \
-           #pager.h \
-           #procbar.h \
-           qapp.h \
-           rubber.h \
-           toolbar.h \
+           eventnames.h \                      
+           qapp.h \           
+           homedesktop.h \
            wborder.h \
-           winfo.h \
-           #winlist.h \
+           winfo.h \           
            xwindow.h
 SOURCES += defaults.cpp \
-           main.cpp \
-           #menu.cpp \
-           #pager.cpp \
-           #procbar.cpp \
-           qapp.cpp \
-           rubber.cpp \
-           toolbar.cpp \
+           main.cpp \           
+           qapp.cpp \           
+           homedesktop.cpp \
            wborder.cpp \
-           winfo.cpp \
-           #winlist.cpp \
+           winfo.cpp \           
            xwindow.cpp
 
 

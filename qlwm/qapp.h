@@ -3,14 +3,8 @@
 #ifndef QAPP_H
 #define QAPP_H
 
-#include "toolbar.h"
-#include "pager.h"
-#include "winlist.h"
-#include "menu.h"
-#include "procbar.h"
-#include "apbar.h"
+#include "homedesktop.h"
 #include "winfo.h"
-#include "rubber.h"
 #include "xwindow.h"
 
 extern QList <xwindow*> clients;       // client list 

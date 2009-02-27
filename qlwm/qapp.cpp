@@ -11,7 +11,6 @@
 #include "defs.h"
 #include "conf.h"
 #include "defaults.h"
-#include "toolbar.h"
 #include "qapp.h"
 #include <stdio.h>
 

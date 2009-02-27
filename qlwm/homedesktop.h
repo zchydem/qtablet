@@ -5,11 +5,6 @@
 #include <QFrame>
 #include <QWidget>
 
-class pager;
-class winlist;
-class procbar;
-class menu;
-class apbar;
 class QBoxLayout;
 
 
@@ -29,7 +24,6 @@ class HomeDesktop: public QWidget
     HomeDesktop( QWidget * parent = 0 );
     public:
     qtablet::Pager   * getPager() const;
-    //qtablet::Pager   * getProcbar() const;
     qtablet::Home * getHome() const;
 
     public slots:

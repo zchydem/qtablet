@@ -10,14 +10,13 @@
 #include "defaults.h"
 #include "qapp.h"
 #include "winfo.h"
-#include "toolbar.h"
+#include "homedesktop.h"
 #include <QtDebug>
 
 xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent) 
 {
 	dt = QApplication::desktop();
 	maxstate = 0;
-	mrb = NULL;
 	clientid = w;
 	actpal = TRUE;
 	urgpal = FALSE;
@@ -530,23 +529,18 @@ void xwindow::s_maximize(void)
 
 void xwindow::press_move(QMouseEvent *event)
 {
-	if(mrb != NULL)
-		return;
-		
+        // TODO: This code isn't used in QTablet so check if
+        // it needs to be removed
 	mousepos = event->pos()+midmove->pos();  // offset
-	midmove->grabMouse(QCursor(Qt::SizeAllCursor));
-	mrb = new rubber(0);
+	midmove->grabMouse(QCursor(Qt::SizeAllCursor));	
 	move_move(event);   // draw frame
 }
 
 void xwindow::release_move(QMouseEvent *event)
 {
+    //TODO: Check if this code is needed.
     Q_UNUSED( event );
-	if(mrb == NULL)
-		return;
-		
-	delete mrb;
-	mrb = NULL;
+
 	midmove->releaseMouse();
         //move(event->globalPos()-mousepos);
 	maxstate = 0;
@@ -559,33 +553,24 @@ void xwindow::release_move(QMouseEvent *event)
 
 void xwindow::move_move(QMouseEvent *event)
 {
+    Q_UNUSED( event );
+    // TODO: Check if this code is needed
         // We don't allow moving the windows around
         return;
-	if(mrb == NULL)
-		return;
-		
-	QPoint p = event->globalPos()-mousepos;
-	mrb->draw(p.x(), p.y(), width(), height());
+
 }
 
 void xwindow::press_leftresize(QMouseEvent *event)
 {
-	if(mrb != NULL)
-		return;
-		
-	mousepos = event->globalPos();
-	lbdr->leftframe->grabMouse(QCursor(Qt::SizeAllCursor));
-	mrb = new rubber(base_w, base_h, inc_w, inc_h, 0);
-	move_leftresize(event);   // draw frame
+    Q_UNUSED( event );
+    // TODO: Check if this code is needed
+
 }
 
 void xwindow::release_leftresize(QMouseEvent *event)
 {
-	if(mrb == NULL)
-		return;
-		
-	delete mrb;
-	mrb = NULL;
+    // TODO: Check if this code is needed
+        Q_UNUSED( event );
 	lbdr->leftframe->releaseMouse();
 	QPoint dpos = event->globalPos()-mousepos;
 	int resw = width()-dpos.x();
@@ -607,110 +592,44 @@ void xwindow::release_leftresize(QMouseEvent *event)
 
 void xwindow::move_leftresize(QMouseEvent *event)
 {
-	if(mrb == NULL)
-		return;
-	
-	QPoint dpos = event->globalPos()-mousepos;
-	int resw = width()-dpos.x();
-	int resh = height()+dpos.y();
-
-	getsize(&resw, &resh);
-	int resx = x()-resw+width();
-	
-	if(resx+min_w > x()+width())
-		resx = x()+width()-min_w;
-		
-	mrb->draw(resx, y(), resw, resh);
+    // TODO: Check if this code is needed
+    Q_UNUSED( event );
 }
 
 void xwindow::press_rightresize(QMouseEvent *event)
 {
-	if(mrb != NULL)
-		return;
-		
-	mousepos = event->globalPos();
-	lbdr->rightframe->grabMouse(QCursor(Qt::SizeAllCursor));
-	mrb = new rubber(base_w, base_h, inc_w, inc_h, 0);
-	move_rightresize(event);   // draw frame
+    // TODO: Check if this code is needed
+    Q_UNUSED( event );
 }
 
 void xwindow::release_rightresize(QMouseEvent *event)
 {
-	if(mrb == NULL)
-		return;
-		
-	delete mrb;
-	mrb = NULL;	
-	lbdr->rightframe->releaseMouse();
-	QPoint dpos = event->globalPos()-mousepos;
-	int resw = width()+dpos.x();
-	int resh = height()+dpos.y();
-	
-	getsize(&resw, &resh);
-	resize_client(x(), y(), resw, resh);
-	maxstate = 0;
-	raise();
-	
-	if(tstate && ! qapp::is_curdesk(this))
-		tstate = FALSE;
+        // TODO: Check if this code is needed
+    Q_UNUSED( event );
 }
 
 void xwindow::move_rightresize(QMouseEvent *event)
 {
-	if(mrb == NULL)
-		return;
-		
-	QPoint dpos = event->globalPos()-mousepos;
-	int resw = width()+dpos.x();
-	int resh = height()+dpos.y();
-
-	getsize(&resw, &resh);
-	mrb->draw(x(), y(), resw, resh);
+    // TODO: Check if this code is needed
+    Q_UNUSED( event );
 }
 
 void xwindow::press_midresize(QMouseEvent *event)
 {
-	if(mrb != NULL)
-		return;
-		
-	mousepos = event->globalPos();
-	lbdr->midframe->grabMouse(QCursor(Qt::SizeAllCursor));
-	mrb = new rubber(base_w, base_h, inc_w, inc_h, 0);
-	move_midresize(event);   // draw frame
+    // TODO: Check if this code is needed
+    Q_UNUSED( event );
 }
 
 void xwindow::release_midresize(QMouseEvent *event)
 {
-	if(mrb == NULL)
-		return;
-		
-	delete mrb;
-	mrb = NULL;
-	lbdr->midframe->releaseMouse();
-	QPoint dpos = event->globalPos()-mousepos;
-	int resh = height()+dpos.y();
-	int resw = width();
-		
-	getsize(&resw, &resh);	
-	resize_client(x(), y(), resw, resh);
-	maxstate = 0;
-	raise();
-	
-	if(tstate && ! qapp::is_curdesk(this))
-		tstate = FALSE;
+    // TODO: Check if this code is needed
+    Q_UNUSED( event );
 }
 
 void xwindow::move_midresize(QMouseEvent *event)
 {
-	if(mrb == NULL)
-		return;
-		
-	QPoint dpos = event->globalPos()-mousepos;
-	int resh = height()+dpos.y();
-	int resw = width();
-
-	getsize(&resw, &resh);
-	mrb->draw(x(), y(), resw, resh);
+    // TODO: Check if this code is needed
+    Q_UNUSED( event );
 }
 
 void xwindow::show_info(void)
@@ -870,7 +789,7 @@ void xwindow::seturgent(void)
 
 void xwindow::raise()
 {
-	if(mrb != NULL || qapp::winf->get_client() != NULL || (! qapp::smode && (pflags & qapp::StayOnBottom)))
+        if( qapp::winf->get_client() != NULL || (! qapp::smode && (pflags & qapp::StayOnBottom)))
 		return;
 		
 #ifdef DEBUGMSG
@@ -1117,7 +1036,7 @@ void xwindow::stopautofocus(void)
 
 void xwindow::startautofocus(void)  // start autofocus timer
 {
-	if(! defaults::autofocustime || mrb != NULL)
+        if(! defaults::autofocustime )
 		return;
 		
 	// do not raise if another window appears within this window
@@ -1406,7 +1325,7 @@ void xwindow::set_pflags(int tflags)
 	logmsg << "rebuilding window frame (WId:" << winId() << ")\n";
 #endif	
                 qDebug() << "rebuilding window frame";
-		delete mrb;
+
 		delete midmove;
 		delete ubdr;
 		delete lbdr;
@@ -1705,7 +1624,7 @@ xwindow::~xwindow(void)
         HomeDesktop::instance()->getPager()->removeWindow(this->winId());
 
 	delete [] cmapwins;
-	delete mrb;
+
 
 	if(qapp::winf->get_client() == this)
 		qapp::winf->release_cancel();        

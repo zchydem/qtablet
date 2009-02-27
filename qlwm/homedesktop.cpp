@@ -8,13 +8,8 @@
 
 #include "defs.h"
 #include "qapp.h"
-#include "toolbar.h"
+#include "homedesktop.h"
 #include "defaults.h"
-#include "pager.h"
-#include "winlist.h"
-#include "menu.h"
-#include "procbar.h"
-#include "apbar.h"
 #include <QtDebug>
 #include <QFont>
 
@@ -50,12 +45,7 @@ qtablet::Pager   * HomeDesktop::getPager() const
     return home->pager();
 }
 
-/*
-qtablet::Pager * HomeDesktop::getProcbar() const
-{
-    return home->pager();    
-}
-*/
+
 qtablet::Home * HomeDesktop::getHome() const
 {
     return home;

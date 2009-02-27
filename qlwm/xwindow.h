@@ -5,7 +5,6 @@
 #define XWINDOW_H
 
 #include "wborder.h"
-#include "rubber.h"
 #include <QPoint>
 #include <QTimer>
 #include <QPixmap>
@@ -25,8 +24,7 @@ class xwindow : public QWidget
 	int scx, scy, scw, sch;     // normal geometry in screenmode
 	int tcx, tcy, tcw, tch;     // normal geometry in tilemode
 	char maxstate;              // maximized state 1=toolbar,2=screen
-	QPoint mousepos;            // mouse position at button press
-	rubber *mrb;                // move/resize rubberband
+	QPoint mousepos;            // mouse position at button press	
 	bool actpal;                // set to active colors
 	bool urgpal;                // set to urgent colors
 	QTimer *focustimer;         // autofocus timer
