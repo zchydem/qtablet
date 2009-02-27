@@ -10,7 +10,6 @@
 
 #include "defs.h"
 #include "conf.h"
-#include "keyboard.h"
 #include "defaults.h"
 #include "toolbar.h"
 #include "qapp.h"
@@ -147,18 +146,6 @@ void qapp::run_client(Window w)  // start new client
 			if(data != NULL)
 				XFree(data);
 
-			if(! clname.isEmpty() && ((apnumber = apclients[clname]) || nitems))
-			{
-                                if(HomeDesktop::instance()->getApbar()->add(w, apnumber, clname))  // add to toolbar
-					return;
-			}
-
-			if(! cclname.isEmpty() && ((apnumber = apclients[cclname]) || nitems))
-			{
-                                if(HomeDesktop::instance()->getApbar()->add(w, apnumber, cclname))
-					return;
-			}
-
 		}
 		clients.prepend((client = new xwindow(w)));
 
@@ -196,22 +183,19 @@ void qapp::wm_restart(void)
 	xwindow *client;
 	int i;
 
-	if(smode)
-		keyboard::tscreen();
+        //if(smode)
+        //	keyboard::tscreen();
 
 	for(i=0; i < defaults::vdesks; i++)
 	{
 		if(tdesks[i])
 		{
-                        HomeDesktop::instance()->getPager()->change_desk(i);
-                        //HomeDesktop::instance()->getPager()->changeDesktop(i);
+                        HomeDesktop::instance()->getProcbar()->setActiveDesktop(i);
 			toggle_tiled();
 		}
 	}
 
 	winf->release_cancel();
-        HomeDesktop::instance()->getPager()->change_desk(0);
-        //HomeDesktop::instance()->getProcbar()->removeAll();
         HomeDesktop::instance()->getProcbar()->setActiveDesktop(0);
 	
 	foreach(client, clients)
@@ -222,8 +206,6 @@ void qapp::wm_restart(void)
 	}
 	
 	clients.clear();
-        HomeDesktop::instance()->getApbar()->release_all();
-        delete home;
 	XSync(QX11Info::display(), FALSE);
 	
 	const char *argv[20];
@@ -352,13 +334,10 @@ void qapp::toggle_tiled(void) // toggle overlapped/tiled desk
 		if(focusclient != NULL && clients.indexOf(client) != -1)
 			focusclient->focus_mouse();
 			
-                HomeDesktop::instance()->getWinlist()->set_pixmap();
-
 		return;
 	}
 	tile_order(focusclient);
 	tdesks[adesk] = TRUE;
-        HomeDesktop::instance()->getWinlist()->set_pixmap();
 }
 
 void qapp::read_cprops(void)  // read app defaults
@@ -416,8 +395,7 @@ void qapp::read_cprops(void)  // read app defaults
 		
 	for(int i=0; i < clients.size(); i++)
 		clients.at(i)->set_pflags();
-			
-        HomeDesktop::instance()->getApbar()->remove();  // update clients on toolbar
+			        
 }
 
 QString qapp::get_cfile(const char *name)  // get abs config file name
@@ -498,7 +476,7 @@ bool qapp::x11EventFilter(XEvent *event)
 				
 			lmtime = fi.lastModified();	
 		}
-                HomeDesktop::instance()->getMenu()->readmenu();
+
 		read_cprops();
 		sighup = FALSE;
 	}
@@ -513,20 +491,14 @@ bool qapp::x11EventFilter(XEvent *event)
 				clients.removeAt(clients.indexOf(client));
 				delete client;
 				
-				if(smode && client->isstate())
-					keyboard::tscreen();  // turn off screen mode
-
-                                home->getPager()->draw_pager();
 				
 				return TRUE;
 			}	
-                        if(home->getApbar()->remove(w))  // client on toolbar
-				return TRUE;
 				
 			if(event->xdestroywindow.event != w)
 				return TRUE;
 
-                        if( w == home->winId()|| w == home->getPager()->winId() || w == home->getWinlist()->winId() || w == home->getMenu()->winId() || /*w == home->getProcbar()->winId() ||*/ w == home->getHome()->winId() )
+                        if( w == home->winId() )
 				sig_term(SIGTERM);
 
 			return FALSE;
@@ -535,9 +507,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			if(event->xmap.event != event->xmap.window)
 				return TRUE;
 		
-                        if((client = pwindows[event->xmap.window]) != NULL){
-                            home->getPager()->add(client);  // add to pager
-                            //home->getPager()->addWindow( client->icaption() );
+                        if((client = pwindows[event->xmap.window]) != NULL){                            
                             client->show();                            
                         }
 
@@ -565,8 +535,6 @@ bool qapp::x11EventFilter(XEvent *event)
 			if(event->xunmap.event != event->xunmap.window)
 				return TRUE;
 
-			if(pwindows[event->xunmap.window] != NULL)
-                                home->getPager()->draw_pager();
 		
 			return FALSE;
 
@@ -641,9 +609,6 @@ bool qapp::x11EventFilter(XEvent *event)
 			if(event->xconfigure.event != event->xconfigure.window)
 				return TRUE;
 				
-			if((client = pwindows[event->xconfigure.window]) != NULL)
-                                home->getPager()->draw_pager();
-
 			return FALSE; 
 			
 		case ReparentNotify:
@@ -652,8 +617,7 @@ bool qapp::x11EventFilter(XEvent *event)
                         if((client = cwindows[event->xreparent.window]) != NULL &&
 			event->xreparent.parent != client->winId())
 			{
-				clients.removeAt(clients.indexOf(client));
-                                home->getPager()->draw_pager();
+				clients.removeAt(clients.indexOf(client));                                
 			}	
 			return TRUE;
 		
@@ -666,15 +630,13 @@ bool qapp::x11EventFilter(XEvent *event)
                         if(w == QX11Info::appRootWindow())  // set focus to root window
                                 XSetInputFocus(QX11Info::display(), w, RevertToPointerRoot, CurrentTime);
 
-                        if( w == home->winId() || w == home->getApbar()->winId() ){
+                        if( w == home->winId() /*|| w == home->getApbar()->winId()*/ ){
                                 XRaiseWindow(QX11Info::display(), home->winId() );
                                 //XSetInputFocus(QX11Info::display(), w, RevertToPointerRoot, CurrentTime);
                          }
 
 
-                        //if(w == QX11Info::appRootWindow() || w == home->getPager()->winId())
-                        //	install_colormap(None);
-				
+
 			return FALSE;
 
 		case ClientMessage:
@@ -715,9 +677,7 @@ bool qapp::x11EventFilter(XEvent *event)
 #endif	
 				if(cev->value_mask & (CWWidth|CWHeight|CWX|CWY))
 				{
-					if(smode && client->isstate())
-						keyboard::tscreen(); 
-					
+
 					if(! client->is_tiled() || client == tmaxclient)
 					{	
 						int cx,cy,cw,ch;
@@ -764,7 +724,7 @@ bool qapp::x11EventFilter(XEvent *event)
 			else  // never mapped window
 			{
                             //qDebug() << "Never Mapped Window";
-                                if( cev->window == home->winId() || /*cev->window == home->getHome()->winId() ||*/ home->getApbar()->client_exists(cev->window))  // deny requests on toolbar
+                                if( cev->window == home->winId() )
 					return TRUE;
 
 #ifdef DEBUGMSG
@@ -788,10 +748,8 @@ bool qapp::x11EventFilter(XEvent *event)
 			return TRUE;
 
 
-		case KeyPress:
-                        //qDebug() << "Keypress";
-			return(keyboard::keypress(&event->xkey));
-
+		case KeyPress:                        
+                        return TRUE;
 		default:                        
 			if(servershapes && event->type == (ShapeEventBase + ShapeNotify))
 			{
