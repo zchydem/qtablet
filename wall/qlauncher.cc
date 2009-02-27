@@ -11,6 +11,9 @@
 #include <QGraphicsLinearLayout>
 #include <QPainter>
 
+// Testing about gettext
+#include <libintl.h>
+#include <locale.h>
 
 namespace qtablet{
 
@@ -56,6 +59,12 @@ QLauncher::QLauncher( QGraphicsItem * parent ):
     setMinimumSize( d_ptr->m_size );
     setMaximumSize( d_ptr->m_size );
     setPreferredSize( d_ptr->m_size );
+    /*
+      Just a poor try to make string translation to work for hildon app names
+    setlocale(LC_ALL, "");
+    bindtextdomain("hildon-libs", "/usr/share/locale/" );
+    textdomain("hildon-libs");
+    */
 }
 
 QLauncher::~QLauncher(){
@@ -104,6 +113,7 @@ void QLauncher::createLauncherItems(){
         QPixmap pxm( "icon:" + content.value( DesktopFileParser::Icon ) );
         QString name = content.value( DesktopFileParser::Name );
 
+        //qDebug() << "printing the item name: " << gettext( name.toAscii().data() );
 
         if ( pxm.isNull() || name.isEmpty() ){
             continue;

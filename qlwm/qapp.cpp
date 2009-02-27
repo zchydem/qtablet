@@ -115,7 +115,7 @@ void qapp::stopautofocus(void)
 void qapp::run_client(Window w)  // start new client
 {
 	xwindow *client;
-	int apnumber,format;
+        int format;
 	Atom type;
 	unsigned long nitems=0;
 	unsigned long extra=0;
@@ -190,13 +190,13 @@ void qapp::wm_restart(void)
 	{
 		if(tdesks[i])
 		{
-                        HomeDesktop::instance()->getProcbar()->setActiveDesktop(i);
+                        HomeDesktop::instance()->getPager()->setActiveDesktop(i);
 			toggle_tiled();
 		}
 	}
 
 	winf->release_cancel();
-        HomeDesktop::instance()->getProcbar()->setActiveDesktop(0);
+        HomeDesktop::instance()->getPager()->setActiveDesktop(0);
 	
 	foreach(client, clients)
 	{

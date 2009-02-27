@@ -14,35 +14,31 @@ OBJECTS_DIR += $$BUILDDIR/qlwm/obj
 DESTDIR += $$BUILDDIR/qlwm/bin
 
 # Input
-HEADERS += apbar.h \
-           conf.h \
+HEADERS += conf.h \
            defaults.h \
            defs.h \
-           eventnames.h \
-           keyboard.h \
-           menu.h \
-           pager.h \
-           procbar.h \
+           eventnames.h \           
+           #menu.h \
+           #pager.h \
+           #procbar.h \
            qapp.h \
            rubber.h \
            toolbar.h \
            wborder.h \
            winfo.h \
-           winlist.h \
+           #winlist.h \
            xwindow.h
-SOURCES += apbar.cpp \
-           defaults.cpp \
-           keyboard.cpp \
+SOURCES += defaults.cpp \
            main.cpp \
-           menu.cpp \
-           pager.cpp \
-           procbar.cpp \
+           #menu.cpp \
+           #pager.cpp \
+           #procbar.cpp \
            qapp.cpp \
            rubber.cpp \
            toolbar.cpp \
            wborder.cpp \
            winfo.cpp \
-           winlist.cpp \
+           #winlist.cpp \
            xwindow.cpp
 
 

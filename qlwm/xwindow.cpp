@@ -11,7 +11,6 @@
 #include "qapp.h"
 #include "winfo.h"
 #include "toolbar.h"
-#include "rubber.h"
 #include <QtDebug>
 
 xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent) 
@@ -277,7 +276,7 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	else map();
 
         // Make window appear in pager
-        qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getProcbar()->addWindow( this->winId(), this->icaption() );
+        qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getPager()->addWindow( this->winId(), this->icaption() );
         if ( item ){
             connect( item, SIGNAL( showWindow( bool ) ), this, SLOT(state(bool)) );
         }
@@ -542,6 +541,7 @@ void xwindow::press_move(QMouseEvent *event)
 
 void xwindow::release_move(QMouseEvent *event)
 {
+    Q_UNUSED( event );
 	if(mrb == NULL)
 		return;
 		
@@ -840,8 +840,7 @@ void xwindow::setinactive(void)
 	}
 
 	if(urgpal)
-	{
-                //HomeDesktop::instance()->getProcbar()->change_palette(QApplication::palette(), this);
+	{                
 		urgpal = FALSE;
 	}	
 }
@@ -855,8 +854,7 @@ void xwindow::setactive(void)
 	}
 
 	if(urgpal)
-	{
-                //HomeDesktop::instance()->getProcbar()->change_palette(QApplication::palette(), this);
+	{                
 		urgpal = FALSE;
 	}	
 }
@@ -865,8 +863,7 @@ void xwindow::seturgent(void)
 {
 	if(! urgpal)
 	{
-		setPalette(*qapp::upal);
-                //HomeDesktop::instance()->getProcbar()->change_palette(*qapp::upal, this);
+		setPalette(*qapp::upal);                
 		urgpal = TRUE;
 	}
 }
@@ -891,8 +888,7 @@ void xwindow::map(void)
 
 	if(map_iconic)  // InitialState WMHint
 	{
-                qDebug() << "xwindow::map";
-                //HomeDesktop::instance()->getProcbar()->add(this);
+                qDebug() << "xwindow::map";                
 
 		set_clientstate(IconicState);
 
@@ -904,8 +900,7 @@ void xwindow::map(void)
 	}	
 	else
 	{
-                if(! isVisible()){
-                        //HomeDesktop::instance()->getProcbar()->set_on(this);
+                if(! isVisible()){                        
                     state( true );
                 }
 		map_normal();                
@@ -913,7 +908,7 @@ void xwindow::map(void)
 	}	
 
         // We can handle the old clients here also i.e. after restart of qlwm
-        qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getProcbar()->addWindow( this->winId(), this->icaption() );  // add to procbar
+        qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getPager()->addWindow( this->winId(), this->icaption() );  // add to procbar
         if ( item != 0 ){
             connect( item, SIGNAL( showWindow( bool ) ), this, SLOT(state(bool)) );
         }
@@ -1000,15 +995,9 @@ void xwindow::iconify(void)  // transition to iconic
         qDebug() << "xwindow::iconify";
 	if(qapp::tmaxclient == this && qapp::is_tileddesk())
 		trsize = TRUE;
-	
-         //HomeDesktop::instance()->getProcbar()->add(this);  // add to procbar
-        qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getProcbar()->addWindow( this->winId(), this->icaption() );  // add to procbar
-        Q_UNUSED( item );
-        /*
-        if ( item ){
-            connect( item, SIGNAL( showWindow( bool ) ), this, SLOT(state(bool)) );
-        }
-        */
+
+        // Update the iconified screenshot
+        HomeDesktop::instance()->getPager()->addWindow( this->winId(), this->icaption() );
 
 	unmap();
 	withdrawnstate = FALSE;
@@ -1021,10 +1010,7 @@ void xwindow::whide(void)
 {
 	unmap();
 	withdrawnstate = FALSE;
-	set_clientstate(IconicState);
-
-        //HomeDesktop::instance()->getProcbar()->remove(this);
-        //HomeDesktop::instance()->getProcbar()->removeWindow( this->winId() );
+	set_clientstate(IconicState);        
 	whidden = TRUE;
 }
 
@@ -1033,8 +1019,7 @@ void xwindow::withdraw(void)
 	unmap();
 	withdrawnstate = TRUE;
 	set_clientstate(WithdrawnState);
-        //HomeDesktop::instance()->getProcbar()->remove(this);
-        //HomeDesktop::instance()->getProcbar()->removeWindow(this->winId() );  // add to procbar
+
 	
 #ifdef DEBUGMSG
 	logmsg << "changed to withdrawn (WId:" << winId() << ")\n";
@@ -1090,11 +1075,11 @@ void xwindow::focus_mouse(bool wlist)  // map and set mouse (generates enter eve
 	
 	if(mid > dt->width())
 	{
-                HomeDesktop::instance()->getPager()->change_desk(qapp::adesk+(x()/(dt->width()-1)));
+                //HomeDesktop::instance()->getPager()->change_desk(qapp::adesk+(x()/(dt->width()-1)));
 	}	
 	else if(mid < 0)
 	{
-                HomeDesktop::instance()->getPager()->change_desk(qapp::adesk+(x()/(dt->width()+1))-1);
+                //HomeDesktop::instance()->getPager()->change_desk(qapp::adesk+(x()/(dt->width()+1))-1);
 	}
 	else if(defaults::maxontab && ! wlist && tstate)
 	{
@@ -1717,15 +1702,13 @@ void xwindow::state(bool on)
 
 xwindow::~xwindow(void)
 {
-        HomeDesktop::instance()->getProcbar()->removeWindow(this->winId());
+        HomeDesktop::instance()->getPager()->removeWindow(this->winId());
 
 	delete [] cmapwins;
 	delete mrb;
 
 	if(qapp::winf->get_client() == this)
-		qapp::winf->release_cancel();
-
-        //HomeDesktop::instance()->getProcbar()->remove(this);  // remove from procbar
+		qapp::winf->release_cancel();        
 
 	qapp::cwindows.remove(clientid);
 	qapp::pwindows.remove(winId());
