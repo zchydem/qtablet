@@ -88,6 +88,8 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	base_h = init_h;
 	init_h += borderh;
 	
+        qDebug()<< "window initial size: " << init_w << init_h;
+
 	// reparent
 	XSetWindowBorderWidth(QX11Info::display(), w, 0);
 	XSetWindowBorderWidth(QX11Info::display(), winId(), 0);
@@ -97,6 +99,8 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	// get TransientForHint
 	transfor = None;
 	XGetTransientForHint(QX11Info::display(), w, &transfor);
+
+        qDebug() << "Client transfor: " << transfor;
 
 	// set Font
 	setFont(defaults::borderfont);
@@ -111,7 +115,7 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 		clientfqdn = (char *)prop.value;
 
 		if(defaults::showclientmachines)
-		{
+                {
 			int pos = clientfqdn.indexOf('.');
 			if(pos == -1)
 				clientmachine = clientfqdn;
@@ -144,6 +148,7 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	
 	else if(! defaults::start_restart && (transfor == None || ! (wmnflags & PPosition)))
 	{
+
 		if(qapp::next_x+cw > dt->width())
 		{
 			pos_x = 0;
@@ -211,10 +216,11 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	// get WM protocols
 	getwmprotocols();
 
-	// create window borders
+
+        // create window borders
         create_wborder();
 
-	// add client to lookup tables
+        // add client to lookup tables
 	
 	qapp::cwindows.insert(w, this);
 	qapp::pwindows.insert(winId(), this);
@@ -232,17 +238,13 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	focustimer->setSingleShot(TRUE);
 	connect(focustimer, SIGNAL(timeout()), SLOT(raise()));
 
-	tfocustimer = new QTimer(this);  // used for tiled mode
-	Q_CHECK_PTR(tfocustimer);
-	tfocustimer->setSingleShot(TRUE);
-	connect(tfocustimer, SIGNAL(timeout()), SLOT(tile_maximize()));
-	
 	// inform client about NET extensions
-    	Atom data[4];  
+        Atom data[5];
 	int i=0;
 	data[i++] = qapp::net_supported;
 	data[i++] = qapp::net_wm_name;
 	data[i++] = qapp::net_wm_icon_name;
+        data[i++] = qapp::net_wm_window_opacity;
 	XChangeProperty(QX11Info::display(), w, qapp::net_supported, XA_ATOM, 32,
 		PropModeReplace, (unsigned char *) data, i);
 
@@ -288,6 +290,8 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 
 void xwindow::create_wborder(void)
 {
+
+
 	lbdr = NULL;
 	ubdr = NULL;
 	layout = new QVBoxLayout(this);
@@ -317,8 +321,8 @@ void xwindow::create_wborder(void)
 		
 		if(transfor == None)
 		{
-			connect(ubdr->leftframe, SIGNAL(right_press()), SLOT(t_maximize()));
-			connect(ubdr->leftframe, SIGNAL(mid_press()), SLOT(toggle_tiled()));
+                        //connect(ubdr->leftframe, SIGNAL(right_press()), SLOT(t_maximize()));
+                        //connect(ubdr->leftframe, SIGNAL(mid_press()), SLOT(toggle_tiled()));
 			connect(ubdr->leftframe, SIGNAL(left_press()), SLOT(iconify()));
 		}
 		connect(ubdr->rightframe, SIGNAL(press()), SLOT(wdestroy()));
@@ -329,6 +333,7 @@ void xwindow::create_wborder(void)
 		connect(midmove, SIGNAL(mid_press()), SLOT(show_info()));
 		connect(midmove, SIGNAL(mouse_move(QMouseEvent *)), SLOT(move_move(QMouseEvent *)));
                 */
+                connect(midmove, SIGNAL(left_press()), this, SLOT(showHildonMenu()));
         //}
 	layout->addStretch();
 
@@ -337,7 +342,7 @@ void xwindow::create_wborder(void)
 		lbdr = new lborder(this);
 		Q_CHECK_PTR(lbdr);
 		layout->addWidget(lbdr);
-		
+                /*
 		connect(lbdr->leftframe, SIGNAL(press(QMouseEvent *)), SLOT(press_leftresize(QMouseEvent *)));
 		connect(lbdr->leftframe, SIGNAL(release(QMouseEvent *)), SLOT(release_leftresize(QMouseEvent *)));
 		connect(lbdr->leftframe, SIGNAL(mouse_move(QMouseEvent *)), SLOT(move_leftresize(QMouseEvent *)));
@@ -347,6 +352,7 @@ void xwindow::create_wborder(void)
 		connect(lbdr->midframe, SIGNAL(press(QMouseEvent *)), SLOT(press_midresize(QMouseEvent *)));
 		connect(lbdr->midframe, SIGNAL(release(QMouseEvent *)), SLOT(release_midresize(QMouseEvent *)));
 		connect(lbdr->midframe, SIGNAL(mouse_move(QMouseEvent *)), SLOT(move_midresize(QMouseEvent *)));
+                */
 	}	
 	setLayout(layout);
 }
@@ -414,20 +420,20 @@ void xwindow::resize_client(int px, int py, int pw, int ph)  // dimensions inclu
 	int nw = width();
 	int nh = height();
 
+        // Resize this xwindow object
 	if(px != x() || py != y() || pw != nw || ph != nh)  // parent
 		setGeometry(px, py, pw, ph);
 
-	if(pw != nw || ph != nh) // client
+        // resize the xclient under to border
+        if(pw != nw || ph != nh)
 	{
-#ifdef DEBUGMSG
-		logmsg << "resize child window (WId:" << clientid << ")\n";
-#endif
 		XResizeWindow(QX11Info::display(), clientid, pw, ph-borderh);
 	}
 
 
 }
 
+/*
 void xwindow::t_maximize(void)
 {
 	int cw,ch;
@@ -474,27 +480,35 @@ void xwindow::t_maximize(void)
 	raise();
 }
 
+*/
 void xwindow::s_maximize(void)
 {
+    /*
+    if(qapp::smode)
+        {
+                focus_mouse();
+                return;
+        }
+
+    resize_client(0,0,800,480);
+    raise();
+    return;
+    */
 	int cw,ch;
 	
 	if(qapp::smode)
 	{
+            qDebug() << "xwindow::s_maximize: 1";
 		focus_mouse();
 		return;
 	}
 
-	if(tstate)
-	{
-		qapp::tile_maximize(this);
-		return;
-	}
-	
-	if(maxstate != 2)  // maximize
+        if(maxstate != 2)  // maximize
 	{
             qDebug() << "xwindow::s_maximize";
-		if(maxstate == 0)
+		if(maxstate == 0)                    
 		{
+                    qDebug() << "xwindow::s_maximize: 2";
 			icx = x();
 			icy = y();
 			icw = width();
@@ -503,6 +517,7 @@ void xwindow::s_maximize(void)
 
 		if(defaults::smx1 == -1 || ((pflags & qapp::NoTile) && qapp::is_tileddesk()))
 		{
+                    qDebug() << "xwindow::s_maximize: 3";
 			cw = dt->width();
 			ch = dt->height();
 			getsize(&cw, &ch);
@@ -511,6 +526,7 @@ void xwindow::s_maximize(void)
 		}
 		else
 		{
+                    qDebug() << "xwindow::s_maximize: 4";
 			cw = defaults::smx2-defaults::smx1;
 			ch = defaults::smy2-defaults::smy1;
 			getsize(&cw, &ch);
@@ -521,117 +537,12 @@ void xwindow::s_maximize(void)
 	}
 	else
 	{
+            qDebug() << "xwindow::s_maximize: 4";
 		resize_client(icx, icy, icw, ich);
 		maxstate = 0;
 	}
 	raise();
 }
-
-void xwindow::press_move(QMouseEvent *event)
-{
-        // TODO: This code isn't used in QTablet so check if
-        // it needs to be removed
-	mousepos = event->pos()+midmove->pos();  // offset
-	midmove->grabMouse(QCursor(Qt::SizeAllCursor));	
-	move_move(event);   // draw frame
-}
-
-void xwindow::release_move(QMouseEvent *event)
-{
-    //TODO: Check if this code is needed.
-    Q_UNUSED( event );
-
-	midmove->releaseMouse();
-        //move(event->globalPos()-mousepos);
-	maxstate = 0;
-	raise();
-	qapp::send_configurenotify(this);
-
-	if(tstate && ! qapp::is_curdesk(this))
-		tstate = FALSE;
-}
-
-void xwindow::move_move(QMouseEvent *event)
-{
-    Q_UNUSED( event );
-    // TODO: Check if this code is needed
-        // We don't allow moving the windows around
-        return;
-
-}
-
-void xwindow::press_leftresize(QMouseEvent *event)
-{
-    Q_UNUSED( event );
-    // TODO: Check if this code is needed
-
-}
-
-void xwindow::release_leftresize(QMouseEvent *event)
-{
-    // TODO: Check if this code is needed
-        Q_UNUSED( event );
-	lbdr->leftframe->releaseMouse();
-	QPoint dpos = event->globalPos()-mousepos;
-	int resw = width()-dpos.x();
-	int resh = height()+dpos.y();
-
-	getsize(&resw, &resh);
-	int resx = x()-resw+width();
-	
-	if(resx > x()+width())
-		resx = x()+width();
-
-	resize_client(resx, y(), resw, resh);
-	maxstate = 0;
-	raise();
-
-	if(tstate && ! qapp::is_curdesk(this))
-		tstate = FALSE;
-}
-
-void xwindow::move_leftresize(QMouseEvent *event)
-{
-    // TODO: Check if this code is needed
-    Q_UNUSED( event );
-}
-
-void xwindow::press_rightresize(QMouseEvent *event)
-{
-    // TODO: Check if this code is needed
-    Q_UNUSED( event );
-}
-
-void xwindow::release_rightresize(QMouseEvent *event)
-{
-        // TODO: Check if this code is needed
-    Q_UNUSED( event );
-}
-
-void xwindow::move_rightresize(QMouseEvent *event)
-{
-    // TODO: Check if this code is needed
-    Q_UNUSED( event );
-}
-
-void xwindow::press_midresize(QMouseEvent *event)
-{
-    // TODO: Check if this code is needed
-    Q_UNUSED( event );
-}
-
-void xwindow::release_midresize(QMouseEvent *event)
-{
-    // TODO: Check if this code is needed
-    Q_UNUSED( event );
-}
-
-void xwindow::move_midresize(QMouseEvent *event)
-{
-    // TODO: Check if this code is needed
-    Q_UNUSED( event );
-}
-
 void xwindow::show_info(void)
 {
 	qapp::winf->show_info(this, wmname, clientfqdn, command, res_name, res_class, inc_w, inc_h, base_w, base_h);
@@ -639,6 +550,8 @@ void xwindow::show_info(void)
 
 void xwindow::unscreen(void)
 {
+    qDebug() << "xwindow::unscreen()";
+
 	if(sstate)  // screen mode
 	{
 		resize_client(scx, scy, scw, sch);
@@ -654,16 +567,12 @@ bool xwindow::is_tileable(void)
 	return TRUE;	
 }
 
+/*
 void xwindow::toggle_tiled(void)
 {
 	qapp::toggle_tiled();
 }
-
-void xwindow::tile_maximize(void)
-{
-	qapp::tile_maximize(this);
-	XWarpPointer(QX11Info::display(), None, winId(), 0, 0, 0, 0, width()/2, uborderh/2);
-}
+*/
 
 void xwindow::minimize_frame(bool mf)
 {
@@ -945,11 +854,6 @@ void xwindow::withdraw(void)
 #endif
 }
 
-void xwindow::focus_mouse_wlist(void)
-{
-	focus_mouse(TRUE);
-}
-
 void xwindow::focus_mouse(bool wlist)  // map and set mouse (generates enter event -> focus)
 {
 	int pw,ph;
@@ -1005,7 +909,7 @@ void xwindow::focus_mouse(bool wlist)  // map and set mouse (generates enter eve
 		// access in tiled state will swap windows after timeout
 		
 		qapp::stopautofocus();
-		tfocustimer->start(defaults::maxontab);
+                //tfocustimer->start(defaults::maxontab);
 	}	
 	XWarpPointer(QX11Info::display(), None, winId(), 0, 0, 0, 0, width()/2, uborderh/2);
 }
@@ -1030,8 +934,8 @@ void xwindow::stopautofocus(void)
 	if(defaults::autofocustime)
 		focustimer->stop();
 
-	if(tstate)
-		tfocustimer->stop();
+        //if(tstate)
+        //	tfocustimer->stop();
 }
 
 void xwindow::startautofocus(void)  // start autofocus timer
@@ -1475,8 +1379,7 @@ void xwindow::get_wmhints(void)  // get WMHints
 		if(! (xwmhints->flags & InputHint))  // focus
 			inputfield = FALSE;
 			
-                if(xwmhints->flags & IconPixmapHint){
-                    qDebug() << "Icon PIXMAP: " << xwmhints->icon_pixmap;
+                if(xwmhints->flags & IconPixmapHint){                    
 			get_servericon(xwmhints->icon_pixmap, (xwmhints->flags & IconMaskHint)?(xwmhints->icon_mask):(None));
 
                     }
@@ -1635,4 +1538,29 @@ xwindow::~xwindow(void)
 #ifdef DEBUGMSG
 	logmsg << "class xwindow destructed (WId:" << winId() << ")\n";
 #endif	
+}
+
+void xwindow::showHildonMenu(){
+
+    qDebug() << "showHildonMenu()";
+    XUngrabPointer(QX11Info::display(), CurrentTime);
+
+  XEvent ev;
+
+  memset(&ev, 0, sizeof(ev));
+
+  ev.xclient.type = ClientMessage;
+  ev.xclient.window = clientid;
+  ev.xclient.message_type = qapp::mb_grab_transfer;
+  ev.xclient.format = 32;
+  ev.xclient.data.l[0] = CurrentTime;
+  ev.xclient.data.l[1] = winId();
+  ev.xclient.data.l[2] = 0;
+  ev.xclient.data.l[3] = 0;
+  ev.xclient.data.l[4] = 0;
+
+  XSendEvent(QX11Info::display(), clientid, False, NoEventMask, &ev);
+
+  XSync( QX11Info::display(), False);
+
 }

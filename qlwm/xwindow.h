@@ -28,7 +28,7 @@ class xwindow : public QWidget
 	bool actpal;                // set to active colors
 	bool urgpal;                // set to urgent colors
 	QTimer *focustimer;         // autofocus timer
-	QTimer *tfocustimer;        // focus timer in tiled mode
+        //QTimer *tfocustimer;        // focus timer in tiled mode
 	int borderh;                // diff between parent and client height
 	int uborderh;               // upper border height;
 	bool prot_delete;           // client has delete WM protocol
@@ -71,7 +71,7 @@ class xwindow : public QWidget
 
 	void getsize(int *, int *);            // adjust for possible size
 	void send_wmprotocol(long, long);      // send WM_PROTOCOL to child window
-	bool query_shape(void);                // nonrectangular window
+        bool query_shape(void);                // nonrectangular window
 	void create_wborder(void);             // create window border
 	int  get_clientstate(void);            // WM_STATE
 	void get_servericon(Pixmap, Pixmap);   // set wicon to server icon pixmap
@@ -79,8 +79,7 @@ class xwindow : public QWidget
 
 public slots:
 	void state(bool);           // map/unmap window
-	void wdestroy(void);        // destroy client
-	void focus_mouse_wlist(void);  // map from window list
+	void wdestroy(void);        // destroy client	
 	void map(void);             // map/raise with check for map_iconic 
 	void map_normal(void);      // map/raise without check for map_iconic
 	void raise(void);           // raise only
@@ -90,22 +89,10 @@ public slots:
 
 	// window frame connects
 	
-	void t_maximize(void);      // toggle maximize to toolbar
+
 	void s_maximize(void);      // toggle maximize to screen size
-	void toggle_tiled();        // toggle tiled mode
-	void tile_maximize();       // maximize in tiled mode
-	void press_move(QMouseEvent *);           // start move on mouse button
-	void release_move(QMouseEvent *);         // set new window position on mouse button release
-	void press_leftresize(QMouseEvent *);     // start resize left
-	void release_leftresize(QMouseEvent *);   // set new window size on mouse button release
-	void press_rightresize(QMouseEvent *);    // start resize right
-	void release_rightresize(QMouseEvent *);  // set new window size on mouse button release
-	void press_midresize(QMouseEvent *);
-	void release_midresize(QMouseEvent *);
-	void move_move(QMouseEvent *);            // mouse move for move
-	void move_leftresize(QMouseEvent *);      // mouse move for left resize
-	void move_rightresize(QMouseEvent *);
-	void move_midresize(QMouseEvent *);
+        void showHildonMenu();
+
 
 public:
 	xwindow(Window w, QWidget *parent=0);
