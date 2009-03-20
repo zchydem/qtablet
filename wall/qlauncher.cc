@@ -10,6 +10,7 @@
 #include <QGraphicsGridLayout>
 #include <QGraphicsLinearLayout>
 #include <QPainter>
+#include <QStyleOptionGraphicsItem>
 
 // Testing about gettext
 #include <libintl.h>
@@ -76,6 +77,7 @@ QLauncher::~QLauncher(){
 void QLauncher::paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget ){
     Q_UNUSED( option );
     Q_UNUSED( widget );
+
     if ( d_ptr->m_background.isNull() ){
         qCritical() << "QLauncher: NULL background image. Can't draw the background for the launcher!";
     }else{
@@ -83,13 +85,7 @@ void QLauncher::paint ( QPainter * painter, const QStyleOptionGraphicsItem * opt
     }
 }
 
-/*
-QSizeF QLauncher::sizeHint ( Qt::SizeHint which, const QSizeF & constraint ) const{
-    Q_UNUSED( which );
-    Q_UNUSED( constraint );
-    return d_ptr->m_size;
-}
-*/
+
 void QLauncher::createLauncherItems(){
 
     // Layout for items
@@ -130,6 +126,7 @@ void QLauncher::createLauncherItems(){
         ++row;
 
         // TODO: Add other stuff from content to attributes of the item
+        // TODO: Here we could use Qt's enum property
         item->addItemAttribute( DesktopFileParser::Encoding,   content.value( DesktopFileParser::Encoding   ) );
         item->addItemAttribute( DesktopFileParser::Version,    content.value( DesktopFileParser::Version    ) );
         item->addItemAttribute( DesktopFileParser::Type,       content.value( DesktopFileParser::Type       ) );

@@ -25,7 +25,7 @@ ssh root@192.168.2.15
 
 Go to the install directory and run:
 cd /opt/install
-sh stop_services.sh
+. ./stop_services.sh
 sh start_qtablet.sh 
 
 And you should see lots of debug output on terminal and QTablet should appear
@@ -39,12 +39,13 @@ wall    - Directory for "Wall" which is the executable application
           framework for QTable. The Wall provides home screen and menu 
           etc.
 qlwm   -  Window manager for QTablet's X11 version.
-scri√pts- Directory for scripts
+scripts- Directory for scripts
 conf    - Directory for QTablet's configuration files. 
 images -  Images for the framework
 
 
 Dependencies:
+- QLWM (sources in git)
 - Qt Animation Framework (sources in git)
 - Qt Extension Library (not yet, but in future QTablet will use this )
 

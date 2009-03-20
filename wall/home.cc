@@ -41,7 +41,7 @@ class HomePrivate{
         QtAnimation * anim2       = new QtAnimation( m_launcher, "geometry");
         QtAnimation * anim3       = new QtAnimation( m_pager,    "geometry");
 
-        qint32 duration = 1000;
+        qint32 duration = 900;
         anim1->setEasingCurve( QtEasingCurve::InOutCubic );
         anim1->setDuration( duration );
         anim2->setEasingCurve( QtEasingCurve::InOutCubic );
@@ -81,6 +81,7 @@ d_ptr( new HomePrivate )
     setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
     setOptimizationFlag( QGraphicsView::DontClipPainter );
     setOptimizationFlag( QGraphicsView::DontSavePainterState );
+    setOptimizationFlag( QGraphicsView::DontAdjustForAntialiasing );
     setFrameStyle( QFrame::NoFrame );
 
     d_ptr->m_launcher = new (std::nothrow )QLauncher;
@@ -102,6 +103,7 @@ d_ptr( new HomePrivate )
 
     //d_ptr->m_launcher->setCacheMode( QGraphicsItem::ItemCoordinateCache );
     //d_ptr->m_wall->setCacheMode( QGraphicsItem::ItemCoordinateCache );
+    //d_ptr->m_pager->setCacheMode( QGraphicsItem::ItemCoordinateCache );
 
     d_ptr->m_state1 = new QtState( d_ptr->m_scene );
     d_ptr->m_state2 = new QtState( d_ptr->m_scene );

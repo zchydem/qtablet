@@ -4,7 +4,7 @@
 #ifndef XWINDOW_H
 #define XWINDOW_H
 
-#include "wborder.h"
+#include <QGraphicsView>
 #include <QPoint>
 #include <QTimer>
 #include <QPixmap>
@@ -13,8 +13,10 @@
 class QDesktopWidget;
 class MouseEvent;
 class QVBoxLayout;
+class QGraphicsScene;
+class XWindowToolbar;
 
-class xwindow : public QWidget
+class xwindow : public QGraphicsView
 {
 	Q_OBJECT
 
@@ -64,18 +66,21 @@ class xwindow : public QWidget
 	int tnumber;                // numbering for window title
 	QPixmap wicon;              // icon
 	int pflags;                 // Flags from Property command
-	wframe *midmove;            // upper border mid frame for move
-	uborder *ubdr;              // upper window border
-        lborder *lbdr;              // lower window border
-	QVBoxLayout *layout;
+        //wframe *midmove;            // upper border mid frame for move
+        //uborder *ubdr;              // upper window border
+        //lborder *lbdr;              // lower window border
+        QGraphicsScene  * scene;
+        XWindowToolbar * toolbar;
+
 
 	void getsize(int *, int *);            // adjust for possible size
 	void send_wmprotocol(long, long);      // send WM_PROTOCOL to child window
-        bool query_shape(void);                // nonrectangular window
-	void create_wborder(void);             // create window border
+        bool query_shape(void);                // nonrectangular window	
 	int  get_clientstate(void);            // WM_STATE
 	void get_servericon(Pixmap, Pixmap);   // set wicon to server icon pixmap
 	void getwmprotocols(void);             // get wm protocols
+
+        void createWindowDecoration();
 
 public slots:
 	void state(bool);           // map/unmap window
@@ -142,5 +147,7 @@ public:
 	QString icaption(void)          { return(icname); }
 	QPixmap *icon(void)             { return(&wicon); }
 	~xwindow(void);
+
+
 };
 #endif

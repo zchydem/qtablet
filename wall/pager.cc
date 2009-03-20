@@ -238,7 +238,7 @@ void PagerDesktop::removeWindow( qlonglong id ){
     PagerDesktopItem * item = 0;
     item = d_ptr->m_windows.value( id );
 
-    qDebug() << "Removing window: " << id << item->label()->text();
+    //qDebug() << "Removing window: " << id << item->label()->text();
 
     qint32 removed = d_ptr->m_windows.remove( id );
     if ( removed != 1 ){

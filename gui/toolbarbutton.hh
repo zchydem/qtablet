@@ -14,7 +14,10 @@ public:
 
     enum ButtonType{
         QLauncherButton,
-        QPagerButton
+        QPagerButton,
+        MinimizeButton,
+        CloseButton,
+        MenuButton
     };
 
     ToolbarButton( ButtonType type, QGraphicsItem * parent = 0);
@@ -24,6 +27,8 @@ public:
     virtual QSizeF sizeHint ( Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const;
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem * const option, QWidget * widget );
+
+    virtual void resize( QSizeF const & size );
 
 protected:
     void mousePressEvent( QGraphicsSceneMouseEvent *event );

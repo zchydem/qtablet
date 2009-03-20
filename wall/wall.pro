@@ -25,14 +25,14 @@ SOURCES += qlauncher.cc \
     home.cc \
     toolbar.cc \
     pager.cc \
-    toolbarbutton.cc
+
 HEADERS += qlauncher.hh \
     desktopfileparser.hh \
     wall.hh \
     home.hh \
     toolbar.hh \
     pager.hh \
-    toolbarbutton.hh
+
 
 # install settings
 target.path = $$INSTALLDIR/lib

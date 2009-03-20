@@ -27,11 +27,11 @@ class LabelItemPrivate{
 
     QPixmap generatePixmap(){
 
+
         QTextOption option( m_alignment );
         quint32 height;
         quint32 width;
 
-        //option.setWrapMode( QTextOption::WrapAnywhere );
 
         if ( textWidth() > m_width && m_width != 0 ){
             option.setWrapMode( QTextOption::WrapAtWordBoundaryOrAnywhere );
@@ -101,6 +101,10 @@ void LabelItem::paint ( QPainter * painter, const QStyleOptionGraphicsItem * opt
     Q_UNUSED( option );
     Q_UNUSED( widget );
 
+    if ( d_ptr->m_text.isEmpty() ){
+        return;
+    }
+
     QPixmap pixmap;
     if ( !QPixmapCache::find( d_ptr->key(), pixmap ) ){        
         pixmap = d_ptr->generatePixmap();
@@ -168,6 +172,9 @@ void LabelItem::mouseReleaseEvent ( QGraphicsSceneMouseEvent * event ){
 
 
 void LabelItem::updateLabel(){
+    if ( d_ptr->m_text.isEmpty() ){
+        return;
+    }
     QPixmapCache::remove( d_ptr->key() );
     QPixmap pixmap = d_ptr->generatePixmap();
     QPixmapCache::insert( d_ptr->key(), pixmap );
@@ -175,10 +182,7 @@ void LabelItem::updateLabel(){
     setMaximumSize  ( pixmap.size() );
     setPreferredSize( pixmap.size() );
     updateGeometry();
-
-    if ( isVisible() ){
-        update();
-    }
+    update();
 }
 
 bool LabelItem::isEmpty() const{

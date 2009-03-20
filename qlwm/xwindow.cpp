@@ -11,10 +11,27 @@
 #include "qapp.h"
 #include "winfo.h"
 #include "homedesktop.h"
+#include "toolbarbutton.hh"
+#include "xwindowtoolbar.h"
 #include <QtDebug>
+#include <QGraphicsRectItem>
+#include <QGraphicsScene>
 
-xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent) 
+
+xwindow::xwindow(Window w, QWidget *parent) : QGraphicsView(parent)
 {
+        setGeometry(0,0,800,480);
+
+        setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        setFrameStyle( QFrame::NoFrame );
+        setRenderHints(QPainter::Antialiasing);
+
+        dt = QApplication::desktop();
+        scene = new QGraphicsScene( 0, 0, dt->width(), dt->height() );
+        setScene( scene );
+        setBackgroundBrush( QBrush(QPixmap::grabWindow( HomeDesktop::instance()->winId() ) ) );
+
 	dt = QApplication::desktop();
 	maxstate = 0;
 	clientid = w;
@@ -70,8 +87,8 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	}
 	else
 	{
-                uborderh = 90;//defaults::windowbuttonsize;
-                borderh = 90/*defaults::windowbuttonsize*/+defaults::lowerborderheight;
+                uborderh = 85;//defaults::windowbuttonsize;
+                borderh = 85/*defaults::windowbuttonsize*/+defaults::lowerborderheight;
 	}
 
 	// check for nonrectangular window
@@ -93,7 +110,7 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	// reparent
 	XSetWindowBorderWidth(QX11Info::display(), w, 0);
 	XSetWindowBorderWidth(QX11Info::display(), winId(), 0);
-	XReparentWindow(QX11Info::display(), w, winId(), 0, uborderh);
+        XReparentWindow(QX11Info::display(), w, winId(), 0, 85/*uborderh*/);
 	XAddToSaveSet(QX11Info::display(), w);
 
 	// get TransientForHint
@@ -130,6 +147,10 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	// get WMNormalhints
 	get_wmnormalhints();
 	
+        qDebug() << "base: " << base_w << base_h;
+        qDebug() << "min: " << min_w << min_h;
+        qDebug() << "max: " << max_w << max_h;
+
         int cw = init_w;
         int ch = init_h;
         getsize(&cw, &ch);
@@ -145,9 +166,11 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 
 	// a transient window with program specified position looks like a dialog box,
 	// otherwise use autoplacement
-	
+        /*
+
 	else if(! defaults::start_restart && (transfor == None || ! (wmnflags & PPosition)))
 	{
+                qDebug() << "********************** 1";
 
 		if(qapp::next_x+cw > dt->width())
 		{
@@ -185,19 +208,18 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 			qapp::next_y += 2*defaults::windowbuttonsize;
 		}
 	}	
+        */
+        qDebug() <<  "**************** TRANSIENT WINDOW:" << transfor;
 
-	// move and resize
-	
-	XResizeWindow(QX11Info::display(), clientid, cw, ch-borderh);
-	
-	if(pos_y < 0)
-		pos_y = 0;
-		
-        setGeometry(pos_x, pos_y, cw, ch);        
-    	// overwrite Qt-defaults because we need SubstructureNotifyMask
-	
+        XResizeWindow(QX11Info::display(), clientid, 800, 395);
+
+        if(pos_y < 0)
+                pos_y = 0;
+        setGeometry(0, 0, 800, 480);
+    	// overwrite Qt-defaults because we need SubstructureNotifyMask	
+
 	XSelectInput(QX11Info::display(), winId(),
-  		 KeyPressMask | KeyReleaseMask |
+                 //KeyPressMask | KeyReleaseMask |
   		 ButtonPressMask | ButtonReleaseMask |
   		 KeymapStateMask |
    		 ButtonMotionMask |
@@ -209,6 +231,7 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 		 SubstructureRedirectMask |
 		 SubstructureNotifyMask);
 
+
 	XSetWindowAttributes attr;
 	attr.event_mask = ColormapChangeMask|PropertyChangeMask;
 	XChangeWindowAttributes(QX11Info::display(), w, CWEventMask, &attr);
@@ -218,7 +241,7 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 
 
         // create window borders
-        create_wborder();
+        createWindowDecoration();
 
         // add client to lookup tables
 	
@@ -239,12 +262,12 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	connect(focustimer, SIGNAL(timeout()), SLOT(raise()));
 
 	// inform client about NET extensions
-        Atom data[5];
+        Atom data[4];
 	int i=0;
 	data[i++] = qapp::net_supported;
 	data[i++] = qapp::net_wm_name;
 	data[i++] = qapp::net_wm_icon_name;
-        data[i++] = qapp::net_wm_window_opacity;
+        //data[i++] = qapp::net_wm_window_opacity;
 	XChangeProperty(QX11Info::display(), w, qapp::net_supported, XA_ATOM, 32,
 		PropModeReplace, (unsigned char *) data, i);
 
@@ -276,10 +299,12 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 	}	
 	else map();
 
-        // Make window appear in pager
-        qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getPager()->addWindow( this->winId(), this->icaption() );
-        if ( item ){
-            connect( item, SIGNAL( showWindow( bool ) ), this, SLOT(state(bool)) );
+        if ( transfor == None ){
+            // Make window appear in pager
+            qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getPager()->addWindow( this->winId(), this->icaption() );
+            if ( item ){
+                connect( item, SIGNAL( showWindow( bool ) ), this, SLOT(state(bool)) );
+            }
         }
 
 
@@ -288,74 +313,20 @@ xwindow::xwindow(Window w, QWidget *parent) : QWidget(parent)
 #endif	
 }
 
-void xwindow::create_wborder(void)
-{
 
 
-	lbdr = NULL;
-	ubdr = NULL;
-	layout = new QVBoxLayout(this);
-	Q_CHECK_PTR(layout);
-	layout->setMargin(0);
-        /*
-	if(pflags & qapp::SmallFrame)
-	{
-		midmove = new wframe(this);
-		Q_CHECK_PTR(midmove);
-		midmove->setFixedHeight(defaults::lowerborderheight);
-		layout->addWidget(midmove);
-		
-		connect(midmove, SIGNAL(left_press(QMouseEvent *)), SLOT(press_move(QMouseEvent *)));
-		connect(midmove, SIGNAL(left_release(QMouseEvent *)), SLOT(release_move(QMouseEvent *)));
-		connect(midmove, SIGNAL(right_press()), SLOT(s_maximize()));
-		connect(midmove, SIGNAL(mid_press()), SLOT(show_info()));
-		connect(midmove, SIGNAL(mouse_move(QMouseEvent *)), SLOT(move_move(QMouseEvent *)));
-	}
-	else
-	{
-        */
-		ubdr = new uborder((transfor == None), this);
-		Q_CHECK_PTR(ubdr);
-		layout->addWidget(ubdr);
-		midmove = ubdr->midframe;
-		
-		if(transfor == None)
-		{
-                        //connect(ubdr->leftframe, SIGNAL(right_press()), SLOT(t_maximize()));
-                        //connect(ubdr->leftframe, SIGNAL(mid_press()), SLOT(toggle_tiled()));
-			connect(ubdr->leftframe, SIGNAL(left_press()), SLOT(iconify()));
-		}
-		connect(ubdr->rightframe, SIGNAL(press()), SLOT(wdestroy()));
-                /*
-		connect(midmove, SIGNAL(right_press()), SLOT(s_maximize()));
-		connect(midmove, SIGNAL(left_press(QMouseEvent *)), SLOT(press_move(QMouseEvent *)));
-		connect(midmove, SIGNAL(left_release(QMouseEvent *)), SLOT(release_move(QMouseEvent *)));
-		connect(midmove, SIGNAL(mid_press()), SLOT(show_info()));
-		connect(midmove, SIGNAL(mouse_move(QMouseEvent *)), SLOT(move_move(QMouseEvent *)));
-                */
-                connect(midmove, SIGNAL(left_press()), this, SLOT(showHildonMenu()));
-        //}
-	layout->addStretch();
+void xwindow::createWindowDecoration(){
 
-	if(! (pflags & qapp::NoResize))
-	{
-		lbdr = new lborder(this);
-		Q_CHECK_PTR(lbdr);
-		layout->addWidget(lbdr);
-                /*
-		connect(lbdr->leftframe, SIGNAL(press(QMouseEvent *)), SLOT(press_leftresize(QMouseEvent *)));
-		connect(lbdr->leftframe, SIGNAL(release(QMouseEvent *)), SLOT(release_leftresize(QMouseEvent *)));
-		connect(lbdr->leftframe, SIGNAL(mouse_move(QMouseEvent *)), SLOT(move_leftresize(QMouseEvent *)));
-		connect(lbdr->rightframe, SIGNAL(press(QMouseEvent *)), SLOT(press_rightresize(QMouseEvent *)));
-		connect(lbdr->rightframe, SIGNAL(release(QMouseEvent *)), SLOT(release_rightresize(QMouseEvent *)));
-		connect(lbdr->rightframe, SIGNAL(mouse_move(QMouseEvent *)), SLOT(move_rightresize(QMouseEvent *)));
-		connect(lbdr->midframe, SIGNAL(press(QMouseEvent *)), SLOT(press_midresize(QMouseEvent *)));
-		connect(lbdr->midframe, SIGNAL(release(QMouseEvent *)), SLOT(release_midresize(QMouseEvent *)));
-		connect(lbdr->midframe, SIGNAL(mouse_move(QMouseEvent *)), SLOT(move_midresize(QMouseEvent *)));
-                */
-	}	
-	setLayout(layout);
+    toolbar = new XWindowToolbar( transfor != None );
+    scene->addItem( toolbar );
+    toolbar->setPos( 0, 0 );
+
+    connect( toolbar, SIGNAL(minimizeWindow()), this, SLOT(iconify()) );
+    connect( toolbar, SIGNAL(closeWindow()),    this, SLOT(wdestroy()) );
+    connect( toolbar, SIGNAL(showMenu()),       this, SLOT(showHildonMenu()) );
 }
+
+
 
 void xwindow::getsize(int *pw, int *ph)   // adjust for possible width and height including border
 {
@@ -410,24 +381,33 @@ void xwindow::resize_request(int cx, int cy, int cw, int ch)  // client requeste
 	ch += borderh;
 	getsize(&cw, &ch);
 
-	setGeometry(cx, cy, cw, ch);
-	XResizeWindow(QX11Info::display(), clientid, cw, ch-borderh);
+        //setGeometry(cx, cy, cw, ch);
+        setGeometry(0,0,800,480);
+        XResizeWindow(QX11Info::display(), clientid, 800, 395);
+        //XResizeWindow(QX11Info::display(), clientid, cw, ch-borderh);
 	maxstate = 0;
 }
 
 void xwindow::resize_client(int px, int py, int pw, int ph)  // dimensions include borders
 {
+
 	int nw = width();
 	int nh = height();
-
+        qDebug() << "resize_client";
+        setGeometry(0,0,800,480);
+        XResizeWindow(QX11Info::display(), clientid, 800, 395);
+        Q_UNUSED( px );
+        Q_UNUSED( py );
+        Q_UNUSED( pw );
+        Q_UNUSED( ph );
         // Resize this xwindow object
-	if(px != x() || py != y() || pw != nw || ph != nh)  // parent
-		setGeometry(px, py, pw, ph);
+        //if(px != x() || py != y() || pw != nw || ph != nh)  // parent
+        //	setGeometry(px, py, pw, ph);
 
         // resize the xclient under to border
         if(pw != nw || ph != nh)
 	{
-		XResizeWindow(QX11Info::display(), clientid, pw, ph-borderh);
+                //XResizeWindow(QX11Info::display(), clientid, pw, ph-borderh);
 	}
 
 
@@ -482,18 +462,7 @@ void xwindow::t_maximize(void)
 
 */
 void xwindow::s_maximize(void)
-{
-    /*
-    if(qapp::smode)
-        {
-                focus_mouse();
-                return;
-        }
-
-    resize_client(0,0,800,480);
-    raise();
-    return;
-    */
+{    
 	int cw,ch;
 	
 	if(qapp::smode)
@@ -587,8 +556,8 @@ void xwindow::minimize_frame(bool mf)
 		if(uborderh == defaults::lowerborderheight)
 			return;
 
-		ubdr->set_small();
-                uborderh = 90;//defaults::lowerborderheight;
+
+                uborderh = 85;//defaults::lowerborderheight;
 		borderh = 2*uborderh;
 	}
 	else
@@ -596,11 +565,9 @@ void xwindow::minimize_frame(bool mf)
 		if(uborderh == defaults::windowbuttonsize)
 			return;
 
-		if(ubdr != NULL)
-			ubdr->set_normal();
 
-                uborderh = 90;//defaults::windowbuttonsize;
-                borderh = 90/*defaults::windowbuttonsize*/ + defaults::lowerborderheight;
+                uborderh = 85;//defaults::windowbuttonsize;
+                borderh = 85/* defaults::windowbuttonsize*/ + defaults::lowerborderheight;
 		set_title();
 	}
 	
@@ -609,7 +576,7 @@ void xwindow::minimize_frame(bool mf)
 
 	get_wmnormalhints();
 	resize(width(), ch+borderh);
-        XMoveWindow(QX11Info::display(), clientid, 0, 90/*uborderh*/);
+        XMoveWindow(QX11Info::display(), clientid, 0, uborderh);
 }
 
 int xwindow::set_tile(int cx, int cy, int cw, int ch)
@@ -735,10 +702,12 @@ void xwindow::map(void)
 
 	}	
 
-        // We can handle the old clients here also i.e. after restart of qlwm
-        qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getPager()->addWindow( this->winId(), this->icaption() );  // add to procbar
-        if ( item != 0 ){
-            connect( item, SIGNAL( showWindow( bool ) ), this, SLOT(state(bool)) );
+        if ( transfor == None ){
+            // We can handle the old clients here also i.e. after restart of qlwm
+            qtablet::PagerDesktopItem * item = HomeDesktop::instance()->getPager()->addWindow( this->winId(), this->icaption() );  // add to procbar
+            if ( item != 0 ){
+                connect( item, SIGNAL( showWindow( bool ) ), this, SLOT(state(bool)) );
+            }
         }
 }
 
@@ -777,10 +746,7 @@ void xwindow::map_normal(void)
 			move(dt->width()+(x()+1)%(dt->width()), y());
 		}
                 */
-                // Make all the clients fullscreen
-                s_maximize();
-                //setGeometry(0,0,800,480);
-                //setMaximumSize( 800, 480 );
+
                 show();
 		XMapWindow(QX11Info::display(), clientid);
 		set_clientstate(NormalState);
@@ -791,8 +757,7 @@ void xwindow::map_normal(void)
 
 	if(pflags & qapp::StayOnBottom)
 		XLowerWindow(QX11Info::display(), winId());
-        else{
-                s_maximize();
+        else{                
 		raise();
             }
 }
@@ -825,7 +790,9 @@ void xwindow::iconify(void)  // transition to iconic
 		trsize = TRUE;
 
         // Update the iconified screenshot
-        HomeDesktop::instance()->getPager()->addWindow( this->winId(), this->icaption() );
+        if ( transfor == None ){
+            HomeDesktop::instance()->getPager()->addWindow( this->winId(), this->icaption() );
+        }
 
 	unmap();
 	withdrawnstate = FALSE;
@@ -886,7 +853,7 @@ void xwindow::focus_mouse(bool wlist)  // map and set mouse (generates enter eve
 				ph = base_h+j*inc_h;
 			}	
 
-			XResizeWindow(QX11Info::display(), clientid, pw, ph-borderh);
+                        //XResizeWindow(QX11Info::display(), clientid, pw, ph-borderh);
 			sstate = TRUE;
 		}
 		raise();
@@ -1230,22 +1197,19 @@ void xwindow::set_pflags(int tflags)
 #endif	
                 qDebug() << "rebuilding window frame";
 
-		delete midmove;
-		delete ubdr;
-		delete lbdr;
-		delete layout;
+
 		
 		int ch = height()-borderh;
 		
 		if(pflags & qapp::SmallFrame)
 		{
-                        uborderh = 90;//defaults::lowerborderheight;
+                        uborderh = 85;//defaults::lowerborderheight;
 			borderh = 2*uborderh;
 		}
 		else
 		{
-                        uborderh = 90;//defaults::windowbuttonsize;
-                        borderh = 90;/*defaults::windowbuttonsize+defaults::lowerborderheight;*/
+                        uborderh = 85;//defaults::windowbuttonsize;
+                        borderh = 85;/*defaults::windowbuttonsize+defaults::lowerborderheight;*/
 		}
 	
 		if(pflags & qapp::NoResize)
@@ -1253,15 +1217,16 @@ void xwindow::set_pflags(int tflags)
 
 		get_wmnormalhints();
 		resize(width(), ch+borderh);
-                XMoveWindow(QX11Info::display(), clientid, 0, 90/*uborderh*/);
+                XMoveWindow(QX11Info::display(), clientid, 0, uborderh);
 		
-		create_wborder();
+                //createWindowDecoration();
 		wmname = "";
 		get_wmname();
 
 		if(shaped)
 			reshape();
 
+                /*
 		if(ubdr != NULL)
 			ubdr->show();
 		else
@@ -1269,7 +1234,7 @@ void xwindow::set_pflags(int tflags)
 
 		if(lbdr != NULL)
 			lbdr->show();
-		
+                */
 	}
 
 	if(! (oldflags & qapp::Sticky) && (flags & qapp::Sticky))  // move to current desk
@@ -1414,7 +1379,10 @@ void xwindow::set_title(void)
 		tns << wmname << '<' << tnumber << '>';
 		wmn = &tnm;
 	}
-	midmove->set_text(*wmn, transfor == None);
+        if ( transfor == None ){
+            toolbar->setTitle(*wmn);
+        }
+
 	setPalette(actpal?QApplication::palette():*qapp::ipal);
 }
 
@@ -1524,17 +1492,19 @@ void xwindow::state(bool on)
 
 xwindow::~xwindow(void)
 {
+    if ( transfor == None ){
         HomeDesktop::instance()->getPager()->removeWindow(this->winId());
+    }
 
-	delete [] cmapwins;
+    delete [] cmapwins;
 
 
-	if(qapp::winf->get_client() == this)
-		qapp::winf->release_cancel();        
+    if(qapp::winf->get_client() == this)
+            qapp::winf->release_cancel();
 
-	qapp::cwindows.remove(clientid);
-	qapp::pwindows.remove(winId());
-	
+    qapp::cwindows.remove(clientid);
+    qapp::pwindows.remove(winId());
+
 #ifdef DEBUGMSG
 	logmsg << "class xwindow destructed (WId:" << winId() << ")\n";
 #endif	
@@ -1564,3 +1534,6 @@ void xwindow::showHildonMenu(){
   XSync( QX11Info::display(), False);
 
 }
+
+
+

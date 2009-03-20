@@ -17,12 +17,14 @@ HEADERS += pannableview.hh \
     abstractitem.hh \
     globals.hh \
     pannableviewitem.hh \
-    labelitem.hh
+    labelitem.hh \
+    toolbarbutton.hh
 SOURCES += pannableview.cc \
     imageitem.cc \
     abstractitem.cc \
     pannableviewitem.cc \
-    labelitem.cc
+    labelitem.cc \
+    toolbarbutton.cc
 
 target.path = $$INSTALLDIR/lib
 headers.files = $$HEADERS

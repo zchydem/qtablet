@@ -35,6 +35,7 @@ public:
 	static Atom net_wm_icon_name;
 	static Atom net_supported;
         static Atom net_wm_window_opacity;
+        static Atom mb_grab_transfer;         // Required to make Hildon application menu to work
 	static bool smode;                    // screen mode
 	static QPalette *ipal;                // window inactive palette
 	static QPalette *upal;                // window urgent palette
@@ -62,8 +63,7 @@ public:
 	static bool is_curdesk(xwindow *);
 	static bool is_tileddesk(void) { return(tdesks[adesk]); }
 	static void tile_order(xwindow *);
-	static void tile_maximize(xwindow *);
-	static void toggle_tiled(void);
+	static void tile_maximize(xwindow *);        
 	static void wm_restart();
 	static void read_cprops(void);
 	static QString get_cfile(const char *);

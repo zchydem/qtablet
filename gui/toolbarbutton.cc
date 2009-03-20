@@ -28,6 +28,15 @@ public:
         case ToolbarButton::QPagerButton:
             m_char = "P";
             break;
+        case ToolbarButton::MinimizeButton:
+            m_char = "-";
+            break;
+        case ToolbarButton::CloseButton:
+            m_char = "X";
+            break;
+        case ToolbarButton::MenuButton:
+            m_char = "_";
+            break;
         default:
             m_char = "?";
             break;
@@ -73,10 +82,16 @@ void ToolbarButton::paint(QPainter *painter, const QStyleOptionGraphicsItem * co
 
 }
 
+void ToolbarButton::resize( QSizeF const & size ){
+    d_ptr->m_rect.setSize( size );   
+    updateGeometry();
+    update();
+}
+
 QSizeF ToolbarButton::sizeHint ( Qt::SizeHint which, const QSizeF & constraint ) const{
     Q_UNUSED( which );
     Q_UNUSED( constraint );
-    return QSizeF(90,90);
+    return d_ptr->m_rect.size();
 }
 
 void ToolbarButton::mousePressEvent( QGraphicsSceneMouseEvent *event ){
@@ -97,8 +112,8 @@ void ToolbarButton::mouseReleaseEvent( QGraphicsSceneMouseEvent *event ){
 }
 
 void ToolbarButton::mouseMoveEvent( QGraphicsSceneMouseEvent *event ){
-    QRectF bbox( 0, 0, 90, 90 );    
-    if ( !bbox.contains( event->pos() ) ){
+
+    if ( !d_ptr->m_rect.contains( event->pos() ) ){
         d_ptr->m_isPressed = false;
         update();
     }

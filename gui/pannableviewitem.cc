@@ -25,6 +25,8 @@ public:
         // Make sure that child items don't get events i.e. they are behind this item
         m_image->setFlag( QGraphicsItem::ItemStacksBehindParent, true );
         m_label->setFlag( QGraphicsItem::ItemStacksBehindParent, true );
+        //m_image->setCacheMode( QGraphicsItem::ItemCoordinateCache );
+        //m_label->setCacheMode( QGraphicsItem::ItemCoordinateCache );
     }
 
     ~PannableViewItemPrivate(){

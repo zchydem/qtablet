@@ -38,6 +38,7 @@ Atom qapp::net_wm_name;
 Atom qapp::net_wm_icon_name;
 Atom qapp::net_supported;
 Atom qapp::net_wm_window_opacity;
+Atom qapp::mb_grab_transfer;
 bool qapp::smode;
 QPalette *qapp::ipal;                       // window inactive palette
 QPalette *qapp::upal;                       // window urgent palette
@@ -62,21 +63,21 @@ qapp::qapp(int &argc, char **argv) : QApplication(argc, argv)
 {
 	// get WM protocols required by ICCCM
 	
-	wm_protocols = XInternAtom(QX11Info::display(), "WM_PROTOCOLS", FALSE); 
-	wm_delete = XInternAtom(QX11Info::display(), "WM_DELETE_WINDOW", FALSE);
-	wm_change_state = XInternAtom(QX11Info::display(), "WM_CHANGE_STATE", FALSE);
-	wm_state = XInternAtom(QX11Info::display(), "WM_STATE", FALSE);
-	wm_take_focus = XInternAtom(QX11Info::display(), "WM_TAKE_FOCUS", FALSE);
-	wm_resource_manager = XInternAtom(QX11Info::display(), "RESOURCE_MANAGER", FALSE);
-	wm_colormaps = XInternAtom(QX11Info::display(), "WM_COLORMAP_WINDOWS", FALSE);
+        wm_protocols                      = XInternAtom(QX11Info::display(), "WM_PROTOCOLS", FALSE);
+        wm_delete                         = XInternAtom(QX11Info::display(), "WM_DELETE_WINDOW", FALSE);
+        wm_change_state                   = XInternAtom(QX11Info::display(), "WM_CHANGE_STATE", FALSE);
+        wm_state                          = XInternAtom(QX11Info::display(), "WM_STATE", FALSE);
+        wm_take_focus                     = XInternAtom(QX11Info::display(), "WM_TAKE_FOCUS", FALSE);
+        wm_resource_manager               = XInternAtom(QX11Info::display(), "RESOURCE_MANAGER", FALSE);
+        wm_colormaps                      = XInternAtom(QX11Info::display(), "WM_COLORMAP_WINDOWS", FALSE);
 
 	// Extensions 
 	kde_net_wm_system_tray_window_for = XInternAtom(QX11Info::display(), "_KDE_NET_WM_SYSTEM_TRAY_WINDOW_FOR", FALSE);
-	net_wm_name = XInternAtom(QX11Info::display(), "_NET_WM_NAME", FALSE);
-	net_wm_icon_name = XInternAtom(QX11Info::display(), "_NET_WM_ICON_NAME", FALSE);
-	net_supported = XInternAtom(QX11Info::display(), "_NET_SUPPORTED", FALSE);
-        net_wm_window_opacity = XInternAtom(QX11Info::display(),"_NET_WM_WINDOW_OPACITY", FALSE );
-
+        net_wm_name                       = XInternAtom(QX11Info::display(), "_NET_WM_NAME", FALSE);
+        net_wm_icon_name                  = XInternAtom(QX11Info::display(), "_NET_WM_ICON_NAME", FALSE);
+        net_supported                     = XInternAtom(QX11Info::display(), "_NET_SUPPORTED", FALSE);
+        //net_wm_window_opacity             = XInternAtom(QX11Info::display(), "_NET_WM_WINDOW_OPACITY", FALSE );
+        mb_grab_transfer                  = XInternAtom(QX11Info::display(), "_MB_GRAB_TRANSFER", FALSE );
 	// save defaults modification time
 	
 	QString fname = get_cfile("defaults");
@@ -120,13 +121,12 @@ void qapp::run_client(Window w)  // start new client
 	unsigned long extra=0;
 	unsigned char *data=NULL;
 
-	stopautofocus();
+        stopautofocus();
 
         qDebug() << "qapp::run_client";
 	if((client = cwindows[w]) != NULL)
-	{
-		client->map();
-                qDebug() << "start new client: just map ** ";
+	{                
+                client->map();                
 	}
 	else  // new client
 	{
@@ -146,7 +146,10 @@ void qapp::run_client(Window w)  // start new client
 				XFree(data);
 
 		}
-		clients.prepend((client = new xwindow(w)));
+
+
+                client = new xwindow(w);
+                clients.prepend(client);                
 
 		if(client->is_tileable() && tdesks[adesk] && ! client->is_unmapped())
 		{
@@ -190,7 +193,7 @@ void qapp::wm_restart(void)
 		if(tdesks[i])
 		{
                         HomeDesktop::instance()->getPager()->setActiveDesktop(i);
-			toggle_tiled();
+                        //toggle_tiled();
 		}
 	}
 
@@ -286,16 +289,16 @@ void qapp::tile_order(xwindow *actclient)
 		if(lh < 0)
 			lh = 0;
 			
-		client->minimize_frame(cct > defaults::wminframe?TRUE:FALSE);
+                //client->minimize_frame(cct > defaults::wminframe?TRUE:FALSE);
 			
-		lh = client->set_tile(xpos+1, ypos-lh, xcw, cheight+lh);
+                //lh = client->set_tile(xpos+1, ypos-lh, xcw, cheight+lh);
 		ypos += cheight;
 	}
 
 	if(tmcl != NULL)
 	{
-		tmcl->minimize_frame(FALSE);
-		tmcl->set_tile(0, yp, xpos, dt->height()-defaults::tb_height);
+                //tmcl->minimize_frame(FALSE);
+                //tmcl->set_tile(0, yp, xpos, dt->height()-defaults::tb_height);
 	}
 	
 	if(actclient != NULL)
@@ -310,33 +313,6 @@ void qapp::tile_maximize(xwindow *client)
 		clients.insert(clients.indexOf(client),  clients.takeAt(i));
 		
 	tile_order(client);
-}
-
-void qapp::toggle_tiled(void) // toggle overlapped/tiled desk 
-{
-	xwindow *client;
-	
-	if(smode)
-		return;
-	
-	if(tdesks[adesk])
-	{
-		foreach(client, clients)
-		{
-			if(is_curdesk(client))
-				client->unset_tile();
-		}	
-			
-		tdesks[adesk] = FALSE;
-		tmaxclient = NULL;
-
-		if(focusclient != NULL && clients.indexOf(client) != -1)
-			focusclient->focus_mouse();
-			
-		return;
-	}
-	tile_order(focusclient);
-	tdesks[adesk] = TRUE;
 }
 
 void qapp::read_cprops(void)  // read app defaults
@@ -581,8 +557,9 @@ bool qapp::x11EventFilter(XEvent *event)
 			if((client = cwindows[pev->window]) != NULL)
 			{
 				if(pev->atom == XA_WM_NORMAL_HINTS)
-				{
+				{                                        
 					client->get_wmnormalhints();
+                                        //client->adjustSizeFromWMHints();
 				}	
 				else if(pev->atom == XA_WM_HINTS)
 				{
@@ -617,7 +594,8 @@ bool qapp::x11EventFilter(XEvent *event)
 			event->xreparent.parent != client->winId())
 			{
 				clients.removeAt(clients.indexOf(client));                                
-			}	
+                        }
+
 			return TRUE;
 		
 
@@ -629,7 +607,7 @@ bool qapp::x11EventFilter(XEvent *event)
                         if(w == QX11Info::appRootWindow())  // set focus to root window
                                 XSetInputFocus(QX11Info::display(), w, RevertToPointerRoot, CurrentTime);
 
-                        if( w == home->winId() /*|| w == home->getApbar()->winId()*/ ){
+                        if( w == home->winId()  ){
                                 XRaiseWindow(QX11Info::display(), home->winId() );
                                 //XSetInputFocus(QX11Info::display(), w, RevertToPointerRoot, CurrentTime);
                          }
@@ -747,8 +725,9 @@ bool qapp::x11EventFilter(XEvent *event)
 			return TRUE;
 
 
-		case KeyPress:                        
-                        return TRUE;
+                case KeyPress:
+                        qDebug() << "KeyPress Event" << event->xkey.keycode;
+                        return FALSE;
 		default:                        
 			if(servershapes && event->type == (ShapeEventBase + ShapeNotify))
 			{

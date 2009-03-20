@@ -28,8 +28,8 @@ namespace qtablet
         connect( proc, SIGNAL( started() ),
                  this, SLOT  ( started() ) );
         
-        qDebug() << "ProcessManager:exec: " << program;
-        proc->start( program );     
+
+        proc->start( program);
         m_processMap.insert( proc,  ProcessData(0, program) );
     }
 

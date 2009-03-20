@@ -84,7 +84,7 @@ void HomeDesktop::changeVirtualDesktop( int desktop ){
 
     if(defaults::sttiled[desktop])
     {
-            qapp::toggle_tiled();
+            //qapp::toggle_tiled();
             defaults::sttiled[desktop] = FALSE;
     }
 
